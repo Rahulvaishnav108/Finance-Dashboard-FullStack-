@@ -1,0 +1,27 @@
+{
+  "name": "finance-dashboard-api",
+  "version": "1.0.0",
+  "description": "Production-grade Finance Dashboard Backend with RBAC, JWT Auth, and Analytics",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node tests/run.js",
+    "seed": "node src/utils/seed.js",
+    "db:reset": "node src/utils/resetDb.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^12.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.3.1",
+    "express-validator": "^7.1.0",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "uuid": "^10.0.0"
+  },
+  "author": "Finance API",
+  "license": "MIT"
+}

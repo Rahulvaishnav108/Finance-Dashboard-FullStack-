@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinanceOS</title>
+  <link rel="stylesheet" href="./css/app.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+</head>
+<body class="dark">
+
+  <!-- ── Login Screen ─────────────────────────────────── -->
+  <div id="login-screen" class="login-screen hidden">
+    <div class="login-card">
+      <div class="login-logo">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#g1)"/>
+          <path d="M12 28V16l8-4 8 4v12l-8 4-8-4z" stroke="#fff" stroke-width="1.8" fill="none"/>
+          <path d="M20 12v16M12 16l8 4 8-4" stroke="#fff" stroke-width="1.8"/>
+          <defs><linearGradient id="g1" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
+        </svg>
+        <span>FinanceOS</span>
+      </div>
+      <h2>Welcome back</h2>
+      <p class="login-sub">Sign in to your dashboard</p>
+      <div id="login-error" class="alert alert-error hidden"></div>
+      <div class="form-group">
+        <label>Email</label>
+        <input id="login-email" type="email" placeholder="admin@finance.dev" autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <div class="input-wrap">
+          <input id="login-password" type="password" placeholder="••••••••" autocomplete="current-password" />
+          <button class="eye-btn" onclick="togglePwd()">👁</button>
+        </div>
+      </div>
+      <button id="login-btn" class="btn btn-primary btn-full" onclick="doLogin()">Sign in</button>
+      <div class="login-hint">
+        <small>Demo: <strong>admin@finance.dev</strong> / <strong>Admin@1234</strong></small>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── App Shell ─────────────────────────────────────── -->
+  <div id="app-shell" class="app-shell hidden">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
+            <rect width="40" height="40" rx="10" fill="url(#g2)"/>
+            <path d="M12 28V16l8-4 8 4v12l-8 4-8-4z" stroke="#fff" stroke-width="1.8" fill="none"/>
+            <path d="M20 12v16M12 16l8 4 8-4" stroke="#fff" stroke-width="1.8"/>
+            <defs><linearGradient id="g2" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
+          </svg>
+          <span class="logo-text">FinanceOS</span>
+        </div>
+        <button class="sidebar-close" onclick="toggleSidebar()">✕</button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#dashboard"   class="nav-link" data-page="dashboard">
+          <span class="nav-icon">▦</span><span>Dashboard</span>
+        </a>
+        <a href="#records"     class="nav-link" data-page="records">
+          <span class="nav-icon">☰</span><span>Records</span>
+        </a>
+        <a href="#categories"  class="nav-link" data-page="categories">
+          <span class="nav-icon">◈</span><span>Categories</span>
+        </a>
+        <div class="nav-divider" id="admin-nav">
+          <span class="nav-section">Admin</span>
+          <a href="#users" class="nav-link" data-page="users">
+            <span class="nav-icon">◎</span><span>Users</span>
+          </a>
+          <a href="#audit" class="nav-link" data-page="audit">
+            <span class="nav-icon">◉</span><span>Audit Log</span>
+          </a>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-chip" onclick="showPage('profile')">
+          <div class="avatar" id="sidebar-avatar"></div>
+          <div class="user-info">
+            <span class="user-name" id="sidebar-name">—</span>
+            <span class="user-role badge" id="sidebar-role">—</span>
+          </div>
+        </div>
+        <button class="icon-btn" onclick="doLogout()" title="Logout">⎋</button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="main-wrap">
+      <header class="topbar">
+        <button class="icon-btn menu-btn" onclick="toggleSidebar()">☰</button>
+        <h1 class="page-title" id="page-title">Dashboard</h1>
+        <div class="topbar-right">
+          <button class="icon-btn" onclick="toggleTheme()" id="theme-btn" title="Toggle theme">◑</button>
+          <div class="topbar-role badge" id="topbar-role"></div>
+        </div>
+      </header>
+
+      <main class="page-content" id="page-content">
+        <div class="page-loading">Loading…</div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ── Global Modal ──────────────────────────────────── -->
+  <div id="modal-overlay" class="modal-overlay hidden" onclick="closeModal(event)">
+    <div class="modal" id="modal-box">
+      <div class="modal-header">
+        <h3 id="modal-title">Modal</h3>
+        <button class="icon-btn" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-footer" id="modal-footer"></div>
+    </div>
+  </div>
+
+  <!-- ── Toast ─────────────────────────────────────────── -->
+  <div id="toast-container"></div>
+
+  <script src="./js/api.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/components.js"></script>
+  <script src="./js/pages/dashboard.js"></script>
+  <script src="./js/pages/records.js"></script>
+  <script src="./js/pages/categories.js"></script>
+  <script src="./js/pages/users.js"></script>
+  <script src="./js/pages/audit.js"></script>
+  <script src="./js/pages/profile.js"></script>
+  <script src="./js/router.js"></script>
+</body>
+</html>
