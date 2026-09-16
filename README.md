@@ -1,146 +1,208 @@
 # FinanceOS - Finance Dashboard
 
-A full-stack finance dashboard with a REST API backend and a built-in SPA frontend. Built with Node.js, Express, SQLite via `better-sqlite3`, JWT auth with refresh token rotation, RBAC, financial record management, analytics, and an audit trail.
+FinanceOS is a full-stack finance dashboard with an Express REST API, SQLite storage, JWT authentication, role-based access control, analytics, CSV export, audit logging, and a built-in browser SPA served from the same Node.js app.
+
+## Current Status
+
+- Backend API: complete
+- Frontend SPA: complete
+- Demo database seed: available
+- Integration tests: passing
+- Local app URL: `http://localhost:3000`
+
+## Features
+
+- JWT login with refresh token rotation and logout
+- Viewer, analyst, and admin roles
+- User management for admins
+- Financial records CRUD with filters, sorting, pagination, soft delete, and CSV export
+- Category management with validation and protected deletes
+- Dashboard analytics for totals, trends, categories, recent activity, and insights
+- Audit log with filters, pagination, and detail view
+- Profile update and password change
+- Security middleware with Helmet, CORS, rate limiting, request IDs, and consistent errors
+
+## Requirements
+
+- Node.js 20 or newer recommended
+- npm 9 or newer
+
+The project uses `better-sqlite3`. If dependency installation fails because of native module tooling, use a current LTS Node.js release and reinstall dependencies.
 
 ## Quick Start
 
-Requirements:
-- Node.js 18+
-- npm 9+
+From this folder:
 
-```bash
-# 1. Install dependencies
+```powershell
 npm install
-
-# 2. Configure environment
-copy .env.example .env
-
-# 3. Seed demo data
 npm run seed
-
-# 4. Start the app
 npm start
 ```
 
-Open `http://localhost:3000`.
+Open:
+
+```text
+http://localhost:3000
+```
+
+The Express server serves both the frontend and the API. API routes live under `/api/v1`.
 
 ## Demo Credentials
 
 | Role | Email | Password |
-|------|-------|----------|
-| admin | admin@finance.dev | Admin@1234 |
-| analyst | analyst@finance.dev | Analyst@1234 |
-| viewer | viewer@finance.dev | Viewer@1234 |
+| --- | --- | --- |
+| Admin | `admin@finance.dev` | `Admin@1234` |
+| Analyst | `analyst@finance.dev` | `Analyst@1234` |
+| Viewer | `viewer@finance.dev` | `Viewer@1234` |
 
-## Available Scripts
+## Scripts
 
 | Command | Description |
-|---------|-------------|
-| `npm start` | Start the server |
-| `npm run dev` | Start with file watching |
+| --- | --- |
+| `npm start` | Start the production-style local server |
+| `npm run dev` | Start with Node watch mode |
 | `npm test` | Run the integration test suite |
 | `npm run seed` | Seed demo users, categories, and records |
-| `npm run db:reset` | Reset the local SQLite database |
+| `npm run db:reset` | Delete the local SQLite database |
+
+## Smoke Check
+
+After starting the server, you can verify the app quickly:
+
+```powershell
+(Invoke-WebRequest -UseBasicParsing http://localhost:3000/).StatusCode
+(Invoke-RestMethod http://localhost:3000/health).status
+```
+
+Expected output:
+
+```text
+200
+healthy
+```
+
+## Running Tests
+
+```powershell
+npm test
+```
+
+The test suite uses an in-memory SQLite database. It covers health checks, auth flows, refresh token rotation, RBAC, users, records, categories, dashboard analytics, audit access, validation, and security headers.
 
 ## Project Structure
 
 ```text
 finance-api/
-|- src/         backend app, routes, services, middleware
-|- frontend/    SPA shell, CSS, and browser-side JavaScript
-|- tests/       integration tests and custom runner
-|- data/        SQLite database files (local only)
-|- .env.example
-|- package.json
+|- frontend/    Browser SPA: HTML, CSS, and page modules
+|- src/         Express app, routes, controllers, services, middleware, config
+|- tests/       Integration test runner and test coverage
+|- data/        Local SQLite database files, created at runtime
+|- .env.example Local environment template
+|- package.json Scripts and dependencies
 ```
-
-The frontend is served directly by Express from the same app running the API.
 
 ## Architecture
 
 ```text
-HTTP Request
-  -> Rate Limiter
-  -> Helmet / CORS / Request ID
-  -> Route Handler
-     -> authenticate
-     -> authorize
-     -> validators
-     -> controller
-  -> service layer
+Browser / API Client
+  -> Express app
+  -> Helmet, CORS, rate limit, request ID
+  -> authenticate / authorize / validate
+  -> controller
+  -> service
   -> SQLite
   -> audit logger
-  -> uniform API response
+  -> uniform JSON response
 ```
 
-## Role and Permission Model
+## Role Permissions
 
-| Permission | viewer | analyst | admin |
-|------------|:------:|:-------:|:-----:|
-| `profile:read` / `profile:update` | yes | yes | yes |
-| `records:read` | yes | yes | yes |
-| `categories:read` | yes | yes | yes |
-| `dashboard:read` | yes | yes | yes |
-| `records:create` / `records:update` | no | yes | yes |
-| `categories:create` | no | yes | yes |
-| `analytics:read` | no | yes | yes |
-| `records:delete` | no | no | yes |
-| `categories:update` / `categories:delete` | no | no | yes |
-| `users:*` | no | no | yes |
-| `audit:read` | no | no | yes |
+| Capability | Viewer | Analyst | Admin |
+| --- | :---: | :---: | :---: |
+| Read own profile | yes | yes | yes |
+| Update own profile | yes | yes | yes |
+| Read records, categories, dashboard | yes | yes | yes |
+| Create/update records | no | yes | yes |
+| Export records | no | yes | yes |
+| Create categories | no | yes | yes |
+| Read analytics insights | no | yes | yes |
+| Delete records | no | no | yes |
+| Update/delete categories | no | no | yes |
+| Manage users | no | no | yes |
+| Read audit log | no | no | yes |
 
 ## API Overview
 
 Base path: `/api/v1`
 
-Main areas:
-- `/auth` for register, login, refresh, logout, current user, and password change
-- `/users` for admin user management
-- `/records` for financial record CRUD
-- `/categories` for category CRUD
-- `/dashboard` for overview, summaries, trends, and insights
-- `/audit` for admin audit access
-- `/health` for liveness and database health
+| Area | Routes |
+| --- | --- |
+| Auth | `/auth/register`, `/auth/login`, `/auth/refresh`, `/auth/logout`, `/auth/me`, `/auth/profile`, `/auth/change-password` |
+| Users | `/users`, `/users/:id` |
+| Records | `/records`, `/records/:id`, `/records/export` |
+| Categories | `/categories`, `/categories/:id` |
+| Dashboard | `/dashboard/overview`, `/dashboard/summary`, `/dashboard/categories`, `/dashboard/trends/monthly`, `/dashboard/trends/weekly`, `/dashboard/recent`, `/dashboard/insights` |
+| Audit | `/audit` |
+| Health | `/health` |
 
-All responses use a consistent JSON shape with `success`, `message`, `data`, and optional `errors` or `pagination`.
+Responses use a consistent shape:
+
+```json
+{
+  "success": true,
+  "message": "Request completed",
+  "data": {},
+  "pagination": {}
+}
+```
 
 ## Data Model
 
 Core tables:
+
 - `users`
 - `refresh_tokens`
 - `categories`
 - `financial_records`
 - `audit_logs`
 
-Financial records are soft-deleted. Audit entries are append-only.
+Financial records use soft delete. Audit entries are append-only.
 
 ## Environment Variables
 
+Local development works with defaults, but production should use explicit secrets.
+
 | Variable | Default | Description |
-|----------|---------|-------------|
+| --- | --- | --- |
 | `PORT` | `3000` | Server port |
-| `NODE_ENV` | `development` | App environment |
-| `JWT_SECRET` | dev default | Access token secret |
-| `JWT_EXPIRES_IN` | `24h` | Access token TTL |
-| `JWT_REFRESH_SECRET` | dev default | Refresh token secret |
-| `JWT_REFRESH_EXPIRES_IN` | `7d` | Refresh token TTL |
-| `DB_PATH` | `./data/finance.db` | SQLite file path |
-| `RATE_LIMIT_WINDOW_MS` | `900000` | Rate-limit window |
+| `NODE_ENV` | `development` | Runtime environment |
+| `JWT_SECRET` | dev default | Access token signing secret |
+| `JWT_EXPIRES_IN` | `24h` | Access token lifetime |
+| `JWT_REFRESH_SECRET` | dev default | Refresh token signing secret |
+| `JWT_REFRESH_EXPIRES_IN` | `7d` | Refresh token lifetime |
+| `DB_PATH` | `./data/finance.db` | SQLite database path |
+| `RATE_LIMIT_WINDOW_MS` | `900000` | Rate limit window |
 | `RATE_LIMIT_MAX` | `100` | Max requests per window |
 | `CORS_ORIGIN` | `http://localhost:3001` | Allowed CORS origin |
 
-Change the JWT secrets before any real deployment.
+Copy the template when you want local overrides:
 
-## Running Tests
-
-```bash
-npm test
+```powershell
+copy .env.example .env
 ```
 
-The test suite uses an in-memory SQLite database and currently covers auth flows, RBAC, records, categories, dashboard analytics, audit access, validation, and security headers.
+## Production Checklist
 
-## Notes
+- Set strong `JWT_SECRET` and `JWT_REFRESH_SECRET` values
+- Set `NODE_ENV=production`
+- Point `DB_PATH` at persistent storage
+- Configure `CORS_ORIGIN` for the deployed frontend origin if separated
+- Run `npm test` before deployment
+- Seed only intentional demo or initial production data
 
-- This repository also includes [SETUP.md](./SETUP.md) for an additional setup walkthrough.
-- The frontend should be opened through `http://localhost:3000`, not via `file:///...`.
+## Troubleshooting
+
+- If the page is blank, open the app through `http://localhost:3000`, not directly from the filesystem.
+- If login fails, run `npm run seed` and try the demo credentials again.
+- If database reset fails on Windows, stop the server first, then run `npm run db:reset`.
+- If port 3000 is busy, set `PORT` in `.env` or stop the process using that port.
