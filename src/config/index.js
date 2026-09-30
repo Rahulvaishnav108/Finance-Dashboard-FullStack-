@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const trustProxyHops = Number.parseInt(process.env.TRUST_PROXY, 10);
 
 // Load .env only in non-test environments (tests set vars directly)
 if (process.env.NODE_ENV !== 'test') {
@@ -20,6 +21,7 @@ if (process.env.NODE_ENV !== 'test') {
 const config = {
   env: process.env.NODE_ENV || 'development',
   port: parseInt(process.env.PORT, 10) || 3000,
+  trustProxy: Number.isInteger(trustProxyHops) && trustProxyHops > 0 ? trustProxyHops : false,
 
   jwt: {
     secret: process.env.JWT_SECRET || 'dev-secret-change-in-prod-32chars!!',

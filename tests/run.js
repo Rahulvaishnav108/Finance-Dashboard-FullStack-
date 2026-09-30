@@ -840,6 +840,153 @@ describe('Dashboard Analytics', () => {
   });
 });
 
+describe('Recurring Finance', () => {
+  it('analyst can create schedules and viewers can read them', async () => {
+    await freshDb();
+    const analyst = await makeUser({ email: 'recurring-analyst@t.com', role: 'analyst' });
+    const viewer = await makeUser({ email: 'recurring-viewer@t.com', role: 'viewer' });
+    const analystToken = await tokenFor(analyst);
+    const viewerToken = await tokenFor(viewer);
+    const body = {
+      name: 'Hosting plan', amount: 1200, type: 'expense', frequency: 'monthly',
+      next_due_date: '2026-08-01', notes: 'Production hosting',
+    };
+    const created = await req('POST', '/api/v1/recurring', { token: analystToken, body });
+    assert.strictEqual(created.status, 201);
+    assert.strictEqual(created.body.data.name, body.name);
+
+    const listed = await req('GET', '/api/v1/recurring', { token: viewerToken });
+    assert.strictEqual(listed.status, 200);
+    assert.strictEqual(listed.body.data.length, 1);
+
+    const forbidden = await req('POST', '/api/v1/recurring', { token: viewerToken, body });
+    assert.strictEqual(forbidden.status, 403);
+  });
+
+  it('rejects categories that do not match the recurring item type', async () => {
+    await freshDb();
+    const analyst = await makeUser({ email: 'recurring-category@t.com', role: 'analyst' });
+    const token = await tokenFor(analyst);
+    const category = makeCategory(getDb(), { name: 'Income only', type: 'income' });
+    const r = await req('POST', '/api/v1/recurring', {
+      token,
+      body: {
+        name: 'Mismatched item', amount: 100, type: 'expense', frequency: 'monthly',
+        category_id: category.id, next_due_date: '2026-08-01',
+      },
+    });
+    assert.strictEqual(r.status, 422);
+  });
+
+  it('records a due item in the ledger and advances month-end dates safely', async () => {
+    await freshDb();
+    const analyst = await makeUser({ email: 'recurring-payment@t.com', role: 'analyst' });
+    const token = await tokenFor(analyst);
+    const created = await req('POST', '/api/v1/recurring', {
+      token,
+      body: {
+        name: 'Monthly rent', amount: 25000, type: 'expense', frequency: 'monthly',
+        next_due_date: '2024-01-31',
+      },
+    });
+    assert.strictEqual(created.status, 201);
+
+    const recorded = await req('POST', `/api/v1/recurring/${created.body.data.id}/record-payment`, { token });
+    assert.strictEqual(recorded.status, 201);
+    assert.strictEqual(recorded.body.data.record.amount, 25000);
+    assert.strictEqual(recorded.body.data.record.type, 'expense');
+    assert.strictEqual(recorded.body.data.item.next_due_date, '2024-02-29');
+    assert.strictEqual(recorded.body.data.item.last_recorded_date, '2024-01-31');
+
+    const ledgerEntry = getDb().prepare('SELECT * FROM financial_records WHERE id = ?').get(recorded.body.data.record.id);
+    assert.strictEqual(ledgerEntry.reference_no, `RECURRING-${created.body.data.id}-2024-01-31`);
+  });
+
+  it('blocks recording future or paused schedules', async () => {
+    await freshDb();
+    const analyst = await makeUser({ email: 'recurring-state@t.com', role: 'analyst' });
+    const token = await tokenFor(analyst);
+    const dueDate = new Date(Date.now() + 10 * 86400000).toISOString().slice(0, 10);
+    const created = await req('POST', '/api/v1/recurring', {
+      token,
+      body: { name: 'Future bill', amount: 80, type: 'expense', frequency: 'monthly', next_due_date: dueDate },
+    });
+    const futurePayment = await req('POST', `/api/v1/recurring/${created.body.data.id}/record-payment`, { token });
+    assert.strictEqual(futurePayment.status, 409);
+
+    await req('PUT', `/api/v1/recurring/${created.body.data.id}`, { token, body: { status: 'paused' } });
+    const pausedPayment = await req('POST', `/api/v1/recurring/${created.body.data.id}/record-payment`, { token });
+    assert.strictEqual(pausedPayment.status, 409);
+  });
+});
+
+describe('Security Center', () => {
+  it('shows active controls to admins and blocks other roles', async () => {
+    await freshDb();
+    const admin = await makeUser({ email: 'security-admin@t.com', role: 'admin' });
+    const viewer = await makeUser({ email: 'security-viewer@t.com', role: 'viewer' });
+    const adminToken = await tokenFor(admin);
+    const viewerToken = await tokenFor(viewer);
+
+    const overview = await req('GET', '/api/v1/security/overview', { token: adminToken });
+    assert.strictEqual(overview.status, 200);
+    assert.ok(overview.body.data.controls.some(control => control.name === 'Persistent IP blocklist'));
+    assert.strictEqual(overview.body.data.metrics.blocked_ip_count, 0);
+    assert.ok(Array.isArray(overview.body.data.events));
+
+    const forbidden = await req('GET', '/api/v1/security/overview', { token: viewerToken });
+    assert.strictEqual(forbidden.status, 403);
+  });
+
+  it('blocks and unblocks an IP through the API and request middleware', async () => {
+    await freshDb();
+    const admin = await makeUser({ email: 'security-block@t.com', role: 'admin' });
+    const token = await tokenFor(admin);
+    const blocked = await req('POST', '/api/v1/security/blocked-ips', {
+      token,
+      body: { ip_address: '203.0.113.44', reason: 'Repeated suspicious requests' },
+    });
+    assert.strictEqual(blocked.status, 201);
+    assert.strictEqual(blocked.body.data.ip_address, '203.0.113.44');
+
+    const { blockChecker } = require('../src/middleware/blockChecker');
+    let blockedResponse;
+    let passed = false;
+    const response = {
+      status(code) { blockedResponse = { status: code }; return this; },
+      json(body) { blockedResponse.body = body; return this; },
+    };
+    blockChecker({ ip: '203.0.113.44', path: '/api/v1/test' }, response, () => { passed = true; });
+    assert.strictEqual(passed, false);
+    assert.strictEqual(blockedResponse.status, 403);
+
+    const overview = await req('GET', '/api/v1/security/overview', { token });
+    assert.ok(overview.body.data.events.some(event => event.event_type === 'ip.blocked_request'));
+
+    const unblocked = await req('DELETE', `/api/v1/security/blocked-ips/${blocked.body.data.id}`, { token });
+    assert.strictEqual(unblocked.status, 200);
+    blockChecker({ ip: '203.0.113.44', path: '/api/v1/test' }, response, () => { passed = true; });
+    assert.strictEqual(passed, true);
+  });
+
+  it('validates IPs and prevents blocking loopback addresses', async () => {
+    await freshDb();
+    const admin = await makeUser({ email: 'security-validation@t.com', role: 'admin' });
+    const token = await tokenFor(admin);
+    const invalid = await req('POST', '/api/v1/security/blocked-ips', {
+      token,
+      body: { ip_address: 'not-an-ip' },
+    });
+    assert.strictEqual(invalid.status, 422);
+
+    const loopback = await req('POST', '/api/v1/security/blocked-ips', {
+      token,
+      body: { ip_address: '127.0.0.1' },
+    });
+    assert.strictEqual(loopback.status, 409);
+  });
+});
+
 describe('Audit Log', () => {
   it('admin can read audit log', async () => {
     await freshDb();

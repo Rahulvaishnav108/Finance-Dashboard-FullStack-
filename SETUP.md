@@ -43,6 +43,7 @@ cp .env.example .env
 ```
 
 The defaults in `.env` work out of the box for local development. For any real deployment, change both `JWT_SECRET` and `JWT_REFRESH_SECRET` to long random strings.
+Keep `TRUST_PROXY=0` unless the server is behind a known reverse proxy. In that case, set it to the exact number of trusted proxy hops so client IPs used for rate limiting and blocking cannot be spoofed through forwarded headers.
 
 ### 4. Seed demo data
 
@@ -77,7 +78,7 @@ Open **http://localhost:3000** in your browser.
 | analyst | analyst@finance.dev    | Analyst@1234  |
 | viewer  | viewer@finance.dev     | Viewer@1234   |
 
-The **admin** account has access to all pages including User Management and Audit Log.  
+The **admin** account has access to all pages including User Management, Audit Log, and the Security Center.
 The **analyst** account can create and edit records and categories.  
 The **viewer** account has read-only access.
 

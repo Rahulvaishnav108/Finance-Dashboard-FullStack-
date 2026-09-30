@@ -36,6 +36,18 @@ const PERMISSIONS = Object.freeze({
   'categories:update': [ROLES.ADMIN],
   'categories:delete': [ROLES.ADMIN],
 
+  // Recurring financial items
+  'recurring:read':           [ROLES.VIEWER, ROLES.ANALYST, ROLES.ADMIN],
+  'recurring:create':         [ROLES.ANALYST, ROLES.ADMIN],
+  'recurring:update':         [ROLES.ANALYST, ROLES.ADMIN],
+  'recurring:delete':         [ROLES.ADMIN],
+  'recurring:record_payment': [ROLES.ANALYST, ROLES.ADMIN],
+
+  // Security center
+  'security:read':       [ROLES.ADMIN],
+  'security:block_ip':   [ROLES.ADMIN],
+  'security:unblock_ip': [ROLES.ADMIN],
+
   // Dashboard & Analytics
   'dashboard:read':   [ROLES.VIEWER, ROLES.ANALYST, ROLES.ADMIN],
   'analytics:read':   [ROLES.ANALYST, ROLES.ADMIN],

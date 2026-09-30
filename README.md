@@ -16,9 +16,11 @@ FinanceOS is a full-stack finance dashboard with an Express REST API, SQLite sto
 - Viewer, analyst, and admin roles
 - User management for admins
 - Financial records CRUD with filters, sorting, pagination, soft delete, and CSV export
+- Recurring income and expense schedules with monthly/yearly cycles and ledger posting
 - Category management with validation and protected deletes
 - Dashboard analytics for totals, trends, categories, recent activity, and insights
 - Audit log with filters, pagination, and detail view
+- Admin Security Center with a persistent IP blocklist, security events, and active-control status
 - Profile update and password change
 - Security middleware with Helmet, CORS, rate limiting, request IDs, and consistent errors
 
@@ -141,6 +143,8 @@ Base path: `/api/v1`
 | Users | `/users`, `/users/:id` |
 | Records | `/records`, `/records/:id`, `/records/export` |
 | Categories | `/categories`, `/categories/:id` |
+| Recurring | `/recurring`, `/recurring/:id`, `/recurring/:id/record-payment` |
+| Security (admin) | `/security/overview`, `/security/blocked-ips`, `/security/blocked-ips/:id` |
 | Dashboard | `/dashboard/overview`, `/dashboard/summary`, `/dashboard/categories`, `/dashboard/trends/monthly`, `/dashboard/trends/weekly`, `/dashboard/recent`, `/dashboard/insights` |
 | Audit | `/audit` |
 | Health | `/health` |
@@ -164,6 +168,9 @@ Core tables:
 - `refresh_tokens`
 - `categories`
 - `financial_records`
+- `recurring_transactions`
+- `blocked_ips`
+- `security_events`
 - `audit_logs`
 
 Financial records use soft delete. Audit entries are append-only.
@@ -184,6 +191,7 @@ Local development works with defaults, but production should use explicit secret
 | `RATE_LIMIT_WINDOW_MS` | `900000` | Rate limit window |
 | `RATE_LIMIT_MAX` | `100` | Max requests per window |
 | `CORS_ORIGIN` | `http://localhost:3001` | Allowed CORS origin |
+| `TRUST_PROXY` | `0` | Trusted reverse-proxy hops; enable only behind a known proxy |
 
 Copy the template when you want local overrides:
 
@@ -197,6 +205,7 @@ copy .env.example .env
 - Set `NODE_ENV=production`
 - Point `DB_PATH` at persistent storage
 - Configure `CORS_ORIGIN` for the deployed frontend origin if separated
+- Set `TRUST_PROXY` to the exact trusted proxy-hop count when deployed behind a reverse proxy; do not trust arbitrary forwarded headers
 - Run `npm test` before deployment
 - Seed only intentional demo or initial production data
 

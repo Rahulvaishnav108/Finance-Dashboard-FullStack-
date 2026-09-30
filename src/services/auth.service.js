@@ -8,6 +8,7 @@ const { v4: uuidv4 } = require('uuid');
 const { getDb }   = require('../config/database');
 const config      = require('../config');
 const { audit }   = require('../utils/audit');
+const { recordSecurityEvent } = require('../utils/securityEvents');
 
 // ─── helpers ────────────────────────────────────────────────────────────────
 
@@ -77,11 +78,13 @@ const AuthService = {
     if (!user) {
       // Constant-time: compare against a dummy hash to prevent timing oracle
       await bcrypt.compare(password, '$2a$12$irrelevantdummyhashforsecurity000000000000000000000');
+      recordSecurityEvent({ eventType: 'auth.login_failed', severity: 'medium', message: 'Sign-in failed', req });
       const err = new Error('Invalid email or password'); err.statusCode = 401; err.isOperational = true;
       throw err;
     }
 
     if (user.status !== 'active') {
+      recordSecurityEvent({ eventType: 'auth.login_failed', severity: 'high', message: 'Sign-in rejected for inactive account', req, userId: user.id });
       const err = new Error('Account is inactive or suspended'); err.statusCode = 403; err.isOperational = true;
       throw err;
     }
@@ -89,6 +92,7 @@ const AuthService = {
     const valid = await bcrypt.compare(password, user.password_hash);
     if (!valid) {
       audit({ userId: user.id, action: 'auth.login_failed', resource: 'users', resourceId: user.id, req });
+      recordSecurityEvent({ eventType: 'auth.login_failed', severity: 'medium', message: 'Sign-in failed', req, userId: user.id });
       const err = new Error('Invalid email or password'); err.statusCode = 401; err.isOperational = true;
       throw err;
     }

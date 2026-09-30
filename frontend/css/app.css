@@ -260,6 +260,8 @@ body { background: var(--bg); color: var(--text); }
 .form-group { margin-bottom: 1rem; }
 .form-group label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text2); margin-bottom: 0.35rem; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.security-block-form { display: grid; grid-template-columns: minmax(180px, 0.8fr) minmax(220px, 1.4fr) auto; align-items: end; gap: 1rem; padding: 1rem; }
+.security-block-form .form-group { margin-bottom: 0; }
 input, select, textarea {
   width: 100%;
   background: var(--bg3);
@@ -507,6 +509,7 @@ tr:hover td { background: var(--primary-bg); }
   .menu-btn { display: inline-flex; }
   .charts-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
+  .security-block-form { grid-template-columns: 1fr; align-items: stretch; }
   .page-content { padding: 1rem; }
   .filters-bar input, .filters-bar select { width: 100%; }
   .filters-bar { flex-direction: column; align-items: stretch; }

@@ -109,6 +109,59 @@ function initSchema(db) {
     CREATE INDEX IF NOT EXISTS idx_fr_date_type  ON financial_records(date, type);
 
     -- ─────────────────────────────────────────
+    -- RECURRING FINANCIAL ITEMS
+    -- ─────────────────────────────────────────
+    CREATE TABLE IF NOT EXISTS recurring_transactions (
+      id                TEXT PRIMARY KEY,
+      name              TEXT NOT NULL,
+      amount            REAL NOT NULL CHECK(amount > 0),
+      type              TEXT NOT NULL CHECK(type IN ('income','expense')),
+      frequency         TEXT NOT NULL CHECK(frequency IN ('monthly','yearly')),
+      category_id       TEXT REFERENCES categories(id) ON DELETE SET NULL,
+      next_due_date     TEXT NOT NULL,
+      status            TEXT NOT NULL DEFAULT 'active' CHECK(status IN ('active','paused','cancelled')),
+      notes             TEXT,
+      last_recorded_date TEXT,
+      last_record_id    TEXT REFERENCES financial_records(id) ON DELETE SET NULL,
+      created_by        TEXT NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
+      created_at        TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+      updated_at        TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_recurring_status_due ON recurring_transactions(status, next_due_date);
+    CREATE INDEX IF NOT EXISTS idx_recurring_category ON recurring_transactions(category_id);
+
+    -- ─────────────────────────────────────────
+    -- SECURITY EVENTS & BLOCKED IPs
+    -- ─────────────────────────────────────────
+    CREATE TABLE IF NOT EXISTS blocked_ips (
+      id           TEXT PRIMARY KEY,
+      ip_address   TEXT NOT NULL UNIQUE,
+      reason       TEXT,
+      status       TEXT NOT NULL DEFAULT 'blocked' CHECK(status IN ('blocked','unblocked')),
+      blocked_by   TEXT REFERENCES users(id) ON DELETE SET NULL,
+      blocked_at   TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+      unblocked_at TEXT,
+      created_at   TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_blocked_ips_status ON blocked_ips(status, blocked_at);
+
+    CREATE TABLE IF NOT EXISTS security_events (
+      id          TEXT PRIMARY KEY,
+      event_type  TEXT NOT NULL,
+      severity    TEXT NOT NULL CHECK(severity IN ('low','medium','high')),
+      message     TEXT NOT NULL,
+      ip_address  TEXT,
+      path        TEXT,
+      user_id     TEXT REFERENCES users(id) ON DELETE SET NULL,
+      created_at  TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_security_events_created ON security_events(created_at);
+    CREATE INDEX IF NOT EXISTS idx_security_events_type_created ON security_events(event_type, created_at);
+
+    -- ─────────────────────────────────────────
     -- AUDIT LOG
     -- ─────────────────────────────────────────
     CREATE TABLE IF NOT EXISTS audit_logs (
