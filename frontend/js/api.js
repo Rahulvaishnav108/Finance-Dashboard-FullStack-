@@ -99,6 +99,14 @@ const api = {
     delete: (id)   => del(`/records/${id}`),
     export: (p)    => download('/records/export', p, `records-${new Date().toISOString().slice(0,10)}.csv`),
   },
+  recurring: {
+    list:       ()       => get('/recurring'),
+    get:        (id)     => get(`/recurring/${id}`),
+    create:     (body)   => post('/recurring', body),
+    update:     (id, body) => put(`/recurring/${id}`, body),
+    delete:     (id)     => del(`/recurring/${id}`),
+    recordPayment: (id)  => post(`/recurring/${id}/record-payment`, {}),
+  },
   categories: {
     list:   ()     => get('/categories'),
     get:    (id)   => get(`/categories/${id}`),
@@ -117,5 +125,11 @@ const api = {
   },
   audit: {
     list: (p) => get('/audit', p),
+  },
+  security: {
+    overview:   ()       => get('/security/overview'),
+    blockedIps: ()       => get('/security/blocked-ips'),
+    blockIp:    (body)   => post('/security/blocked-ips', body),
+    unblockIp:  (id)     => del(`/security/blocked-ips/${id}`),
   },
 };

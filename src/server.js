@@ -4,10 +4,12 @@ const app    = require('./app');
 const config = require('./config');
 const logger = require('./utils/logger');
 const { getDb, closeDb } = require('./config/database');
+const { refreshBlockedIpCache } = require('./middleware/blockChecker');
 
 // Initialise DB on startup
 try {
   getDb();
+  refreshBlockedIpCache();
   logger.info('Database initialised successfully');
 } catch (err) {
   logger.error('Database initialisation failed', { error: err.message });

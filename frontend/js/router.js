@@ -3,9 +3,11 @@
 const PAGES = {
   dashboard:  { title: 'Dashboard',   roles: null,              handler: () => DashboardPage.render() },
   records:    { title: 'Records',      roles: null,              handler: () => RecordsPage.render() },
+  recurring:  { title: 'Recurring',   roles: null,              handler: () => RecurringPage.render() },
   categories: { title: 'Categories',  roles: null,              handler: () => CategoriesPage.render() },
   users:      { title: 'Users',        roles: ['admin'],         handler: () => UsersPage.render() },
   audit:      { title: 'Audit Log',   roles: ['admin'],         handler: () => AuditPage.render() },
+  security:   { title: 'Security',    roles: ['admin'],         handler: () => SecurityPage.render() },
   profile:    { title: 'My Profile',  roles: null,              handler: () => ProfilePage.render() },
 };
 

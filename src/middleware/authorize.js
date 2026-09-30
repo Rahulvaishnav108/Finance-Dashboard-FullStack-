@@ -2,6 +2,7 @@
 
 const { can } = require('../config/permissions');
 const ApiResponse = require('../utils/ApiResponse');
+const { recordSecurityEvent } = require('../utils/securityEvents');
 
 /**
  * Authorize middleware factory.
@@ -16,6 +17,13 @@ function authorize(permission) {
     }
 
     if (!can(req.user.role, permission)) {
+      recordSecurityEvent({
+        eventType: 'authorization.denied',
+        severity: 'low',
+        message: 'Request denied by role permissions',
+        req,
+        userId: req.user.id,
+      });
       return ApiResponse.forbidden(
         res,
         `Role '${req.user.role}' is not permitted to perform '${permission}'`,

@@ -10,6 +10,8 @@ const rateLimit    = require('express-rate-limit');
 const config       = require('./config');
 const requestId    = require('./middleware/requestId');
 const { errorHandler, notFoundHandler } = require('./middleware/errorHandler');
+const { blockChecker } = require('./middleware/blockChecker');
+const { recordSecurityEvent } = require('./utils/securityEvents');
 
 // Routes
 const authRoutes      = require('./routes/auth.routes');
@@ -19,8 +21,11 @@ const categoryRoutes  = require('./routes/category.routes');
 const dashboardRoutes = require('./routes/dashboard.routes');
 const auditRoutes     = require('./routes/audit.routes');
 const healthRoutes    = require('./routes/health.routes');
+const recurringRoutes = require('./routes/recurring.routes');
+const securityRoutes = require('./routes/security.routes');
 
 const app = express();
+app.set('trust proxy', config.trustProxy);
 
 // ─── Security headers ────────────────────────────────────────────────────────
 app.use(helmet({
@@ -49,6 +54,7 @@ app.use(cors({
 
 // ─── Request tracing ─────────────────────────────────────────────────────────
 app.use(requestId);
+app.use(blockChecker);
 
 // ─── Body parsing ─────────────────────────────────────────────────────────────
 app.use(express.json({ limit: '10kb' }));        // Prevent oversized payloads
@@ -67,6 +73,10 @@ if (config.env !== 'test') {
     standardHeaders:   true,
     legacyHeaders:     false,
     message: { success: false, message: 'Too many requests, please try again later.' },
+    handler(req, res) {
+      recordSecurityEvent({ eventType: 'request.rate_limited', severity: 'medium', message: 'API request limit exceeded', req, userId: req.user?.id });
+      return res.status(429).json({ success: false, message: 'Too many requests, please try again later.' });
+    },
   });
   app.use('/api/', globalLimiter);
 
@@ -74,6 +84,10 @@ if (config.env !== 'test') {
     windowMs: 15 * 60 * 1000, // 15 minutes
     max:      20,
     message: { success: false, message: 'Too many authentication attempts.' },
+    handler(req, res) {
+      recordSecurityEvent({ eventType: 'request.rate_limited', severity: 'high', message: 'Authentication request limit exceeded', req });
+      return res.status(429).json({ success: false, message: 'Too many authentication attempts.' });
+    },
   });
   app.use('/api/v1/auth/login',    authLimiter);
   app.use('/api/v1/auth/register', authLimiter);
@@ -87,6 +101,8 @@ app.use('/api/v1/users',       userRoutes);
 app.use('/api/v1/records',     recordRoutes);
 app.use('/api/v1/categories',  categoryRoutes);
 app.use('/api/v1/dashboard',   dashboardRoutes);
+app.use('/api/v1/recurring',   recurringRoutes);
+app.use('/api/v1/security',    securityRoutes);
 app.use('/api/v1/audit',       auditRoutes);
 
 // ─── API root info ────────────────────────────────────────────────────────────
@@ -102,6 +118,8 @@ app.get('/api/v1', (req, res) => {
       records:    '/api/v1/records',
       categories: '/api/v1/categories',
       dashboard:  '/api/v1/dashboard',
+      recurring:  '/api/v1/recurring',
+      security:   '/api/v1/security',
       audit:      '/api/v1/audit',
       health:     '/health',
     },
