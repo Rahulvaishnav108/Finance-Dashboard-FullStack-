@@ -88,7 +88,7 @@ export default function LandingRestaurants({
             <p className="text-gray-500 mt-1">Handpicked top-rated restaurants near you</p>
           </div>
           <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
-            <a href="#restaurants" className="text-[#FF5722] hover:text-orange-600 font-bold text-sm transition-colors">
+            <a href="#restaurants" className="text-[#286451] hover:text-orange-600 font-bold text-sm transition-colors">
               View All Restaurants
             </a>
             <div className="flex gap-2">
@@ -151,7 +151,7 @@ export default function LandingRestaurants({
                   <button
                     type="button"
                     onClick={onActionClick}
-                    className="py-2.5 bg-[#FF5722] hover:bg-orange-600 text-white rounded-xl text-sm font-semibold transition shadow-sm"
+                    className="py-2.5 bg-[#286451] hover:bg-orange-600 text-white rounded-xl text-sm font-semibold transition shadow-sm"
                   >
                     Book Table
                   </button>

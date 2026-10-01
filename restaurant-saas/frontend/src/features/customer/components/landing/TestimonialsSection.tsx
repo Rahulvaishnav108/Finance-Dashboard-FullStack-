@@ -61,8 +61,8 @@ function StarRating({ rating }: { rating: number }) {
           key={i}
           className="w-[15px] h-[15px]"
           style={{
-            color: i < rating ? '#FF6B1A' : '#E5E7EB',
-            fill: i < rating ? '#FF6B1A' : '#E5E7EB',
+            color: i < rating ? '#286451' : '#E5E7EB',
+            fill: i < rating ? '#286451' : '#E5E7EB',
           }}
         />
       ))}
@@ -84,7 +84,7 @@ function TestimonialCard({ t, className = '', style = {} }: { t: Testimonial; cl
       {/* Decorative quote mark */}
       <div
         className="absolute top-4 right-5 pointer-events-none select-none"
-        style={{ color: 'rgba(255,107,26,0.08)' }}
+        style={{ color: 'rgba(40,100,81,0.08)' }}
       >
         <Quote className="w-[40px] h-[40px]" />
       </div>
@@ -171,7 +171,7 @@ export default function TestimonialsSection() {
             className="text-[28px] sm:text-[32px] lg:text-[40px] font-bold"
             style={{ color: '#222222' }}
           >
-            What Our Customers <span style={{ color: '#FF6B1A' }}>Say</span>
+            What Our Customers <span style={{ color: '#286451' }}>Say</span>
           </h2>
           <p className="text-[15px] mt-2" style={{ color: '#666666' }}>
             Real experiences from real people
@@ -244,7 +244,7 @@ export default function TestimonialsSection() {
                     width: i === activeIdx ? '24px' : '8px',
                     height: '8px',
                     borderRadius: '999px',
-                    backgroundColor: i === activeIdx ? '#FF6B1A' : '#E5E7EB',
+                    backgroundColor: i === activeIdx ? '#286451' : '#E5E7EB',
                   }}
                   aria-label={`Go to testimonial ${i + 1}`}
                 />

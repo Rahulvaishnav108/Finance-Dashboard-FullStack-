@@ -46,7 +46,7 @@ export default function CuisineExplorer() {
             className="text-[28px] sm:text-[32px] lg:text-[40px] font-bold"
             style={{ color: '#222222' }}
           >
-            Explore <span style={{ color: '#FF6B1A' }}>Cuisines</span>
+            Explore <span style={{ color: '#286451' }}>Cuisines</span>
           </h2>
           <p className="text-[15px] mt-1" style={{ color: '#666666' }}>
             What are you craving today?
@@ -86,14 +86,14 @@ export default function CuisineExplorer() {
                   }`}
                   style={{
                     borderRadius: '999px',
-                    backgroundColor: isActive ? '#FF6B1A' : '#FFFFFF',
+                    backgroundColor: isActive ? '#286451' : '#FFFFFF',
                     color: isActive ? '#FFFFFF' : '#222222',
                     border: `1px solid ${isActive ? 'transparent' : '#E5E7EB'}`,
                     transform: isActive ? 'translateY(-2px)' : 'translateY(0)',
                   }}
                   onMouseEnter={(e) => {
                     if (!isActive) {
-                      e.currentTarget.style.borderColor = '#FF6B1A';
+                      e.currentTarget.style.borderColor = '#286451';
                       e.currentTarget.style.transform = 'translateY(-2px)';
                     }
                   }}

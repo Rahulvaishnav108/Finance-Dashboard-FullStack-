@@ -27,7 +27,7 @@ export const OFFERS: Offer[] = [
     minOrder: "On your first reservation",
     code: "FIRST25",
     image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCViSYA0GPvsOBXbwG_XvhI3UZx22FFGBdTJOpyZwCQEl3hHjUaJROdJ-l4SLJAQTXbuyir07ubv3rH8ZZ0l5RElPSry6H0tBbKRDvdwfsdChW1-pCCxst3m1QY9TQFoUhb_0fueh0St5GTv_PfgHZDwptiSJ55YUuiLROj6Rozdemk4sFHQnVNookUAMSWyz1-QdUwMiRobThCZEymKfaWtt0k1D1B6MDhVi0iReNN9qIOu9av99MFQTbuqVu-oLiF2dq-naldlhnV",
-    bgColorClass: "bg-[#FF5722]",
+    bgColorClass: "bg-[#286451]",
     textColorClass: "text-white",
   },
   {
@@ -61,7 +61,7 @@ export default function LandingOffers(): JSX.Element {
           </div>
           <a
             href="#offers"
-            className="text-[#FF5722] hover:text-orange-600 font-bold text-sm flex items-center gap-1 transition-colors"
+            className="text-[#286451] hover:text-orange-600 font-bold text-sm flex items-center gap-1 transition-colors"
           >
             View All Offers
             <Percent className="w-4 h-4" />

@@ -4,102 +4,102 @@
 
 @layer base {
   :root {
-    --background: 36 42% 96%;
-    --foreground: 222 47% 11%;
+    --background: 42 22% 96%;
+    --foreground: 156 18% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 156 18% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 156 18% 15%;
 
-    --primary: 30 95% 54%;
+    --primary: 157 43% 27%;
     --primary-foreground: 40 100% 98%;
 
-    --secondary: 35 100% 96%;
-    --secondary-foreground: 24 30% 18%;
+    --secondary: 43 68% 92%;
+    --secondary-foreground: 156 24% 18%;
 
-    --muted: 36 33% 92%;
-    --muted-foreground: 215 16% 36%;
+    --muted: 140 15% 92%;
+    --muted-foreground: 151 12% 38%;
 
-    --accent: 40 100% 92%;
-    --accent-foreground: 24 30% 18%;
+    --accent: 43 77% 88%;
+    --accent-foreground: 156 24% 18%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 28 22% 84%;
-    --input: 28 22% 84%;
-    --ring: 24 95% 53%;
+    --border: 145 14% 84%;
+    --input: 145 14% 84%;
+    --ring: 157 43% 27%;
 
     --radius: 1rem;
 
-    --surface-glass: rgba(255, 255, 255, 0.72);
-    --shadow-soft: 0 12px 40px rgba(15, 23, 42, 0.08);
-    --shadow-premium: 0 20px 60px rgba(15, 23, 42, 0.14);
+    --surface-glass: rgba(255, 255, 255, 0.82);
+    --shadow-soft: 0 12px 36px rgba(32, 63, 45, 0.08);
+    --shadow-premium: 0 20px 56px rgba(32, 63, 45, 0.14);
 
     /* Custom smart dining variables mapped in Light Mode */
-    --sd-surface: 0 0% 98%;          /* #f8f9fa equivalent */
-    --sd-surface-container: 0 0% 93%;      /* #edeeef equivalent */
-    --sd-surface-container-low: 0 0% 96%;  /* #f3f4f5 equivalent */
-    --sd-surface-container-high: 0 0% 91%; /* #e7e8e9 equivalent */
-    --sd-surface-variant: 0 0% 89%;        /* #e1e3e4 equivalent */
-    --sd-on-surface: 190 8% 11%;             /* #191c1d */
-    --sd-on-surface-variant: 215 16% 34%;     /* #4b5563 / #374151 */
-    --sd-outline: 215 16% 75%;                /* #9ca3af */
-    --sd-outline-variant: 215 16% 92%;        /* #e5e7eb */
-    --sd-primary-fixed: 16 100% 90%;          /* #ffdbce */
-    --sd-primary-fixed-dim: 16 100% 80%;      /* #ffb59a */
-    --sd-inverse-surface: 190 5% 19%;         /* #2e3132 */
+    --sd-surface: 42 24% 98%;
+    --sd-surface-container: 140 14% 93%;
+    --sd-surface-container-low: 42 19% 96%;
+    --sd-surface-container-high: 140 13% 91%;
+    --sd-surface-variant: 145 12% 88%;
+    --sd-on-surface: 156 18% 15%;
+    --sd-on-surface-variant: 151 12% 36%;
+    --sd-outline: 148 10% 58%;
+    --sd-outline-variant: 145 12% 87%;
+    --sd-primary-fixed: 145 30% 91%;
+    --sd-primary-fixed-dim: 148 27% 80%;
+    --sd-inverse-surface: 156 10% 20%;
   }
 
   .dark {
     /* Neutral Charcoal/Black Palette (no navy or bluish theme) */
-    --background: 0 0% 5%; /* #0D0D0D */
-    --foreground: 0 0% 90%; /* #E4E4E4 */
+    --background: 150 14% 6%;
+    --foreground: 120 10% 91%;
 
-    --card: 0 0% 10%; /* #1A1A1A */
-    --card-foreground: 0 0% 90%;
+    --card: 150 12% 10%;
+    --card-foreground: 120 10% 91%;
 
-    --popover: 0 0% 10%;
-    --popover-foreground: 0 0% 90%;
+    --popover: 150 12% 10%;
+    --popover-foreground: 120 10% 91%;
 
-    --primary: 30 95% 54%;
+    --primary: 151 38% 49%;
     --primary-foreground: 40 100% 98%;
 
-    --secondary: 0 0% 13%; /* #212121 */
-    --secondary-foreground: 0 0% 90%;
+    --secondary: 150 10% 15%;
+    --secondary-foreground: 120 10% 91%;
 
-    --muted: 0 0% 13%;
-    --muted-foreground: 0 0% 60%; /* #9A9A9A */
+    --muted: 150 10% 15%;
+    --muted-foreground: 120 7% 62%;
 
-    --accent: 0 0% 13%;
-    --accent-foreground: 0 0% 90%;
+    --accent: 42 32% 19%;
+    --accent-foreground: 120 10% 91%;
 
-    --destructive: 0 62% 40%;
+    --destructive: 5 54% 43%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 15%; /* #272727 */
-    --input: 0 0% 15%;
-    --ring: 30 95% 54%;
+    --border: 150 8% 20%;
+    --input: 150 8% 20%;
+    --ring: 151 38% 49%;
 
-    --surface-glass: rgba(26, 26, 26, 0.75);
-    --shadow-soft: 0 12px 40px rgba(0, 0, 0, 0.45);
-    --shadow-premium: 0 20px 60px rgba(0, 0, 0, 0.6);
+    --surface-glass: rgba(23, 34, 27, 0.84);
+    --shadow-soft: 0 12px 40px rgba(0, 0, 0, 0.42);
+    --shadow-premium: 0 20px 60px rgba(0, 0, 0, 0.58);
 
     /* Custom smart dining variables mapped in Dark Mode */
-    --sd-surface: 0 0% 5%;          /* #0D0D0D - Match background */
-    --sd-surface-container: 0 0% 10%;      /* #1A1A1A - Match card */
-    --sd-surface-container-low: 0 0% 8%;  /* #141414 - In between background & card */
-    --sd-surface-container-high: 0 0% 12%; /* #1E1E1E - Slightly lighter card */
-    --sd-surface-variant: 0 0% 15%;        /* #272727 - Lighter card borders/accents */
-    --sd-on-surface: 0 0% 90%;             /* #E4E4E4 */
-    --sd-on-surface-variant: 0 0% 60%;     /* #9A9A9A */
-    --sd-outline: 0 0% 15%;                /* #272727 */
-    --sd-outline-variant: 0 0% 12%;        /* #1E1E1E */
-    --sd-primary-fixed: 30 95% 25%;
-    --sd-primary-fixed-dim: 30 95% 35%;
-    --sd-inverse-surface: 0 0% 90%;
+    --sd-surface: 150 14% 6%;
+    --sd-surface-container: 150 12% 10%;
+    --sd-surface-container-low: 150 12% 8%;
+    --sd-surface-container-high: 150 10% 13%;
+    --sd-surface-variant: 150 8% 20%;
+    --sd-on-surface: 120 10% 91%;
+    --sd-on-surface-variant: 120 7% 62%;
+    --sd-outline: 150 8% 25%;
+    --sd-outline-variant: 150 9% 16%;
+    --sd-primary-fixed: 151 38% 24%;
+    --sd-primary-fixed-dim: 151 38% 34%;
+    --sd-inverse-surface: 120 10% 91%;
   }
 }
 
@@ -122,10 +122,10 @@
     min-height: 100vh;
 
     background-image:
-      radial-gradient(circle at top, rgba(251, 191, 36, 0.12), transparent 22%),
+      radial-gradient(circle at top, rgba(66, 119, 86, 0.09), transparent 24%),
       linear-gradient(
         180deg,
-        rgba(255, 248, 240, 0.98),
+        rgba(247, 248, 242, 0.98),
         rgba(255, 255, 255, 1)
       );
 

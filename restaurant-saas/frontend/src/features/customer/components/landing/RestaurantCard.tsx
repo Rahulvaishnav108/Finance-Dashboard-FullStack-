@@ -85,8 +85,8 @@ export default function RestaurantCard({ restaurant, onLoginOpen }: RestaurantCa
           <Heart
             className="w-[18px] h-[18px]"
             style={{
-              color: isFav ? '#FF6B1A' : '#666666',
-              fill: isFav ? '#FF6B1A' : 'none',
+              color: isFav ? '#286451' : '#666666',
+              fill: isFav ? '#286451' : 'none',
             }}
           />
         </button>
@@ -96,7 +96,7 @@ export default function RestaurantCard({ restaurant, onLoginOpen }: RestaurantCa
           <div
             className="absolute bottom-3 left-3 px-3 py-1 text-[11px] font-semibold text-white"
             style={{
-              backgroundColor: '#FF6B1A',
+              backgroundColor: '#286451',
               borderRadius: '999px',
             }}
           >
@@ -151,7 +151,7 @@ export default function RestaurantCard({ restaurant, onLoginOpen }: RestaurantCa
             <Users className="w-[13px] h-[13px]" style={{ color: '#999999' }} />
             {restaurant.availableTables} tables
           </span>
-          <span className="font-medium" style={{ color: '#FF6B1A' }}>
+          <span className="font-medium" style={{ color: '#286451' }}>
             {restaurant.priceLevel}
           </span>
         </div>
@@ -168,8 +168,8 @@ export default function RestaurantCard({ restaurant, onLoginOpen }: RestaurantCa
               backgroundColor: 'transparent',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = '#FF6B1A';
-              e.currentTarget.style.color = '#FF6B1A';
+              e.currentTarget.style.borderColor = '#286451';
+              e.currentTarget.style.color = '#286451';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.borderColor = '#E5E7EB';
@@ -182,11 +182,11 @@ export default function RestaurantCard({ restaurant, onLoginOpen }: RestaurantCa
             onClick={onLoginOpen}
             className="h-[42px] text-[13px] font-semibold text-white transition-colors duration-150 landing-btn-press landing-focus-ring"
             style={{
-              backgroundColor: '#FF6B1A',
+              backgroundColor: '#286451',
               borderRadius: '14px',
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#E65A0A'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#FF6B1A'; }}
+            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#1F4F40'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#286451'; }}
           >
             Reserve Table
           </button>

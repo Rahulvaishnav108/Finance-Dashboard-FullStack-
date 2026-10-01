@@ -82,7 +82,7 @@ function getChartColors() {
     text:   isDark ? '#94a3b8' : '#64748b',
     income: '#22c55e',
     expense:'#ef4444',
-    primary:'#6366f1',
+    primary:'#286451',
   };
 }
 
@@ -132,7 +132,7 @@ function makeDoughnutChart(canvasId, labels, data, colors) {
   const c = getChartColors();
   ChartInstances[canvasId] = new Chart(ctx, {
     type: 'doughnut',
-    data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 2, borderColor: document.body.classList.contains('dark') ? '#181c27' : '#fff' }] },
+    data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 2, borderColor: getComputedStyle(document.body).getPropertyValue('--bg2').trim() || '#fff' }] },
     options: {
       responsive: true, maintainAspectRatio: false, cutout: '68%',
       plugins: { legend: { position: 'right', labels: { color: c.text, boxWidth: 10, padding: 12, font: { size: 10 } } } },

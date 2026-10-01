@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 
 const LEFT_FEATURES = [
-  { icon: CalendarCheck, title: 'Instant Reservations', desc: 'Book your table in seconds with real-time availability', accent: '#FF6B1A' },
+  { icon: CalendarCheck, title: 'Instant Reservations', desc: 'Book your table in seconds with real-time availability', accent: '#286451' },
   { icon: Radio, title: 'Live Availability', desc: 'See which restaurants have tables right now', accent: '#4CAF50' },
   { icon: Smartphone, title: 'Digital Menu', desc: 'Browse menus with filters, photos, and updates', accent: '#2196F3' },
   { icon: Eye, title: 'Live Order Tracking', desc: 'Watch your food being prepared in real-time', accent: '#9C27B0' },
@@ -51,7 +51,7 @@ export default function WhyChooseSection() {
             className="text-[28px] sm:text-[32px] lg:text-[40px] font-bold"
             style={{ color: '#222222' }}
           >
-            Why Choose <span style={{ color: '#FF6B1A' }}>RestoHub</span>
+            Why Choose <span style={{ color: '#286451' }}>RestoHub</span>
           </h2>
           <p className="text-[15px] mt-2 max-w-[480px] mx-auto" style={{ color: '#666666' }}>
             Everything you need for the perfect dining experience
@@ -68,7 +68,7 @@ export default function WhyChooseSection() {
               className="absolute right-[-60px] top-1/2 -translate-y-1/2 w-[420px] h-[420px] pointer-events-none"
               style={{
                 borderRadius: '50%',
-                border: '2px dashed rgba(255,107,26,0.12)',
+                border: '2px dashed rgba(40,100,81,0.12)',
               }}
             >
               {/* Spinning accent arc */}
@@ -77,8 +77,8 @@ export default function WhyChooseSection() {
                 style={{
                   borderRadius: '50%',
                   border: '2.5px solid transparent',
-                  borderTopColor: 'rgba(255,107,26,0.25)',
-                  borderRightColor: 'rgba(255,107,26,0.1)',
+                  borderTopColor: 'rgba(40,100,81,0.25)',
+                  borderRightColor: 'rgba(40,100,81,0.1)',
                   animation: 'landing-hemisphere-spin 10s linear infinite',
                 }}
               />
@@ -154,8 +154,8 @@ export default function WhyChooseSection() {
             <div
               className="w-[110px] h-[110px] rounded-full flex flex-col items-center justify-center"
               style={{
-                background: 'linear-gradient(135deg, #FF6B1A 0%, #E65A0A 100%)',
-                boxShadow: '0 8px 30px rgba(255,107,26,0.35)',
+                background: 'linear-gradient(135deg, #286451 0%, #1F4F40 100%)',
+                boxShadow: '0 8px 30px rgba(40,100,81,0.35)',
               }}
             >
               <span className="material-symbols-outlined text-[28px] text-white block">restaurant</span>
@@ -166,7 +166,7 @@ export default function WhyChooseSection() {
               style={{
                 width: '140px', height: '140px',
                 top: '-15px', left: '-15px',
-                border: '2px solid rgba(255,107,26,0.15)',
+                border: '2px solid rgba(40,100,81,0.15)',
               }}
             />
             <div
@@ -174,7 +174,7 @@ export default function WhyChooseSection() {
               style={{
                 width: '170px', height: '170px',
                 top: '-30px', left: '-30px',
-                border: '1px dashed rgba(255,107,26,0.08)',
+                border: '1px dashed rgba(40,100,81,0.08)',
                 animation: 'landing-hemisphere-spin 15s linear infinite reverse',
               }}
             />
@@ -187,7 +187,7 @@ export default function WhyChooseSection() {
               className="absolute left-[-60px] top-1/2 -translate-y-1/2 w-[420px] h-[420px] pointer-events-none"
               style={{
                 borderRadius: '50%',
-                border: '2px dashed rgba(255,107,26,0.12)',
+                border: '2px dashed rgba(40,100,81,0.12)',
               }}
             >
               <div
@@ -195,8 +195,8 @@ export default function WhyChooseSection() {
                 style={{
                   borderRadius: '50%',
                   border: '2.5px solid transparent',
-                  borderBottomColor: 'rgba(255,107,26,0.25)',
-                  borderLeftColor: 'rgba(255,107,26,0.1)',
+                  borderBottomColor: 'rgba(40,100,81,0.25)',
+                  borderLeftColor: 'rgba(40,100,81,0.1)',
                   animation: 'landing-hemisphere-spin 10s linear infinite reverse',
                 }}
               />

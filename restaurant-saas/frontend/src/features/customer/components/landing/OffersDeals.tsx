@@ -101,7 +101,7 @@ export default function OffersDeals() {
           style={{
             top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
             width: 500, height: 500, borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(255,107,26,0.06) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(40,100,81,0.06) 0%, transparent 70%)',
           }}
         />
       </div>
@@ -114,13 +114,13 @@ export default function OffersDeals() {
             <div
               className="inline-flex items-center gap-2.5 px-4 py-1.5 mb-3"
               style={{
-                background: 'linear-gradient(135deg, rgba(255,107,26,0.12), rgba(255,107,26,0.06))',
+                background: 'linear-gradient(135deg, rgba(40,100,81,0.12), rgba(40,100,81,0.06))',
                 borderRadius: '999px',
-                border: '1px solid rgba(255,107,26,0.2)',
+                border: '1px solid rgba(40,100,81,0.2)',
               }}
             >
-              <Sparkles className="w-[15px] h-[15px]" style={{ color: '#FF6B1A' }} />
-              <span className="text-[13px] font-bold uppercase tracking-wider" style={{ color: '#FF6B1A' }}>
+              <Sparkles className="w-[15px] h-[15px]" style={{ color: '#286451' }} />
+              <span className="text-[13px] font-bold uppercase tracking-wider" style={{ color: '#286451' }}>
                 Limited Time Deals
               </span>
             </div>
@@ -128,7 +128,7 @@ export default function OffersDeals() {
               className="text-[28px] sm:text-[32px] lg:text-[40px] font-bold"
               style={{ color: '#222222' }}
             >
-              Exclusive Offers <span style={{ color: '#FF6B1A' }}>For You</span>
+              Exclusive Offers <span style={{ color: '#286451' }}>For You</span>
             </h2>
             <p className="text-[15px] mt-1" style={{ color: '#666666' }}>
               Save more with our curated deals and discounts
@@ -271,7 +271,7 @@ function OfferCard({ offer }: { offer: Offer }) {
         <span className="text-[12px]" style={{ color: 'rgba(255,255,255,0.5)' }}>
           {offer.validity}
         </span>
-        <span className="text-[12px] font-semibold" style={{ color: '#FF6B1A' }}>
+        <span className="text-[12px] font-semibold" style={{ color: '#286451' }}>
           Apply Now →
         </span>
       </div>

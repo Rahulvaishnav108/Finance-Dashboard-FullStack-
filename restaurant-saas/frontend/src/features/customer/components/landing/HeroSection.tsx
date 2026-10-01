@@ -47,7 +47,7 @@ export default function HeroSection({ onLoginOpen }: HeroSectionProps) {
               Find the best{' '}
               <br className="hidden sm:block" />
               restaurants{' '}
-              <span className="italic" style={{ color: '#FF6B1A' }}>near you</span>
+              <span className="italic" style={{ color: '#286451' }}>near you</span>
             </h1>
 
             <p
@@ -75,7 +75,7 @@ export default function HeroSection({ onLoginOpen }: HeroSectionProps) {
                     className="px-3 py-1.5 text-[13px] font-medium transition-all duration-150 landing-btn-press"
                     style={{
                       borderRadius: '999px',
-                      backgroundColor: activeTab === tab ? '#FF6B1A' : 'transparent',
+                      backgroundColor: activeTab === tab ? '#286451' : 'transparent',
                       color: activeTab === tab ? '#FFFFFF' : '#666666',
                     }}
                   >
@@ -104,9 +104,9 @@ export default function HeroSection({ onLoginOpen }: HeroSectionProps) {
                 />
                 <button
                   className="px-4 h-[36px] text-[13px] font-semibold text-white shrink-0 transition-colors duration-150 landing-btn-press"
-                  style={{ backgroundColor: '#FF6B1A', borderRadius: '10px' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#E65A0A'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#FF6B1A'; }}
+                  style={{ backgroundColor: '#286451', borderRadius: '10px' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#1F4F40'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#286451'; }}
                 >
                   Search
                 </button>
@@ -127,8 +127,8 @@ export default function HeroSection({ onLoginOpen }: HeroSectionProps) {
                       backgroundColor: 'transparent',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = '#FF6B1A';
-                      e.currentTarget.style.color = '#FF6B1A';
+                      e.currentTarget.style.borderColor = '#286451';
+                      e.currentTarget.style.color = '#286451';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.borderColor = '#E5E7EB';
@@ -169,7 +169,7 @@ export default function HeroSection({ onLoginOpen }: HeroSectionProps) {
                   className="flex items-center gap-2 px-3 h-[48px]"
                   style={{ border: '1px solid #E5E7EB', borderRadius: '14px' }}
                 >
-                  <MapPin className="w-[16px] h-[16px] shrink-0" style={{ color: '#FF6B1A' }} />
+                  <MapPin className="w-[16px] h-[16px] shrink-0" style={{ color: '#286451' }} />
                   <select
                     className="flex-1 bg-transparent border-none outline-none text-[14px] font-medium appearance-none cursor-pointer"
                     style={{ color: '#222222' }}
@@ -217,7 +217,7 @@ export default function HeroSection({ onLoginOpen }: HeroSectionProps) {
                         borderRadius: '14px',
                       }}
                     >
-                      <Icon className="w-[16px] h-[16px] shrink-0" style={{ color: '#FF6B1A' }} />
+                      <Icon className="w-[16px] h-[16px] shrink-0" style={{ color: '#286451' }} />
                       <input
                         type="text"
                         placeholder={placeholder}
@@ -234,9 +234,9 @@ export default function HeroSection({ onLoginOpen }: HeroSectionProps) {
             <button
               onClick={onLoginOpen}
               className="w-full h-[52px] mt-5 text-[15px] font-semibold text-white transition-colors duration-150 landing-btn-press"
-              style={{ backgroundColor: '#FF6B1A', borderRadius: '14px' }}
-              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#E65A0A'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#FF6B1A'; }}
+              style={{ backgroundColor: '#286451', borderRadius: '14px' }}
+              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#1F4F40'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#286451'; }}
             >
               Find Available Tables
             </button>
@@ -264,7 +264,7 @@ export default function HeroSection({ onLoginOpen }: HeroSectionProps) {
                 className="w-[32px] h-[32px] rounded-full flex items-center justify-center"
                 style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
               >
-                <Icon className="w-[16px] h-[16px]" style={{ color: '#FF6B1A' }} />
+                <Icon className="w-[16px] h-[16px]" style={{ color: '#286451' }} />
               </div>
               <span className="text-[13px] font-semibold text-white whitespace-nowrap">{label}</span>
             </div>

@@ -35,7 +35,7 @@ export default function LandingHeader({ onLoginClick }: LandingHeaderProps): JSX
       <div className="container mx-auto px-4 h-20 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-2" data-purpose="brand-logo">
-          <div className="bg-[#FF5722] p-1.5 rounded-lg flex items-center justify-center">
+          <div className="bg-[#286451] p-1.5 rounded-lg flex items-center justify-center">
             <svg
               className="h-6 w-6 text-white"
               fill="none"
@@ -52,7 +52,7 @@ export default function LandingHeader({ onLoginClick }: LandingHeaderProps): JSX
             </svg>
           </div>
           <span className="text-2xl font-extrabold text-gray-800 tracking-tight">
-            Resto<span className="text-[#FF5722]">Hub</span>
+            Resto<span className="text-[#286451]">Hub</span>
           </span>
         </div>
 
@@ -64,7 +64,7 @@ export default function LandingHeader({ onLoginClick }: LandingHeaderProps): JSX
               return (
                 <a
                   key={link.label}
-                  className="hover:text-[#FF5722] transition-colors"
+                  className="hover:text-[#286451] transition-colors"
                   href={link.href}
                 >
                   {link.label}
@@ -74,7 +74,7 @@ export default function LandingHeader({ onLoginClick }: LandingHeaderProps): JSX
               return (
                 <Link
                   key={link.label}
-                  className="hover:text-[#FF5722] transition-colors"
+                  className="hover:text-[#286451] transition-colors"
                   to={link.href}
                 >
                   {link.label}
@@ -89,14 +89,14 @@ export default function LandingHeader({ onLoginClick }: LandingHeaderProps): JSX
           {isAuthenticated && user ? (
             <button
               onClick={handleDashboardClick}
-              className="bg-[#FF5722] hover:bg-orange-600 text-white px-8 py-2 rounded-xl font-bold transition-all shadow-md shadow-orange-500/10 active:scale-95"
+              className="bg-[#286451] hover:bg-orange-600 text-white px-8 py-2 rounded-xl font-bold transition-all shadow-md shadow-orange-500/10 active:scale-95"
             >
               Dashboard
             </button>
           ) : (
             <button
               onClick={onLoginClick}
-              className="bg-[#FF5722] hover:bg-orange-600 text-white px-8 py-2 rounded-xl font-bold transition-all shadow-md shadow-orange-500/10 active:scale-95"
+              className="bg-[#286451] hover:bg-orange-600 text-white px-8 py-2 rounded-xl font-bold transition-all shadow-md shadow-orange-500/10 active:scale-95"
             >
               Login
             </button>
@@ -108,14 +108,14 @@ export default function LandingHeader({ onLoginClick }: LandingHeaderProps): JSX
           {isAuthenticated && user ? (
             <button
               onClick={handleDashboardClick}
-              className="bg-[#FF5722] hover:bg-orange-600 text-white px-5 py-2 rounded-lg font-semibold text-sm transition-all"
+              className="bg-[#286451] hover:bg-orange-600 text-white px-5 py-2 rounded-lg font-semibold text-sm transition-all"
             >
               Dashboard
             </button>
           ) : (
             <button
               onClick={onLoginClick}
-              className="bg-[#FF5722] hover:bg-orange-600 text-white px-5 py-2 rounded-lg font-semibold text-sm transition-all"
+              className="bg-[#286451] hover:bg-orange-600 text-white px-5 py-2 rounded-lg font-semibold text-sm transition-all"
             >
               Login
             </button>
@@ -143,7 +143,7 @@ export default function LandingHeader({ onLoginClick }: LandingHeaderProps): JSX
                 return (
                   <a
                     key={link.label}
-                    className="text-gray-800 hover:text-[#FF5722] font-semibold text-lg py-2 border-b border-gray-50 last:border-0"
+                    className="text-gray-800 hover:text-[#286451] font-semibold text-lg py-2 border-b border-gray-50 last:border-0"
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -154,7 +154,7 @@ export default function LandingHeader({ onLoginClick }: LandingHeaderProps): JSX
                 return (
                   <Link
                     key={link.label}
-                    className="text-gray-800 hover:text-[#FF5722] font-semibold text-lg py-2 border-b border-gray-50 last:border-0"
+                    className="text-gray-800 hover:text-[#286451] font-semibold text-lg py-2 border-b border-gray-50 last:border-0"
                     to={link.href}
                     onClick={() => setMobileMenuOpen(false)}
                   >

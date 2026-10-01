@@ -69,7 +69,7 @@ export default function LandingDishes({ searchQuery, onActionClick }: LandingDis
           </div>
           <a
             href="#dishes"
-            className="text-[#FF5722] hover:text-orange-600 font-bold text-sm flex items-center gap-1 transition-colors"
+            className="text-[#286451] hover:text-orange-600 font-bold text-sm flex items-center gap-1 transition-colors"
           >
             View All Dishes
             <ArrowRight className="w-4 h-4" />
@@ -117,7 +117,7 @@ export default function LandingDishes({ searchQuery, onActionClick }: LandingDis
                   <button
                     type="button"
                     onClick={onActionClick}
-                    className="text-[#FF5722] text-xs font-bold border border-[#FF5722] hover:bg-[#FF5722] hover:text-white px-4 py-2 rounded-xl transition"
+                    className="text-[#286451] text-xs font-bold border border-[#286451] hover:bg-[#286451] hover:text-white px-4 py-2 rounded-xl transition"
                   >
                     Order Now
                   </button>

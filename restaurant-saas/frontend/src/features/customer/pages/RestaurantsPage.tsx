@@ -69,10 +69,10 @@ export default function RestaurantsPage() {
             <ArrowLeft className="w-[18px] h-[18px] text-white" />
           </button>
           <div className="flex items-center gap-2">
-            <div className="w-[32px] h-[32px] rounded-full flex items-center justify-center" style={{ backgroundColor: '#FF6B1A' }}>
+            <div className="w-[32px] h-[32px] rounded-full flex items-center justify-center" style={{ backgroundColor: '#286451' }}>
               <span className="material-symbols-outlined text-[15px] font-bold text-white block">restaurant</span>
             </div>
-            <span className="font-bold text-[18px] text-white">Resto<span style={{ color: '#FF6B1A' }}>Hub</span></span>
+            <span className="font-bold text-[18px] text-white">Resto<span style={{ color: '#286451' }}>Hub</span></span>
           </div>
           <div className="ml-auto text-[13px] font-medium" style={{ color: 'rgba(255,255,255,0.5)' }}>
             {filtered.length} restaurants found
@@ -112,18 +112,18 @@ export default function RestaurantsPage() {
             >{item.emoji}</div>
           ))}
           {/* Glowing orb */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full landing-glow-orb" style={{ background: 'radial-gradient(circle, rgba(255,107,26,0.1) 0%, transparent 70%)' }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full landing-glow-orb" style={{ background: 'radial-gradient(circle, rgba(40,100,81,0.1) 0%, transparent 70%)' }} />
         </div>
 
         <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10 text-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-5" style={{ background: 'linear-gradient(135deg, rgba(255,107,26,0.15), rgba(255,107,26,0.06))', borderRadius: '999px', border: '1px solid rgba(255,107,26,0.2)' }}>
-            <Crown className="w-[14px] h-[14px]" style={{ color: '#FF6B1A' }} />
-            <span className="text-[12px] font-bold uppercase tracking-wider" style={{ color: '#FF6B1A' }}>Handpicked For You</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-5" style={{ background: 'linear-gradient(135deg, rgba(40,100,81,0.15), rgba(40,100,81,0.06))', borderRadius: '999px', border: '1px solid rgba(40,100,81,0.2)' }}>
+            <Crown className="w-[14px] h-[14px]" style={{ color: '#286451' }} />
+            <span className="text-[12px] font-bold uppercase tracking-wider" style={{ color: '#286451' }}>Handpicked For You</span>
           </div>
 
           <h1 className="text-[32px] sm:text-[42px] lg:text-[56px] font-bold landing-font-hero leading-[1.1]">
-            Top Restaurants <span className="italic" style={{ color: '#FF6B1A' }}>Near you</span>
+            Top Restaurants <span className="italic" style={{ color: '#286451' }}>Near you</span>
           </h1>
           <p className="text-[15px] sm:text-[17px] mt-3 max-w-[500px] mx-auto" style={{ color: 'rgba(255,255,255,0.5)' }}>
             Handpicked restaurants for the best dining experience
@@ -137,7 +137,7 @@ export default function RestaurantsPage() {
               { value: 'Live', label: 'Availability' },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <div className="text-[22px] sm:text-[28px] font-bold" style={{ color: '#FF6B1A' }}>{stat.value}</div>
+                <div className="text-[22px] sm:text-[28px] font-bold" style={{ color: '#286451' }}>{stat.value}</div>
                 <div className="text-[11px] uppercase tracking-wider mt-0.5" style={{ color: 'rgba(255,255,255,0.4)' }}>{stat.label}</div>
               </div>
             ))}
@@ -160,7 +160,7 @@ export default function RestaurantsPage() {
 
           {/* Area */}
           <div className="flex items-center gap-1.5 px-3 h-[40px] shrink-0" style={{ borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', backgroundColor: 'rgba(255,255,255,0.05)' }}>
-            <MapPin className="w-[14px] h-[14px]" style={{ color: '#FF6B1A' }} />
+            <MapPin className="w-[14px] h-[14px]" style={{ color: '#286451' }} />
             <select value={selectedArea} onChange={(e) => setSelectedArea(e.target.value)} className="bg-transparent outline-none text-[13px] text-white cursor-pointer appearance-none pr-4" style={{ backgroundImage: 'none' }}>
               {AREAS.map((a) => <option key={a} value={a} style={{ background: '#1A1A1A' }}>{a}</option>)}
             </select>
@@ -169,7 +169,7 @@ export default function RestaurantsPage() {
 
           {/* Cuisine */}
           <div className="flex items-center gap-1.5 px-3 h-[40px] shrink-0" style={{ borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', backgroundColor: 'rgba(255,255,255,0.05)' }}>
-            <Utensils className="w-[14px] h-[14px]" style={{ color: '#FF6B1A' }} />
+            <Utensils className="w-[14px] h-[14px]" style={{ color: '#286451' }} />
             <select value={selectedCuisine} onChange={(e) => setSelectedCuisine(e.target.value)} className="bg-transparent outline-none text-[13px] text-white cursor-pointer appearance-none pr-4">
               {CUISINES.map((c) => <option key={c} value={c} style={{ background: '#1A1A1A' }}>{c}</option>)}
             </select>
@@ -178,7 +178,7 @@ export default function RestaurantsPage() {
 
           {/* Sort */}
           <div className="flex items-center gap-1.5 px-3 h-[40px] shrink-0" style={{ borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', backgroundColor: 'rgba(255,255,255,0.05)' }}>
-            <Filter className="w-[14px] h-[14px]" style={{ color: '#FF6B1A' }} />
+            <Filter className="w-[14px] h-[14px]" style={{ color: '#286451' }} />
             <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="bg-transparent outline-none text-[13px] text-white cursor-pointer appearance-none pr-4">
               {SORT_OPTIONS.map((s) => <option key={s} value={s} style={{ background: '#1A1A1A' }}>{s}</option>)}
             </select>
@@ -222,7 +222,7 @@ export default function RestaurantsPage() {
                 {r.tags.length > 0 && (
                   <div className="absolute top-3 right-3 flex gap-1.5">
                     {r.tags.slice(0, 2).map((tag) => (
-                      <span key={tag} className="px-2 py-0.5 text-[10px] font-bold rounded-full uppercase" style={{ backgroundColor: 'rgba(255,107,26,0.85)', color: '#FFF' }}>
+                      <span key={tag} className="px-2 py-0.5 text-[10px] font-bold rounded-full uppercase" style={{ backgroundColor: 'rgba(40,100,81,0.85)', color: '#FFF' }}>
                         {tag}
                       </span>
                     ))}
@@ -234,9 +234,9 @@ export default function RestaurantsPage() {
               <div className="p-5">
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="text-[18px] font-bold text-white leading-tight">{r.name}</h3>
-                  <div className="flex items-center gap-1 shrink-0 px-2 py-0.5 rounded-full" style={{ backgroundColor: 'rgba(255,107,26,0.15)' }}>
-                    <Star className="w-[13px] h-[13px] fill-current" style={{ color: '#FF6B1A' }} />
-                    <span className="text-[13px] font-bold" style={{ color: '#FF6B1A' }}>{r.rating}</span>
+                  <div className="flex items-center gap-1 shrink-0 px-2 py-0.5 rounded-full" style={{ backgroundColor: 'rgba(40,100,81,0.15)' }}>
+                    <Star className="w-[13px] h-[13px] fill-current" style={{ color: '#286451' }} />
+                    <span className="text-[13px] font-bold" style={{ color: '#286451' }}>{r.rating}</span>
                     <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>({r.reviews})</span>
                   </div>
                 </div>
@@ -246,10 +246,10 @@ export default function RestaurantsPage() {
 
                 <div className="flex items-center gap-4 mt-3">
                   <span className="flex items-center gap-1 text-[12px]" style={{ color: 'rgba(255,255,255,0.45)' }}>
-                    <Clock className="w-[13px] h-[13px]" style={{ color: '#FF6B1A' }} /> {r.time}
+                    <Clock className="w-[13px] h-[13px]" style={{ color: '#286451' }} /> {r.time}
                   </span>
                   <span className="flex items-center gap-1 text-[12px]" style={{ color: 'rgba(255,255,255,0.45)' }}>
-                    <MapPin className="w-[13px] h-[13px]" style={{ color: '#FF6B1A' }} /> {r.distance}
+                    <MapPin className="w-[13px] h-[13px]" style={{ color: '#286451' }} /> {r.distance}
                   </span>
                 </div>
 
@@ -261,7 +261,7 @@ export default function RestaurantsPage() {
                   ) : <span />}
                   <button
                     className="px-4 py-2 text-[13px] font-semibold text-white transition-all duration-150 landing-btn-premium"
-                    style={{ background: 'linear-gradient(135deg, #FF6B1A, #E65A0A)', borderRadius: '10px' }}
+                    style={{ background: 'linear-gradient(135deg, #286451, #1F4F40)', borderRadius: '10px' }}
                   >
                     View Menu
                   </button>

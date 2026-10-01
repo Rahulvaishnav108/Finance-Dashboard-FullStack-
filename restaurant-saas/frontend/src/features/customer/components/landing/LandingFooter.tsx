@@ -41,7 +41,7 @@ function FooterLink({ label, href }: { label: string; href: string }) {
         href={href}
         className="landing-link-arrow flex items-center gap-2 text-[14px] py-1 transition-colors duration-150 group"
         style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none' }}
-        onMouseEnter={(e) => { e.currentTarget.style.color = '#FF6B1A'; }}
+        onMouseEnter={(e) => { e.currentTarget.style.color = '#286451'; }}
         onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.5)'; }}
       >
         <ArrowRight
@@ -135,14 +135,14 @@ export default function LandingFooter(): JSX.Element {
               onClick={handleSubscribe}
               className="h-[48px] px-5 text-[14px] font-semibold text-white flex items-center gap-2 transition-colors duration-150 landing-btn-premium shrink-0"
               style={{
-                backgroundColor: subscribed ? '#4CAF50' : '#FF6B1A',
+                backgroundColor: subscribed ? '#4CAF50' : '#286451',
                 borderRadius: '0 14px 14px 0',
               }}
               onMouseEnter={(e) => {
-                if (!subscribed) e.currentTarget.style.backgroundColor = '#E65A0A';
+                if (!subscribed) e.currentTarget.style.backgroundColor = '#1F4F40';
               }}
               onMouseLeave={(e) => {
-                if (!subscribed) e.currentTarget.style.backgroundColor = '#FF6B1A';
+                if (!subscribed) e.currentTarget.style.backgroundColor = '#286451';
               }}
             >
               {subscribed ? 'Subscribed ✓' : (
@@ -165,12 +165,12 @@ export default function LandingFooter(): JSX.Element {
             <div className="flex items-center gap-2.5">
               <div
                 className="w-[38px] h-[38px] rounded-full flex items-center justify-center"
-                style={{ backgroundColor: '#FF6B1A' }}
+                style={{ backgroundColor: '#286451' }}
               >
                 <span className="material-symbols-outlined text-[18px] font-bold text-white block">restaurant</span>
               </div>
               <span className="font-bold text-[22px] tracking-tight text-white">
-                Resto<span style={{ color: '#FF6B1A' }}>Hub</span>
+                Resto<span style={{ color: '#286451' }}>Hub</span>
               </span>
             </div>
             <p className="text-[14px] leading-relaxed max-w-[280px]" style={{ color: 'rgba(255,255,255,0.45)' }}>
@@ -190,7 +190,7 @@ export default function LandingFooter(): JSX.Element {
                     color: 'rgba(255,255,255,0.6)',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = '#FF6B1A';
+                    e.currentTarget.style.backgroundColor = '#286451';
                     e.currentTarget.style.color = '#FFFFFF';
                   }}
                   onMouseLeave={(e) => {
@@ -247,19 +247,19 @@ export default function LandingFooter(): JSX.Element {
             </h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <Mail className="w-[15px] h-[15px] mt-0.5 shrink-0" style={{ color: '#FF6B1A' }} />
+                <Mail className="w-[15px] h-[15px] mt-0.5 shrink-0" style={{ color: '#286451' }} />
                 <span className="text-[14px]" style={{ color: 'rgba(255,255,255,0.5)' }}>
                   hello@restohub.in
                 </span>
               </li>
               <li className="flex items-start gap-3">
-                <Phone className="w-[15px] h-[15px] mt-0.5 shrink-0" style={{ color: '#FF6B1A' }} />
+                <Phone className="w-[15px] h-[15px] mt-0.5 shrink-0" style={{ color: '#286451' }} />
                 <span className="text-[14px]" style={{ color: 'rgba(255,255,255,0.5)' }}>
                   +91 98765 43210
                 </span>
               </li>
               <li className="flex items-start gap-3">
-                <MapPin className="w-[15px] h-[15px] mt-0.5 shrink-0" style={{ color: '#FF6B1A' }} />
+                <MapPin className="w-[15px] h-[15px] mt-0.5 shrink-0" style={{ color: '#286451' }} />
                 <span className="text-[14px]" style={{ color: 'rgba(255,255,255,0.5)' }}>
                   Bandra West, Mumbai, Maharashtra 400050
                 </span>
@@ -279,7 +279,7 @@ export default function LandingFooter(): JSX.Element {
             <a
               href="#privacy"
               style={{ color: 'inherit', textDecoration: 'none' }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = '#FF6B1A'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#286451'; }}
               onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.35)'; }}
             >
               Privacy Policy
@@ -288,7 +288,7 @@ export default function LandingFooter(): JSX.Element {
             <a
               href="#terms"
               style={{ color: 'inherit', textDecoration: 'none' }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = '#FF6B1A'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#286451'; }}
               onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.35)'; }}
             >
               Terms &amp; Conditions

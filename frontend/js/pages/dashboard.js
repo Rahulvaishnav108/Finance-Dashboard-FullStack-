@@ -5,8 +5,21 @@ const DashboardPage = {
   dateTo:   '',
 
   async render() {
+    const user = Auth.getUser();
+    const firstName = escHtml(user?.full_name?.trim().split(/\s+/)[0] || 'there');
+    const hour = new Date().getHours();
+    const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
+    const today = new Intl.DateTimeFormat('en', { weekday: 'long', month: 'long', day: 'numeric' }).format(new Date());
     setPageContent(`
-      <div class="filters-bar" style="margin-bottom:1.25rem">
+      <section class="dashboard-intro">
+        <div>
+          <div class="dashboard-eyebrow">FINANCE OVERVIEW</div>
+          <h2>${greeting}, ${firstName}</h2>
+          <p>Your daily financial picture, all in one place.</p>
+        </div>
+        <div class="dashboard-date"><span>Today</span><strong>${today}</strong></div>
+      </section>
+      <div class="filters-bar dashboard-filters" style="margin-bottom:1.25rem">
         <input type="date" id="df-from" placeholder="From" />
         <input type="date" id="df-to"   placeholder="To" />
         <button class="btn btn-ghost btn-sm" onclick="DashboardPage.applyFilter()">Apply</button>
@@ -62,7 +75,7 @@ const DashboardPage = {
           <div class="chart-wrap"><canvas id="chart-category"></canvas></div>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+      <div class="dashboard-lower-grid">
         <div class="card">
           <div class="card-header"><span class="card-title">Recent Activity</span></div>
           <div class="activity-list" id="activity-list"></div>
@@ -159,7 +172,7 @@ const DashboardPage = {
   },
 
   renderCategoryChart(data) {
-    const palette = ['#6366f1','#22c55e','#ef4444','#f59e0b','#06b6d4','#8b5cf6','#ec4899','#14b8a6','#f97316','#84cc16'];
+    const palette = ['#286451','#d8aa4f','#c85f4d','#58948b','#72966c','#b37c51','#738b83','#a1a96a'];
     const expenses = data.filter(d => d.type === 'expense').slice(0, 8);
     if (!expenses.length) { destroyChart('chart-category'); return; }
     makeDoughnutChart('chart-category',

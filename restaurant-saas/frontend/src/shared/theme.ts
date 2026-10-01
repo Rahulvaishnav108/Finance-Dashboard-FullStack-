@@ -10,7 +10,7 @@ export const navbarDarkTheme = {
   textSecondary: '#9a9a9a',
   textMuted: '#5a5a5a',
   navInactive: '#7a7a7a',
-  accent: '#f97316',
+  accent: '#286451',
   font: "'Plus Jakarta Sans', 'Inter', sans-serif",
 };
 
@@ -26,7 +26,7 @@ export const navbarLightTheme = {
   textSecondary: '#555555',
   textMuted: '#999999',
   navInactive: '#555555',
-  accent: '#f97316',
+  accent: '#286451',
   font: "'Plus Jakarta Sans', 'Inter', sans-serif",
 };
 
