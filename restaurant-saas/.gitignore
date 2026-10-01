@@ -1,0 +1,12 @@
+node_modules/
+coverage/
+backend/dist/
+frontend/dist/
+backend/uploads/
+*.log
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+.DS_Store

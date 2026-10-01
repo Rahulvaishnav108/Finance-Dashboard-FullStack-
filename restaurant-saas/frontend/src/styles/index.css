@@ -1,0 +1,845 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 36 42% 96%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 30 95% 54%;
+    --primary-foreground: 40 100% 98%;
+
+    --secondary: 35 100% 96%;
+    --secondary-foreground: 24 30% 18%;
+
+    --muted: 36 33% 92%;
+    --muted-foreground: 215 16% 36%;
+
+    --accent: 40 100% 92%;
+    --accent-foreground: 24 30% 18%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 28 22% 84%;
+    --input: 28 22% 84%;
+    --ring: 24 95% 53%;
+
+    --radius: 1rem;
+
+    --surface-glass: rgba(255, 255, 255, 0.72);
+    --shadow-soft: 0 12px 40px rgba(15, 23, 42, 0.08);
+    --shadow-premium: 0 20px 60px rgba(15, 23, 42, 0.14);
+
+    /* Custom smart dining variables mapped in Light Mode */
+    --sd-surface: 0 0% 98%;          /* #f8f9fa equivalent */
+    --sd-surface-container: 0 0% 93%;      /* #edeeef equivalent */
+    --sd-surface-container-low: 0 0% 96%;  /* #f3f4f5 equivalent */
+    --sd-surface-container-high: 0 0% 91%; /* #e7e8e9 equivalent */
+    --sd-surface-variant: 0 0% 89%;        /* #e1e3e4 equivalent */
+    --sd-on-surface: 190 8% 11%;             /* #191c1d */
+    --sd-on-surface-variant: 215 16% 34%;     /* #4b5563 / #374151 */
+    --sd-outline: 215 16% 75%;                /* #9ca3af */
+    --sd-outline-variant: 215 16% 92%;        /* #e5e7eb */
+    --sd-primary-fixed: 16 100% 90%;          /* #ffdbce */
+    --sd-primary-fixed-dim: 16 100% 80%;      /* #ffb59a */
+    --sd-inverse-surface: 190 5% 19%;         /* #2e3132 */
+  }
+
+  .dark {
+    /* Neutral Charcoal/Black Palette (no navy or bluish theme) */
+    --background: 0 0% 5%; /* #0D0D0D */
+    --foreground: 0 0% 90%; /* #E4E4E4 */
+
+    --card: 0 0% 10%; /* #1A1A1A */
+    --card-foreground: 0 0% 90%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 90%;
+
+    --primary: 30 95% 54%;
+    --primary-foreground: 40 100% 98%;
+
+    --secondary: 0 0% 13%; /* #212121 */
+    --secondary-foreground: 0 0% 90%;
+
+    --muted: 0 0% 13%;
+    --muted-foreground: 0 0% 60%; /* #9A9A9A */
+
+    --accent: 0 0% 13%;
+    --accent-foreground: 0 0% 90%;
+
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 15%; /* #272727 */
+    --input: 0 0% 15%;
+    --ring: 30 95% 54%;
+
+    --surface-glass: rgba(26, 26, 26, 0.75);
+    --shadow-soft: 0 12px 40px rgba(0, 0, 0, 0.45);
+    --shadow-premium: 0 20px 60px rgba(0, 0, 0, 0.6);
+
+    /* Custom smart dining variables mapped in Dark Mode */
+    --sd-surface: 0 0% 5%;          /* #0D0D0D - Match background */
+    --sd-surface-container: 0 0% 10%;      /* #1A1A1A - Match card */
+    --sd-surface-container-low: 0 0% 8%;  /* #141414 - In between background & card */
+    --sd-surface-container-high: 0 0% 12%; /* #1E1E1E - Slightly lighter card */
+    --sd-surface-variant: 0 0% 15%;        /* #272727 - Lighter card borders/accents */
+    --sd-on-surface: 0 0% 90%;             /* #E4E4E4 */
+    --sd-on-surface-variant: 0 0% 60%;     /* #9A9A9A */
+    --sd-outline: 0 0% 15%;                /* #272727 */
+    --sd-outline-variant: 0 0% 12%;        /* #1E1E1E */
+    --sd-primary-fixed: 30 95% 25%;
+    --sd-primary-fixed-dim: 30 95% 35%;
+    --sd-inverse-surface: 0 0% 90%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", "Segoe UI", sans-serif;
+
+    min-height: 100vh;
+
+    background-image:
+      radial-gradient(circle at top, rgba(251, 191, 36, 0.12), transparent 22%),
+      linear-gradient(
+        180deg,
+        rgba(255, 248, 240, 0.98),
+        rgba(255, 255, 255, 1)
+      );
+
+    transition:
+      background-color 0.25s ease,
+      color 0.25s ease,
+      border-color 0.25s ease;
+  }
+
+  .dark body {
+    background-image: none !important;
+    background-color: hsl(var(--background)) !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .font-display {
+    font-family: "Playfair Display", "Georgia", serif;
+    letter-spacing: normal;
+  }
+
+  /* Override kitchen, staff, cleaning, admin and superadmin panel headers to use Inter only */
+  .kitchen-panel h1,
+  .kitchen-panel h2,
+  .kitchen-panel h3,
+  .staff-panel h1,
+  .staff-panel h2,
+  .staff-panel h3,
+  .cleaning-panel h1,
+  .cleaning-panel h2,
+  .cleaning-panel h3,
+  .admin-panel h1,
+  .admin-panel h2,
+  .admin-panel h3,
+  .superadmin-panel h1,
+  .superadmin-panel h2,
+  .superadmin-panel h3 {
+    font-family: "Inter", "Segoe UI", sans-serif;
+    letter-spacing: normal;
+  }
+
+  button,
+  a,
+  input,
+  textarea {
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.2s ease,
+      opacity 0.2s ease;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    background: var(--surface-glass);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+  }
+
+  .premium-shadow {
+    box-shadow: var(--shadow-premium);
+  }
+
+  .soft-shadow {
+    box-shadow: var(--shadow-soft);
+  }
+}
+
+/* ── Smart Dining Dashboard Utilities ──────────────────────── */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  user-select: none;
+}
+
+.sd-custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.sd-custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sd-custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #e1e3e4;
+  border-radius: 10px;
+}
+
+.sd-food-card-shadow {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
+.sd-no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.sd-no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ── Dark Mode Overrides for Customer, Kitchen, Staff, Admin & Superadmin Panels ── */
+.dark .kitchen-panel,
+.dark .customer-panel,
+.dark .staff-panel,
+.dark .admin-panel,
+.dark .superadmin-panel {
+  background-color: hsl(var(--background)) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+.dark .kitchen-panel aside,
+.dark .customer-panel aside,
+.dark .staff-panel aside,
+.dark .admin-panel aside,
+.dark .superadmin-panel aside,
+.dark .kitchen-panel header,
+.dark .customer-panel header,
+.dark .staff-panel header,
+.dark .admin-panel header,
+.dark .superadmin-panel header,
+.dark .kitchen-panel .bg-white,
+.dark .customer-panel .bg-white,
+.dark .staff-panel .bg-white,
+.dark .admin-panel .bg-white,
+.dark .superadmin-panel .bg-white,
+.dark .kitchen-panel .bg-slate-50,
+.dark .customer-panel .bg-slate-50,
+.dark .staff-panel .bg-slate-50,
+.dark .admin-panel .bg-slate-50,
+.dark .superadmin-panel .bg-slate-50,
+.dark .kitchen-panel .bg-slate-100,
+.dark .customer-panel .bg-slate-100,
+.dark .staff-panel .bg-slate-100,
+.dark .admin-panel .bg-slate-100,
+.dark .superadmin-panel .bg-slate-100,
+.dark .admin-panel .bg-gray-50,
+.dark .admin-panel .bg-gray-100,
+.dark .admin-panel .bg-gray-800,
+.dark .admin-panel .bg-gray-900,
+.dark .admin-panel .bg-gray-950,
+.dark .admin-panel .bg-slate-900,
+.dark .admin-panel .bg-slate-950,
+.dark .superadmin-panel .bg-gray-50,
+.dark .superadmin-panel .bg-gray-100,
+.dark .superadmin-panel .bg-gray-800,
+.dark .superadmin-panel .bg-gray-900,
+.dark .superadmin-panel .bg-gray-950,
+.dark .superadmin-panel .bg-slate-900,
+.dark .superadmin-panel .bg-slate-950,
+.dark .kitchen-panel [class*="bg-white"],
+.dark .customer-panel [class*="bg-white"],
+.dark .staff-panel [class*="bg-white"],
+.dark .admin-panel [class*="bg-white"],
+.dark .superadmin-panel [class*="bg-white"] {
+  background-color: hsl(var(--card)) !important;
+}
+
+.dark .kitchen-panel select,
+.dark .customer-panel select,
+.dark .staff-panel select,
+.dark .admin-panel select,
+.dark .superadmin-panel select {
+  background-color: hsl(var(--card)) !important;
+  color: hsl(var(--foreground)) !important;
+  border-color: hsl(var(--border)) !important;
+}
+
+/* Card and layout borders override */
+.dark .kitchen-panel .border-slate-100,
+.dark .customer-panel .border-slate-100,
+.dark .staff-panel .border-slate-100,
+.dark .admin-panel .border-slate-100,
+.dark .superadmin-panel .border-slate-100,
+.dark .kitchen-panel .border-slate-200,
+.dark .customer-panel .border-slate-200,
+.dark .staff-panel .border-slate-200,
+.dark .admin-panel .border-slate-200,
+.dark .superadmin-panel .border-slate-200,
+.dark .admin-panel .border-gray-100,
+.dark .admin-panel .border-gray-200,
+.dark .admin-panel .border-gray-300,
+.dark .admin-panel .border-gray-800,
+.dark .superadmin-panel .border-gray-100,
+.dark .superadmin-panel .border-gray-200,
+.dark .superadmin-panel .border-gray-300,
+.dark .superadmin-panel .border-gray-800,
+.dark .superadmin-panel .border-slate-800,
+.dark .superadmin-panel .border-slate-900,
+.dark .kitchen-panel .border-sd-surface-variant,
+.dark .customer-panel .border-sd-surface-variant,
+.dark .staff-panel .border-sd-surface-variant,
+.dark .admin-panel .border-sd-surface-variant,
+.dark .kitchen-panel .border-sd-outline-variant,
+.dark .customer-panel .border-sd-outline-variant,
+.dark .staff-panel .border-sd-outline-variant,
+.dark .admin-panel .border-sd-outline-variant {
+  border-color: hsl(var(--border)) !important;
+}
+
+/* Preserve status left borders on cards in dark mode */
+.dark .kitchen-panel .border-l-blue-500,
+.dark .staff-panel .border-l-blue-500,
+.dark .admin-panel .border-l-blue-500 {
+  border-left-color: #3b82f6 !important;
+}
+.dark .kitchen-panel .border-l-orange-500,
+.dark .staff-panel .border-l-orange-500,
+.dark .admin-panel .border-l-orange-500 {
+  border-left-color: #f97316 !important;
+}
+.dark .kitchen-panel .border-l-green-500,
+.dark .staff-panel .border-l-green-500,
+.dark .admin-panel .border-l-green-500 {
+  border-left-color: #22c55e !important;
+}
+.dark .kitchen-panel .border-l-red-500,
+.dark .staff-panel .border-l-red-500,
+.dark .admin-panel .border-l-red-500 {
+  border-left-color: #ef4444 !important;
+}
+.dark .kitchen-panel .border-l-slate-300,
+.dark .staff-panel .border-l-slate-300,
+.dark .admin-panel .border-l-slate-300 {
+  border-left-color: #475569 !important;
+}
+
+/* Card text colors override */
+.dark .kitchen-panel .text-slate-800,
+.dark .customer-panel .text-slate-800,
+.dark .staff-panel .text-slate-800,
+.dark .admin-panel .text-slate-800,
+.dark .superadmin-panel .text-slate-800,
+.dark .admin-panel .text-gray-800,
+.dark .admin-panel .text-gray-900,
+.dark .superadmin-panel .text-slate-100,
+.dark .superadmin-panel .text-slate-200,
+.dark .superadmin-panel .text-slate-300,
+.dark .superadmin-panel .text-slate-900,
+.dark .kitchen-panel .text-slate-700,
+.dark .customer-panel .text-slate-700,
+.dark .staff-panel .text-slate-700,
+.dark .admin-panel .text-gray-700,
+.dark .admin-panel .text-slate-700,
+.dark .superadmin-panel .text-slate-700,
+.dark .kitchen-panel .text-slate-600,
+.dark .customer-panel .text-slate-600,
+.dark .staff-panel .text-slate-600,
+.dark .admin-panel .text-slate-600,
+.dark .admin-panel .text-gray-600,
+.dark .superadmin-panel .text-slate-600 {
+  color: hsl(var(--foreground)) !important;
+}
+
+.dark .kitchen-panel .text-slate-500,
+.dark .customer-panel .text-slate-500,
+.dark .staff-panel .text-slate-500,
+.dark .admin-panel .text-slate-500,
+.dark .superadmin-panel .text-slate-500,
+.dark .admin-panel .text-gray-500,
+.dark .kitchen-panel .text-slate-400,
+.dark .customer-panel .text-slate-400,
+.dark .staff-panel .text-slate-400,
+.dark .admin-panel .text-slate-400,
+.dark .admin-panel .text-gray-400,
+.dark .superadmin-panel .text-slate-400 {
+  color: hsl(var(--muted-foreground)) !important;
+}
+
+/* Inputs and textareas */
+.dark .kitchen-panel input,
+.dark .customer-panel input,
+.dark .staff-panel input,
+.dark .admin-panel input,
+.dark .superadmin-panel input,
+.dark .kitchen-panel textarea,
+.dark .customer-panel textarea,
+.dark .staff-panel textarea,
+.dark .admin-panel textarea,
+.dark .superadmin-panel textarea {
+  background-color: hsl(var(--secondary)) !important;
+  color: hsl(var(--foreground)) !important;
+  border-color: hsl(var(--border)) !important;
+}
+
+.dark .kitchen-panel input::placeholder,
+.dark .customer-panel input::placeholder,
+.dark .staff-panel input::placeholder,
+.dark .admin-panel input::placeholder,
+.dark .superadmin-panel input::placeholder {
+  color: hsl(var(--muted-foreground)) !important;
+  opacity: 0.7;
+}
+
+/* Hover and active states */
+.dark .kitchen-panel .hover\:bg-slate-50:hover,
+.dark .customer-panel .hover\:bg-slate-50:hover,
+.dark .staff-panel .hover\:bg-slate-50:hover,
+.dark .admin-panel .hover\:bg-slate-50:hover,
+.dark .admin-panel .hover\:bg-gray-50:hover,
+.dark .kitchen-panel .hover\:bg-slate-100:hover,
+.dark .customer-panel .hover\:bg-slate-100:hover,
+.dark .staff-panel .hover\:bg-slate-100:hover,
+.dark .admin-panel .hover\:bg-slate-100:hover,
+.dark .admin-panel .hover\:bg-gray-100:hover,
+.dark .kitchen-panel .hover\:bg-slate-200:hover,
+.dark .customer-panel .hover\:bg-slate-200:hover,
+.dark .staff-panel .hover\:bg-slate-200:hover,
+.dark .admin-panel .hover\:bg-slate-200:hover,
+.dark .admin-panel .hover\:bg-gray-200:hover,
+.dark .kitchen-panel .hover\:bg-sd-surface-container-low:hover,
+.dark .customer-panel .hover\:bg-sd-surface-container-low:hover,
+.dark .staff-panel .hover\:bg-sd-surface-container-low:hover,
+.dark .admin-panel .hover\:bg-sd-surface-container-low:hover,
+.dark .kitchen-panel .hover\:bg-slate-50\/50:hover,
+.dark .staff-panel .hover\:bg-slate-50\/50:hover,
+.dark .admin-panel .hover\:bg-slate-50\/50:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark .kitchen-panel .hover\:bg-red-50:hover,
+.dark .staff-panel .hover\:bg-red-50:hover,
+.dark .admin-panel .hover\:bg-red-50:hover {
+  background-color: rgba(239, 68, 68, 0.15) !important;
+}
+
+.dark .kitchen-panel .hover\:bg-orange-50:hover,
+.dark .staff-panel .hover\:bg-orange-50:hover,
+.dark .admin-panel .hover\:bg-orange-50:hover {
+  background-color: rgba(249, 115, 22, 0.15) !important;
+}
+
+/* Semi-transparent colored borders in dark mode */
+.dark .kitchen-panel .border-red-200,
+.dark .staff-panel .border-red-200,
+.dark .admin-panel .border-red-200 {
+  border-color: rgba(239, 68, 68, 0.3) !important;
+}
+.dark .kitchen-panel .border-orange-200,
+.dark .staff-panel .border-orange-200,
+.dark .admin-panel .border-orange-200 {
+  border-color: rgba(249, 115, 22, 0.3) !important;
+}
+
+/* Custom scrollbars for kitchen, staff, admin and superadmin panel (cross-browser) */
+.kitchen-panel *::-webkit-scrollbar,
+.staff-panel *::-webkit-scrollbar,
+.admin-panel *::-webkit-scrollbar,
+.superadmin-panel *::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.kitchen-panel *::-webkit-scrollbar-track,
+.staff-panel *::-webkit-scrollbar-track,
+.admin-panel *::-webkit-scrollbar-track,
+.superadmin-panel *::-webkit-scrollbar-track {
+  background: transparent;
+}
+.kitchen-panel *::-webkit-scrollbar-thumb,
+.staff-panel *::-webkit-scrollbar-thumb,
+.admin-panel *::-webkit-scrollbar-thumb,
+.superadmin-panel *::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.3) !important;
+  border-radius: 10px;
+}
+.kitchen-panel *::-webkit-scrollbar-thumb:hover,
+.staff-panel *::-webkit-scrollbar-thumb:hover,
+.admin-panel *::-webkit-scrollbar-thumb:hover,
+.superadmin-panel *::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.5) !important;
+}
+
+.dark .kitchen-panel *::-webkit-scrollbar-thumb,
+.dark .staff-panel *::-webkit-scrollbar-thumb,
+.dark .admin-panel *::-webkit-scrollbar-thumb,
+.dark .superadmin-panel *::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+.dark .kitchen-panel *::-webkit-scrollbar-thumb:hover,
+.dark .staff-panel *::-webkit-scrollbar-thumb:hover,
+.dark .admin-panel *::-webkit-scrollbar-thumb:hover,
+.dark .superadmin-panel *::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+}
+
+.kitchen-panel *,
+.staff-panel *,
+.admin-panel *,
+.superadmin-panel * {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.3) transparent;
+}
+.dark .kitchen-panel *,
+.dark .staff-panel *,
+.dark .admin-panel *,
+.dark .superadmin-panel * {
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+/* Scrollbar overrides in dark mode */
+.dark .sd-custom-scrollbar::-webkit-scrollbar-thumb {
+  background: hsl(var(--border)) !important;
+}
+
+/* Dark mode colored shadows overrides (replace bright white shadows under buttons) */
+.dark .kitchen-panel .shadow-orange-100,
+.dark .staff-panel .shadow-orange-100,
+.dark .admin-panel .shadow-orange-100 {
+  --tw-shadow-color: rgba(249, 115, 22, 0.15) !important;
+  box-shadow: 0 4px 12px var(--tw-shadow-color) !important;
+}
+.dark .kitchen-panel .shadow-blue-100,
+.dark .staff-panel .shadow-blue-100,
+.dark .admin-panel .shadow-blue-100 {
+  --tw-shadow-color: rgba(59, 130, 246, 0.15) !important;
+  box-shadow: 0 4px 12px var(--tw-shadow-color) !important;
+}
+.dark .kitchen-panel .shadow-green-100,
+.dark .staff-panel .shadow-green-100,
+.dark .admin-panel .shadow-green-100 {
+  --tw-shadow-color: rgba(34, 197, 94, 0.15) !important;
+  box-shadow: 0 4px 12px var(--tw-shadow-color) !important;
+}
+.dark .kitchen-panel .shadow-red-100,
+.dark .staff-panel .shadow-red-100,
+.dark .admin-panel .shadow-red-100 {
+  --tw-shadow-color: rgba(239, 68, 68, 0.15) !important;
+  box-shadow: 0 4px 12px var(--tw-shadow-color) !important;
+}
+
+/* Dark mode badge and alert background overrides */
+.dark .kitchen-panel .bg-green-50,
+.dark .kitchen-panel .bg-green-100,
+.dark .staff-panel .bg-green-50,
+.dark .staff-panel .bg-green-100 {
+  background-color: rgba(34, 197, 94, 0.15) !important;
+  color: #4ade80 !important;
+  border-color: rgba(34, 197, 94, 0.25) !important;
+}
+
+.dark .kitchen-panel .bg-orange-50,
+.dark .kitchen-panel .bg-orange-100,
+.dark .staff-panel .bg-orange-50,
+.dark .staff-panel .bg-orange-100 {
+  background-color: rgba(249, 115, 22, 0.15) !important;
+  color: #fb923c !important;
+  border-color: rgba(249, 115, 22, 0.25) !important;
+}
+
+.dark .kitchen-panel .bg-blue-50,
+.dark .kitchen-panel .bg-blue-100,
+.dark .staff-panel .bg-blue-50,
+.dark .staff-panel .bg-blue-100 {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+  color: #60a5fa !important;
+  border-color: rgba(59, 130, 246, 0.25) !important;
+}
+
+.dark .kitchen-panel .bg-red-50,
+.dark .kitchen-panel .bg-red-100,
+.dark .staff-panel .bg-red-50,
+.dark .staff-panel .bg-red-100 {
+  background-color: rgba(239, 68, 68, 0.15) !important;
+  color: #f87171 !important;
+  border-color: rgba(239, 68, 68, 0.25) !important;
+}
+
+/* ── Dark Mode Overrides for Cleaning Panel ── */
+.dark .cleaning-panel {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+.dark .cleaning-panel aside,
+.dark .cleaning-panel header,
+.dark .cleaning-panel .bg-surface,
+.dark .cleaning-panel .bg-surface-bright,
+.dark .cleaning-panel .bg-white,
+.dark .cleaning-panel .bg-slate-50,
+.dark .cleaning-panel .bg-slate-100,
+.dark .cleaning-panel [class*="bg-surface-container"],
+.dark .cleaning-panel [class*="bg-white"] {
+  background-color: hsl(var(--card)) !important;
+}
+
+.dark .cleaning-panel select,
+.dark .cleaning-panel input,
+.dark .cleaning-panel textarea {
+  background-color: hsl(var(--secondary)) !important;
+  color: hsl(var(--foreground)) !important;
+  border-color: hsl(var(--border)) !important;
+}
+
+.dark .cleaning-panel input::placeholder {
+  color: hsl(var(--muted-foreground)) !important;
+  opacity: 0.7;
+}
+
+.dark .cleaning-panel .border-slate-100,
+.dark .cleaning-panel .border-slate-200,
+.dark .cleaning-panel .border-outline-variant,
+.dark .cleaning-panel .border-outline {
+  border-color: hsl(var(--border)) !important;
+}
+
+.dark .cleaning-panel .text-slate-805,
+.dark .cleaning-panel .text-slate-800,
+.dark .cleaning-panel .text-slate-700,
+.dark .cleaning-panel .text-slate-600,
+.dark .cleaning-panel .text-on-surface,
+.dark .cleaning-panel .text-on-surface-variant {
+  color: hsl(var(--foreground)) !important;
+}
+
+.dark .cleaning-panel .text-slate-500,
+.dark .cleaning-panel .text-slate-400,
+.dark .cleaning-panel .text-outline {
+  color: hsl(var(--muted-foreground)) !important;
+}
+
+/* Semi-transparent hover overrides */
+.dark .cleaning-panel .hover\:bg-slate-50:hover,
+.dark .cleaning-panel .hover\:bg-slate-100:hover,
+.dark .cleaning-panel .hover\:bg-surface-container-low:hover,
+.dark .cleaning-panel .hover\:bg-surface-container-high:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Scrollbars */
+.cleaning-panel *::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.cleaning-panel *::-webkit-scrollbar-track {
+  background: transparent;
+}
+.cleaning-panel *::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.3) !important;
+  border-radius: 10px;
+}
+.cleaning-panel *::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.5) !important;
+}
+.dark .cleaning-panel *::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+.dark .cleaning-panel *::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+}
+.cleaning-panel * {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.3) transparent;
+}
+.dark .cleaning-panel * {
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+/* Dark mode status badge overrides for cleaning panel */
+.dark .cleaning-panel .bg-green-50,
+.dark .cleaning-panel .bg-green-100 {
+  background-color: rgba(34, 197, 94, 0.15) !important;
+  color: #4ade80 !important;
+  border-color: rgba(34, 197, 94, 0.25) !important;
+}
+
+.dark .cleaning-panel .bg-orange-50,
+.dark .cleaning-panel .bg-orange-100 {
+  background-color: rgba(249, 115, 22, 0.15) !important;
+  color: #fb923c !important;
+  border-color: rgba(249, 115, 22, 0.25) !important;
+}
+
+.dark .cleaning-panel .bg-blue-50,
+.dark .cleaning-panel .bg-blue-100 {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+  color: #60a5fa !important;
+  border-color: rgba(59, 130, 246, 0.25) !important;
+}
+
+.dark .cleaning-panel .bg-purple-50,
+.dark .cleaning-panel .bg-purple-100 {
+  background-color: rgba(139, 92, 246, 0.15) !important;
+  color: #a78bfa !important;
+  border-color: rgba(139, 92, 246, 0.25) !important;
+}
+
+.dark .cleaning-panel .bg-red-50,
+.dark .cleaning-panel .bg-red-100 {
+  background-color: rgba(239, 68, 68, 0.15) !important;
+  color: #f87171 !important;
+  border-color: rgba(239, 68, 68, 0.25) !important;
+}
+
+.dark .cleaning-panel .bg-slate-50,
+.dark .cleaning-panel .bg-slate-100 {
+  background-color: rgba(148, 163, 184, 0.1) !important;
+  color: #cbd5e1 !important;
+  border-color: rgba(148, 163, 184, 0.2) !important;
+}
+
+/* Container Query Grid for Food Cards */
+.food-grid-container {
+  container-type: inline-size;
+  container-name: foodgrid;
+  width: 100%;
+}
+
+.cq-food-grid-5 {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@container foodgrid (min-width: 480px) {
+  .cq-food-grid-5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container foodgrid (min-width: 640px) {
+  .cq-food-grid-5 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@container foodgrid (min-width: 860px) {
+  .cq-food-grid-5 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.cq-food-grid-6 {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@container foodgrid (min-width: 480px) {
+  .cq-food-grid-6 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container foodgrid (min-width: 640px) {
+  .cq-food-grid-6 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@container foodgrid (min-width: 860px) {
+  .cq-food-grid-6 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* ── Superadmin Charcoal/Black Theme Overrides (Substring Selectors Workaround) ── */
+.dark .superadmin-panel [class*="bg-slate-"],
+.dark .superadmin-panel [class*="bg-gray-"] {
+  background-color: hsl(var(--card)) !important;
+}
+
+/* Page wrapper elements containing min-h- screen/full force background color */
+.dark .superadmin-panel [class*="bg-slate-950"],
+.dark .superadmin-panel [class*="bg-gray-950"],
+.dark .superadmin-panel [class*="min-h-"] {
+  background-color: hsl(var(--background)) !important;
+}
+
+/* Inputs, textareas, selects explicitly mapped to secondary bg */
+.dark .superadmin-panel input,
+.dark .superadmin-panel textarea,
+.dark .superadmin-panel select,
+.dark .superadmin-panel [class*="focus:bg-slate-"],
+.dark .superadmin-panel [class*="focus:bg-gray-"] {
+  background-color: hsl(var(--secondary)) !important;
+}
+
+/* Layout border override */
+.dark .superadmin-panel [class*="border-slate-"],
+.dark .superadmin-panel [class*="border-gray-"] {
+  border-color: hsl(var(--border)) !important;
+}
+
+/* Hover background overrides */
+.dark .superadmin-panel [class*="hover:bg-slate-"]:hover,
+.dark .superadmin-panel [class*="hover:bg-gray-"]:hover,
+.dark .superadmin-panel [class*="hover:bg-slate-100"]:hover,
+.dark .superadmin-panel [class*="hover:bg-slate-800"]:hover,
+.dark .superadmin-panel [class*="hover:bg-slate-900"]:hover,
+.dark .superadmin-panel [class*="hover:bg-gray-100"]:hover,
+.dark .superadmin-panel [class*="hover:bg-gray-800"]:hover,
+.dark .superadmin-panel [class*="hover:bg-gray-900"]:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Text color overrides */
+.dark .superadmin-panel [class*="text-slate-100"],
+.dark .superadmin-panel [class*="text-slate-200"],
+.dark .superadmin-panel [class*="text-slate-300"],
+.dark .superadmin-panel [class*="text-slate-50"],
+.dark .superadmin-panel [class*="text-gray-100"],
+.dark .superadmin-panel [class*="text-gray-200"],
+.dark .superadmin-panel [class*="text-gray-300"],
+.dark .superadmin-panel [class*="text-gray-50"] {
+  color: hsl(var(--foreground)) !important;
+}
+
+.dark .superadmin-panel [class*="text-slate-400"],
+.dark .superadmin-panel [class*="text-slate-500"],
+.dark .superadmin-panel [class*="text-slate-600"],
+.dark .superadmin-panel [class*="text-gray-400"],
+.dark .superadmin-panel [class*="text-gray-500"],
+.dark .superadmin-panel [class*="text-gray-600"] {
+  color: hsl(var(--muted-foreground)) !important;
+}

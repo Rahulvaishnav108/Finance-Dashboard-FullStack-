@@ -1,0 +1,707 @@
+{
+  "info": {
+    "_postman_id": "4f2d1df9-analytics-module-collection",
+    "name": "Restaurant Automation - Analytics Module",
+    "description": "Focused black-box analytics module verification collection for admin and super-admin flows.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth And Context",
+      "item": [
+        {
+          "name": "Login Analytics Admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Login Analytics Admin returns 200', function () { pm.response.to.have.status(200); });",
+                  "var json = pm.response.json();",
+                  "pm.expect(json.success).to.eql(true);",
+                  "pm.expect(json.data.accessToken).to.be.a('string');",
+                  "pm.environment.set('adminAccessToken', json.data.accessToken);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{analyticsAdminEmail}}\",\n  \"password\": \"{{analyticsAdminPassword}}\",\n  \"deviceLabel\": \"Analytics Postman Admin\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Login Analytics Super Admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Login Analytics Super Admin returns 200', function () { pm.response.to.have.status(200); });",
+                  "var json = pm.response.json();",
+                  "pm.expect(json.success).to.eql(true);",
+                  "pm.expect(json.data.accessToken).to.be.a('string');",
+                  "pm.environment.set('superAdminAccessToken', json.data.accessToken);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{analyticsSuperAdminEmail}}\",\n  \"password\": \"{{analyticsSuperAdminPassword}}\",\n  \"deviceLabel\": \"Analytics Postman Super Admin\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Admin Restaurant Overview",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Get Admin Restaurant Overview returns 200', function () { pm.response.to.have.status(200); });",
+                  "var json = pm.response.json();",
+                  "pm.expect(json.success).to.eql(true);",
+                  "const restaurant = json.data.restaurant;",
+                  "pm.expect(restaurant).to.be.an('object');",
+                  "pm.environment.set('restaurantId', restaurant.id || restaurant._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminAccessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/restaurant/overview",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "restaurant",
+                "overview"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analytics Happy Path",
+      "item": [
+        {
+          "name": "Overview Alias",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Overview Alias returns 200', function () { pm.response.to.have.status(200); });",
+                  "var data = pm.response.json().data;",
+                  "pm.expect(data.summary).to.eql({ totalRevenue: 445, totalTax: 45, totalDiscount: 15, billCount: 3, averageBillValue: 148.33 });",
+                  "pm.expect(data.metrics).to.eql({ totalCustomers: 4, repeatCustomersCount: 3, activeCustomers: 3, repeatRatePercent: 75 });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminAccessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/analytics/overview?from=2026-01-01&to=2026-01-31",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "analytics",
+                "overview"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "2026-01-01"
+                },
+                {
+                  "key": "to",
+                  "value": "2026-01-31"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Revenue Analytics By Day",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Revenue Analytics By Day returns 200', function () { pm.response.to.have.status(200); });",
+                  "var data = pm.response.json().data;",
+                  "pm.expect(data.summary).to.eql({ totalRevenue: 445, totalTax: 45, totalDiscount: 15, billCount: 3, averageBillValue: 148.33 });",
+                  "pm.expect(data.filters).to.eql({ from: '2026-01-01', to: '2026-01-31', groupBy: 'day' });",
+                  "pm.expect(data.revenue).to.eql([{ period: '2026-01-05', totalRevenue: 95, totalTax: 10, totalDiscount: 5, billCount: 1 }, { period: '2026-01-12', totalRevenue: 350, totalTax: 35, totalDiscount: 10, billCount: 2 }]);",
+                  "pm.expect(data.paymentReport).to.eql([{ paymentMethod: 'CARD', count: 1, totalAmount: 200 }, { paymentMethod: 'CASH', count: 1, totalAmount: 150 }, { paymentMethod: 'UPI', count: 1, totalAmount: 95 }]);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminAccessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/analytics/revenue?from=2026-01-01&to=2026-01-31&groupBy=day",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "analytics",
+                "revenue"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "2026-01-01"
+                },
+                {
+                  "key": "to",
+                  "value": "2026-01-31"
+                },
+                {
+                  "key": "groupBy",
+                  "value": "day"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Revenue Analytics By Month As Super Admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Revenue Analytics By Month As Super Admin returns 200', function () { pm.response.to.have.status(200); });",
+                  "var data = pm.response.json().data;",
+                  "pm.expect(data.filters).to.eql({ from: null, to: null, groupBy: 'month' });",
+                  "pm.expect(data.revenue).to.eql([{ period: '2026-01', totalRevenue: 445, totalTax: 45, totalDiscount: 15, billCount: 3 }, { period: '2026-02', totalRevenue: 150, totalTax: 10, totalDiscount: 0, billCount: 1 }]);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{superAdminAccessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/analytics/revenue?restaurantId={{restaurantId}}&groupBy=month",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "analytics",
+                "revenue"
+              ],
+              "query": [
+                {
+                  "key": "restaurantId",
+                  "value": "{{restaurantId}}"
+                },
+                {
+                  "key": "groupBy",
+                  "value": "month"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Peak Hours Analytics",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Peak Hours Analytics returns 200', function () { pm.response.to.have.status(200); });",
+                  "var data = pm.response.json().data;",
+                  "pm.expect(data.peakHours).to.eql([{ hour: 12, hourLabel: '12:00', orderCount: 2, totalSales: 225 }, { hour: 14, hourLabel: '14:00', orderCount: 1, totalSales: 200 }, { hour: 18, hourLabel: '18:00', orderCount: 1, totalSales: 180 }]);",
+                  "pm.expect(data.summary).to.eql({ busiestHour: 12, busiestHourLabel: '12:00', busiestHourOrderCount: 2, totalOrders: 4, totalSales: 605 });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminAccessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/analytics/peak-hours?from=2026-01-01&to=2026-01-31",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "analytics",
+                "peak-hours"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "2026-01-01"
+                },
+                {
+                  "key": "to",
+                  "value": "2026-01-31"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Repeat Customers Analytics",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Repeat Customers Analytics returns 200', function () { pm.response.to.have.status(200); });",
+                  "var data = pm.response.json().data;",
+                  "pm.expect(data.summary).to.eql({ totalCustomers: 4, repeatCustomersCount: 3, repeatRatePercent: 75, activeCustomers: 3, activeRepeatCustomers: 2 });",
+                  "pm.expect(data.repeatCustomers.length).to.eql(2);",
+                  "pm.expect(data.repeatCustomers[0].name).to.eql('Aarav');",
+                  "pm.expect(data.repeatCustomers[1].name).to.eql('Sia');"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminAccessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/analytics/repeat-customers?from=2026-01-01&to=2026-01-31",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "analytics",
+                "repeat-customers"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "2026-01-01"
+                },
+                {
+                  "key": "to",
+                  "value": "2026-01-31"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Kitchen Analytics",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Kitchen Analytics returns 200', function () { pm.response.to.have.status(200); });",
+                  "var data = pm.response.json().data;",
+                  "pm.expect(data.summary).to.eql({ totalKitchenStaff: 3, activeKitchenStaff: 2, ordersHandled: 4, avgPreparationTimeMinutes: 22.5, readyOrders: 3, rejectedOrders: 1, delayedOrders: 0 });",
+                  "pm.expect(data.kitchenPerformance[0].name).to.eql('Kitchen One');",
+                  "pm.expect(data.kitchenPerformance[0].ordersHandled).to.eql(3);",
+                  "pm.expect(data.kitchenPerformance[1].name).to.eql('Kitchen Two');",
+                  "pm.expect(data.kitchenPerformance[2].name).to.eql('Kitchen Three');"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminAccessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/analytics/kitchen?from=2026-01-01&to=2026-01-31",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "analytics",
+                "kitchen"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "2026-01-01"
+                },
+                {
+                  "key": "to",
+                  "value": "2026-01-31"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Table Utilization Analytics",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Table Utilization Analytics returns 200', function () { pm.response.to.have.status(200); });",
+                  "var data = pm.response.json().data;",
+                  "pm.expect(data.summary).to.eql({ totalTables: 6, activeTables: 6, availableTables: 1, reservedTables: 1, occupiedTables: 1, paymentPendingTables: 1, needsCleaningTables: 1, cleaningInProgressTables: 1, totalCapacity: 22, occupancyRatePercent: 16.67 });",
+                  "pm.expect(data.tableUtilization.length).to.eql(6);",
+                  "pm.expect(data.sectionBreakdown.length).to.eql(4);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminAccessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/analytics/table-utilization",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "analytics",
+                "table-utilization"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Tables Alias",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Tables Alias returns 200', function () { pm.response.to.have.status(200); });",
+                  "var data = pm.response.json().data;",
+                  "pm.expect(data.tableUtilization.length).to.eql(6);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminAccessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/analytics/tables",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "analytics",
+                "tables"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Customer Retention Analytics",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Customer Retention Analytics returns 200', function () { pm.response.to.have.status(200); });",
+                  "var data = pm.response.json().data.customerRetention;",
+                  "pm.expect(data.summary).to.eql({ totalCustomers: 4, repeatCustomers: 3, activeCustomers: 3, repeatRatePercent: 75 });",
+                  "pm.expect(data.customers.length).to.eql(3);",
+                  "pm.expect(data.customers[0].name).to.eql('Aarav');"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminAccessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/analytics/customer-retention?from=2026-01-01&to=2026-01-31",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "analytics",
+                "customer-retention"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "2026-01-01"
+                },
+                {
+                  "key": "to",
+                  "value": "2026-01-31"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analytics Negative Cases",
+      "item": [
+        {
+          "name": "Revenue Invalid Date Range",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Revenue Invalid Date Range returns 400', function () { pm.response.to.have.status(400); });",
+                  "var error = pm.response.json().error;",
+                  "pm.expect(error.code).to.eql('VALIDATION_ERROR');",
+                  "pm.expect(error.fields.from[0]).to.eql('From date must be before or equal to to date');"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminAccessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/analytics/revenue?from=2026-02-01&to=2026-01-01",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "analytics",
+                "revenue"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "2026-02-01"
+                },
+                {
+                  "key": "to",
+                  "value": "2026-01-01"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Revenue Unauthorized",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Revenue Unauthorized returns 401', function () { pm.response.to.have.status(401); });",
+                  "var error = pm.response.json().error;",
+                  "pm.expect(error.code).to.eql('UNAUTHORIZED');"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/analytics/revenue",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "analytics",
+                "revenue"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Super Admin Revenue Missing Restaurant Context",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Super Admin Revenue Missing Restaurant Context returns 403', function () { pm.response.to.have.status(403); });",
+                  "var error = pm.response.json().error;",
+                  "pm.expect(error.code).to.eql('FORBIDDEN');",
+                  "pm.expect(error.message).to.eql('Restaurant context required');"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{superAdminAccessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/analytics/revenue",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "analytics",
+                "revenue"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "_postman_exported_at": "2026-06-15T17:30:00.000Z",
+  "_postman_exported_using": "Postman"
+}

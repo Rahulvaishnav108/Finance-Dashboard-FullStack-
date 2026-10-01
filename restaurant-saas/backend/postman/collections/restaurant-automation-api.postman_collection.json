@@ -1,0 +1,2603 @@
+{
+  "info": {
+    "_postman_id": "9f0dc5e0-6cab-442f-9d63-restaurant-automation-api",
+    "name": "Restaurant Automation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01-Health",
+      "item": [
+        {
+          "name": "Health",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/health"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Health returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Ready",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/ready"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Ready returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "API Root",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('API Root returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "02-Auth",
+      "item": [
+        {
+          "name": "Login Admin",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\",\n  \"deviceLabel\": \"VS Code Postman\"\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Login Admin returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.accessToken).to.be.a('string');",
+                  "pm.environment.set('adminAccessToken', json.data.accessToken);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login Customer",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{customerEmail}}\",\n  \"password\": \"{{customerPassword}}\",\n  \"deviceLabel\": \"VS Code Postman\"\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Login Customer returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.accessToken).to.be.a('string');",
+                  "pm.environment.set('customerAccessToken', json.data.accessToken);",
+                  "pm.environment.set('customerRefreshToken', json.data.refreshToken);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login Staff",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{staffEmail}}\",\n  \"password\": \"{{staffPassword}}\",\n  \"deviceLabel\": \"VS Code Postman\"\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Login Staff returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.environment.set('staffAccessToken', json.data.accessToken);",
+                  "pm.environment.set('staffUserId', json.data.user.id || json.data.user._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login Kitchen",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{kitchenEmail}}\",\n  \"password\": \"{{kitchenPassword}}\",\n  \"deviceLabel\": \"VS Code Postman\"\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Login Kitchen returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.environment.set('kitchenAccessToken', json.data.accessToken);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login Cleaning",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{cleaningEmail}}\",\n  \"password\": \"{{cleaningPassword}}\",\n  \"deviceLabel\": \"VS Code Postman\"\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Login Cleaning returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.environment.set('cleaningAccessToken', json.data.accessToken);",
+                  "pm.environment.set('cleaningUserId', json.data.user.id || json.data.user._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login Super Admin",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{superAdminEmail}}\",\n  \"password\": \"{{superAdminPassword}}\",\n  \"deviceLabel\": \"VS Code Postman\"\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Login Super Admin returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.environment.set('superAdminAccessToken', json.data.accessToken);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Auth Me",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/auth/me",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Auth Me returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.user.role).to.eql('restaurant-admin');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Refresh Customer",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/auth/refresh",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{customerRefreshToken}}\"\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Refresh Customer returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.environment.set('customerAccessToken', json.data.accessToken);",
+                  "pm.environment.set('customerRefreshToken', json.data.refreshToken);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "11-Admin",
+      "item": [
+        {
+          "name": "Overview",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/admin/restaurant/overview",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Overview returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Menu Categories",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/admin/menu/categories",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Admin Menu Categories returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Menu Items",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/admin/menu/items?page=1&limit=10",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Admin Menu Items returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "const firstItem = json.data.items && json.data.items[0];",
+                  "if (firstItem) { pm.environment.set('selectedAdminMenuItemId', firstItem.id || firstItem._id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Upload Menu Item Image",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/admin/menu/items/{{selectedAdminMenuItemId}}/image",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"image\": \"/uploads/postman-menu-image.png\"\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Upload Menu Item Image returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Table",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/admin/tables",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Postman Verify Table\",\n  \"number\": 81,\n  \"floor\": 2,\n  \"section\": \"Verify\",\n  \"capacity\": 4\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create Table returns 201', function () { pm.response.to.have.status(201); });",
+                  "const json = pm.response.json();",
+                  "pm.environment.set('createdTableId', json.data.table.id || json.data.table._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Generate Table QR",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/admin/tables/{{createdTableId}}/qr",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Generate Table QR returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.environment.set('createdQrToken', json.data.qrToken);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Staff",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/admin/staff",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Phase1 Service Staff\",\n  \"email\": \"phase1.staff.{{$timestamp}}@example.com\",\n  \"mobile\": \"8{{$timestamp}}\",\n  \"password\": \"Phase1@123\",\n  \"role\": \"service-staff\"\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create Staff returns 201', function () { pm.response.to.have.status(201); });",
+                  "const json = pm.response.json();",
+                  "pm.environment.set('createdAdminStaffId', json.data.staff.id || json.data.staff._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List Staff",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/admin/staff?q=Phase1%20Service",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('List Staff returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect((json.data.staff || []).length).to.be.greaterThan(0);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Assign Staff Shift",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/admin/staff/shifts",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"staffId\": \"{{createdAdminStaffId}}\",\n  \"name\": \"Morning Service\",\n  \"startTime\": \"09:00\",\n  \"endTime\": \"17:00\",\n  \"days\": [\n    \"Mon\",\n    \"Tue\",\n    \"Wed\"\n  ]\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Assign Staff Shift returns 201', function () { pm.response.to.have.status(201); });",
+                  "const json = pm.response.json();",
+                  "pm.environment.set('createdStaffShiftId', json.data.shift.id || json.data.shift._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Staff Details",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/admin/staff/{{createdAdminStaffId}}",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Get Staff Details returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.staff.activeShift).to.not.equal(null);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update Staff",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/admin/staff/{{createdAdminStaffId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Phase1 Service Staff Updated\",\n  \"status\": \"INACTIVE\"\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Update Staff returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.staff.status).to.eql('INACTIVE');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Offer",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/admin/offers",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Phase1 Offer {{$timestamp}}\",\n  \"code\": \"P1{{$timestamp}}\",\n  \"discountPercent\": 15\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create Offer returns 201', function () { pm.response.to.have.status(201); });",
+                  "const json = pm.response.json();",
+                  "pm.environment.set('createdOfferId', json.data.offer.id || json.data.offer._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List Offers",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/admin/offers",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('List Offers returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Offer",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/admin/offers/{{createdOfferId}}",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Get Offer returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update Offer",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/admin/offers/{{createdOfferId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"discountPercent\": 20,\n  \"active\": false\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Update Offer returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.offer.discountPercent).to.eql(20);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Inventory Item",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/admin/inventory",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Phase1 Inventory {{$timestamp}}\",\n  \"stock\": 3,\n  \"unit\": \"kg\",\n  \"threshold\": 5\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create Inventory Item returns 201', function () { pm.response.to.have.status(201); });",
+                  "const json = pm.response.json();",
+                  "pm.environment.set('createdInventoryItemId', json.data.item.id || json.data.item._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List Inventory",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/admin/inventory",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('List Inventory returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update Inventory Item",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/admin/inventory/{{createdInventoryItemId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"stock\": 2,\n  \"threshold\": 4\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Update Inventory Item returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.item.stock).to.eql(2);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Inventory Alerts",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/admin/inventory/alerts",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Inventory Alerts returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect((json.data.alerts || []).length).to.be.greaterThan(0);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete Offer",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/admin/offers/{{createdOfferId}}",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Delete Offer returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete Staff",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/admin/staff/{{createdAdminStaffId}}",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Delete Staff returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Upload",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/uploads",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fileName\": \"postman-upload.txt\",\n  \"text\": \"Postman upload verification\",\n  \"mimeType\": \"text/plain\"\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Upload returns 201', function () { pm.response.to.have.status(201); });",
+                  "const json = pm.response.json();",
+                  "pm.environment.set('createdUploadUrl', json.data.upload.url);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "03-Public",
+      "item": [
+        {
+          "name": "Get Restaurant",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/public/restaurants/amber-table"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Get Restaurant returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.environment.set('restaurantId', json.data.restaurant.id || json.data.restaurant._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Public Menu",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/public/menu/{{restaurantId}}?veg=true&search=pizza&sortBy=price"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Public Menu returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Table Session",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/public/table-session/create",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"{{createdQrToken}}\",\n  \"customerName\": \"Postman Guest\",\n  \"mobile\": \"9876543210\",\n  \"partySize\": 2\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create Table Session returns 201', function () { pm.response.to.have.status(201); });",
+                  "const json = pm.response.json();",
+                  "pm.environment.set('createdSessionToken', json.data.session.token || json.data.sessionToken);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Validate Table Session",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/public/table-session/validate",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"{{createdSessionToken}}\"\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Validate Table Session returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Search",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/search?q=pizza",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Search returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect((json.data.menuItems || []).length).to.be.greaterThan(0);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "04-Customer",
+      "item": [
+        {
+          "name": "Menu Categories",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/customer/menu/categories",
+            "header": [
+              {
+                "key": "x-session-token",
+                "value": "{{createdSessionToken}}"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Customer Menu Categories returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Menu Items",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/customer/menu/items?veg=true&available=true&sortBy=price",
+            "header": [
+              {
+                "key": "x-session-token",
+                "value": "{{createdSessionToken}}"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Customer Menu Items returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "const items = json.data.items || [];",
+                  "const firstAvailableItem = items.find((entry) => entry && entry.isAvailable !== false);",
+                  "if (firstAvailableItem) { pm.environment.set('selectedMenuItemId', firstAvailableItem.id || firstAvailableItem._id); }",
+                  "pm.expect(items.length).to.be.greaterThan(0);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Menu Item Details",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/customer/menu/items/{{selectedMenuItemId}}",
+            "header": [
+              {
+                "key": "x-session-token",
+                "value": "{{createdSessionToken}}"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Menu Item Details returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Waiter Request",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/customer/requests/waiter",
+            "header": [
+              {
+                "key": "x-session-token",
+                "value": "{{createdSessionToken}}"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Waiter Request returns 201', function () { pm.response.to.have.status(201); });",
+                  "const json = pm.response.json();",
+                  "pm.environment.set('createdWaiterRequestId', json.data.request.id || json.data.request._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Cleaning Request",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/customer/requests/cleaning",
+            "header": [
+              {
+                "key": "x-session-token",
+                "value": "{{createdSessionToken}}"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Cleaning Request returns 201', function () { pm.response.to.have.status(201); });",
+                  "const json = pm.response.json();",
+                  "pm.environment.set('createdCleaningRequestId', json.data.request.id || json.data.request._id);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "05-Cart",
+      "item": [
+        {
+          "name": "Get Cart",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/customer/cart",
+            "header": [
+              {
+                "key": "x-session-token",
+                "value": "{{createdSessionToken}}"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Get Cart returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Add Cart Item",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/customer/cart/items",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"menuItem\": \"{{selectedMenuItemId}}\",\n  \"quantity\": 2,\n  \"notes\": \"extra cheese\"\n}"
+            },
+            "header": [
+              {
+                "key": "x-session-token",
+                "value": "{{createdSessionToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Add Cart Item returns 201', function () { pm.response.to.have.status(201); });",
+                  "const json = pm.response.json();",
+                  "const items = json.data.items || [];",
+                  "const item = items[items.length - 1];",
+                  "if (item) { pm.environment.set('createdCartItemId', item.id || item._id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update Cart Item",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/customer/cart/items/{{createdCartItemId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 3,\n  \"notes\": \"extra cheese and basil\"\n}"
+            },
+            "header": [
+              {
+                "key": "x-session-token",
+                "value": "{{createdSessionToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Update Cart Item returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Add Removable Cart Item",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/customer/cart/items",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"menuItem\": \"{{selectedMenuItemId}}\",\n  \"quantity\": 1,\n  \"notes\": \"remove me\"\n}"
+            },
+            "header": [
+              {
+                "key": "x-session-token",
+                "value": "{{createdSessionToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Add Removable Cart Item returns 201', function () { pm.response.to.have.status(201); });",
+                  "const json = pm.response.json();",
+                  "const items = json.data.items || [];",
+                  "const item = items[items.length - 1];",
+                  "if (item) { pm.environment.set('removableCartItemId', item.id || item._id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Remove Cart Item",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/customer/cart/items/{{removableCartItemId}}",
+            "header": [
+              {
+                "key": "x-session-token",
+                "value": "{{createdSessionToken}}"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Remove Cart Item returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "06-Orders",
+      "item": [
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/customer/orders",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"specialInstructions\": \"Less oil please\"\n}"
+            },
+            "header": [
+              {
+                "key": "x-session-token",
+                "value": "{{createdSessionToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create Order returns 201', function () { pm.response.to.have.status(201); });",
+                  "const json = pm.response.json();",
+                  "pm.environment.set('createdOrderId', json.data.order.id || json.data.order._id);",
+                  "pm.environment.set('createdOrderAmount', json.data.order.finalAmount);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Reorder Order",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/customer/orders/{{createdOrderId}}/reorder",
+            "header": [
+              {
+                "key": "x-session-token",
+                "value": "{{createdSessionToken}}"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Reorder Order returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.environment.set('reorderedOrderId', json.data.order.id || json.data.order._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Cancel Candidate",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/customer/orders/{{createdOrderId}}/reorder",
+            "header": [
+              {
+                "key": "x-session-token",
+                "value": "{{createdSessionToken}}"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create Cancel Candidate returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.environment.set('cancelCandidateOrderId', json.data.order.id || json.data.order._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Cancel Order Candidate",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/customer/orders/{{cancelCandidateOrderId}}/cancel",
+            "header": [
+              {
+                "key": "x-session-token",
+                "value": "{{createdSessionToken}}"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Cancel Order Candidate returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.order.status).to.eql('CANCELLED');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Clear Cart",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/customer/cart",
+            "header": [
+              {
+                "key": "x-session-token",
+                "value": "{{createdSessionToken}}"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Clear Cart returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "07-Kitchen",
+      "item": [
+        {
+          "name": "Dashboard",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/kitchen/dashboard",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{kitchenAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Kitchen Dashboard returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Orders",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/kitchen/orders",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{kitchenAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Kitchen Orders returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Accept Order",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/kitchen/orders/{{createdOrderId}}/accept",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estimatedPreparationTime\": 12\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{kitchenAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Accept Order returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.order.status).to.eql('CONFIRMED');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Start Order",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/kitchen/orders/{{createdOrderId}}/start",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{kitchenAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Start Order returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.order.status).to.eql('PREPARING');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delay Order",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/kitchen/orders/{{createdOrderId}}/delay",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"delayMinutes\": 5\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{kitchenAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Delay Order returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.order.status).to.eql('DELAYED');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Ready Order",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/kitchen/orders/{{createdOrderId}}/ready",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{kitchenAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Ready Order returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.order.status).to.eql('READY');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Reject Reordered Order",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/kitchen/orders/{{reorderedOrderId}}/reject",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Postman rejection path\"\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{kitchenAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Reject Reordered Order returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.order.status).to.eql('REJECTED');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Batch",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/kitchen/batches",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Phase1 Verify Batch\",\n  \"orderIds\": [\n    \"{{createdOrderId}}\"\n  ],\n  \"station\": \"Hot Line\"\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{kitchenAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create Batch returns 201', function () { pm.response.to.have.status(201); });",
+                  "const json = pm.response.json();",
+                  "pm.environment.set('createdBatchId', json.data.batch.id || json.data.batch._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Load",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/kitchen/load",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{kitchenAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Kitchen Load returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Performance",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/kitchen/performance",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{kitchenAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Kitchen Performance returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect((json.data.chefs || []).length).to.be.greaterThan(0);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "08-Staff",
+      "item": [
+        {
+          "name": "List Tables",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/staff/tables",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{staffAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('List Tables returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Queue",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/staff/queue",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{staffAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Queue returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Requests",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/staff/requests",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{staffAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Staff Requests returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Accept Waiter Request",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/staff/requests/{{createdWaiterRequestId}}/accept",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"staffId\": \"{{staffUserId}}\"\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{staffAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Accept Waiter Request returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.request.status).to.eql('ACCEPTED');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Complete Waiter Request",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/staff/requests/{{createdWaiterRequestId}}/complete",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{staffAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Complete Waiter Request returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.request.status).to.eql('COMPLETED');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Escalate Issue",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/staff/issues/escalate",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"staffId\": \"{{staffUserId}}\",\n  \"entityId\": \"{{createdTableId}}\",\n  \"entityType\": \"table\",\n  \"notes\": \"Postman escalation verification\"\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{staffAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Escalate Issue returns 201', function () { pm.response.to.have.status(201); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Ready Orders",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/staff/orders/ready",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{staffAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Ready Orders returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect((json.data.orders || []).length).to.be.greaterThan(0);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Pick Ready Order",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/staff/orders/{{createdOrderId}}/pick",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{staffAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Pick Ready Order returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.order.status).to.eql('PICKED');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Serve Ready Order",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/staff/orders/{{createdOrderId}}/serve",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{staffAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Serve Ready Order returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.order.status).to.eql('SERVED');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Complete Ready Order",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/staff/orders/{{createdOrderId}}/complete",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{staffAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Complete Ready Order returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.order.status).to.eql('COMPLETED');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Tasks",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/cleaning/tasks",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{cleaningAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Cleaning Tasks returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "const firstTask = json.data.tasks && json.data.tasks[0];",
+                  "if (firstTask) { pm.environment.set('createdCleaningTaskId', firstTask.id || firstTask._id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Start Task",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/cleaning/tasks/{{createdCleaningTaskId}}/start",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"staffId\": \"{{cleaningUserId}}\"\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{cleaningAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Start Task returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.task.status).to.eql('IN_PROGRESS');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Complete Task",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/cleaning/tasks/{{createdCleaningTaskId}}/complete",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{cleaningAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Complete Task returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.task.status).to.eql('COMPLETED');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Verify Task",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/cleaning/tasks/{{createdCleaningTaskId}}/verify",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"verifiedBy\": \"{{staffUserId}}\"\n}"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{cleaningAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Verify Task returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.task.status).to.eql('VERIFIED');"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "09-Billing",
+      "item": [
+        {
+          "name": "Create Payment",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/customer/payments/create",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"{{createdOrderId}}\",\n  \"amount\": \"{{createdOrderAmount}}\",\n  \"method\": \"UPI\"\n}"
+            },
+            "header": [
+              {
+                "key": "x-session-token",
+                "value": "{{createdSessionToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create Payment returns 201', function () { pm.response.to.have.status(201); });",
+                  "const json = pm.response.json();",
+                  "pm.environment.set('createdPaymentId', json.data.payment.id || json.data.payment._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Verify Payment",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/customer/payments/verify",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentId\": \"{{createdPaymentId}}\"\n}"
+            },
+            "header": [
+              {
+                "key": "x-session-token",
+                "value": "{{createdSessionToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Verify Payment returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "10-Notifications",
+      "item": [
+        {
+          "name": "Notifications",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/notifications",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Notifications returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "const firstNotification = json.data.notifications && json.data.notifications[0];",
+                  "if (firstNotification) { pm.environment.set('notificationId', firstNotification.id || firstNotification._id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Read Notification",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/notifications/{{notificationId}}/read",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Read Notification returns 200', function () { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.expect(json.data.notification.read).to.eql(true);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Read All Notifications",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/notifications/read-all",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Read All Notifications returns 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "{{baseUrl}}"
+    }
+  ],
+  "_postman_exported_using": "Postman",
+  "_postman_exported_at": "2026-05-19T07:21:15.165Z"
+}

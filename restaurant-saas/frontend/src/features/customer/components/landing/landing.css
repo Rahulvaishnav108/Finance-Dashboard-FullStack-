@@ -1,0 +1,600 @@
+/* ═══════════════════════════════════════════════════════════
+   RestoHub Landing Page — Custom Animations & Styles
+   Only used by components in features/customer/components/landing/
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── Typography ─────────────────────────────────────────── */
+.landing-font-inter {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.landing-font-hero {
+  font-family: 'Playfair Display', 'Georgia', serif;
+}
+
+/* ─── Shiny Shimmer Hover Effect ──────────────────────────── */
+@keyframes landing-shiny-move {
+  0%   { transform: translateX(-100%) rotate(25deg); }
+  100% { transform: translateX(400%) rotate(25deg); }
+}
+
+.landing-shiny {
+  position: relative;
+  overflow: hidden;
+}
+
+.landing-shiny::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 45%;
+  height: 200%;
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.18) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%) rotate(25deg);
+  pointer-events: none;
+  z-index: 2;
+  border-radius: inherit;
+  transition: none;
+}
+
+.landing-shiny:hover::before {
+  animation: landing-shiny-move 0.55s ease forwards;
+}
+
+/* Offer card (darker bg) — brighter shimmer */
+.landing-shiny-bright::before {
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.28) 50%,
+    transparent 70%
+  );
+}
+
+/* ─── Professional Image Load Effect ─────────────────────── */
+.landing-img-professional {
+  transition: filter 400ms ease, transform 400ms ease;
+  filter: brightness(0.95) saturate(1.05);
+}
+
+.landing-img-professional:hover {
+  filter: brightness(1.02) saturate(1.1);
+  transform: scale(1.05);
+}
+
+/* Image gradient overlay on hover */
+.landing-img-overlay-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.landing-img-overlay-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 50%,
+    rgba(15, 15, 15, 0.35) 100%
+  );
+  opacity: 0;
+  transition: opacity 250ms ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.landing-img-overlay-wrap:hover::after {
+  opacity: 1;
+}
+
+/* ─── Scroll-triggered fade-in ─────────────────────────────── */
+.landing-fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+
+.landing-fade-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered children fade-in */
+.landing-stagger > .landing-fade-in:nth-child(1) { transition-delay: 0ms; }
+.landing-stagger > .landing-fade-in:nth-child(2) { transition-delay: 80ms; }
+.landing-stagger > .landing-fade-in:nth-child(3) { transition-delay: 160ms; }
+.landing-stagger > .landing-fade-in:nth-child(4) { transition-delay: 240ms; }
+.landing-stagger > .landing-fade-in:nth-child(5) { transition-delay: 320ms; }
+.landing-stagger > .landing-fade-in:nth-child(6) { transition-delay: 400ms; }
+.landing-stagger > .landing-fade-in:nth-child(7) { transition-delay: 480ms; }
+.landing-stagger > .landing-fade-in:nth-child(8) { transition-delay: 560ms; }
+.landing-stagger > .landing-fade-in:nth-child(9) { transition-delay: 640ms; }
+
+/* ─── Card hover lift ──────────────────────────────────────── */
+.landing-card-hover {
+  transition: transform 250ms ease, box-shadow 250ms ease;
+}
+
+.landing-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* ─── Image zoom on hover ──────────────────────────────────── */
+.landing-img-zoom {
+  transition: transform 400ms ease;
+}
+
+.landing-img-zoom:hover {
+  transform: scale(1.05);
+}
+
+/* Parent-triggered image zoom */
+.landing-card-hover:hover .landing-img-zoom-child {
+  transform: scale(1.05);
+}
+
+.landing-img-zoom-child {
+  transition: transform 400ms ease;
+}
+
+/* ─── Favorite heart bounce ────────────────────────────────── */
+@keyframes landing-heart-bounce {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.3); }
+  60% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+.landing-heart-bounce {
+  animation: landing-heart-bounce 250ms ease;
+}
+
+/* ─── Pulse dot (live indicator) ───────────────────────────── */
+@keyframes landing-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.4); }
+}
+
+.landing-pulse-dot {
+  animation: landing-pulse 2s ease-in-out infinite;
+}
+
+/* ─── Count-up number shimmer ──────────────────────────────── */
+@keyframes landing-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ─── Navbar scroll transition ─────────────────────────────── */
+.landing-navbar-scrolled {
+  background: linear-gradient(135deg, rgba(15,15,15,0.97) 0%, rgba(30,20,10,0.95) 100%) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255,107,26,0.15);
+}
+
+/* ─── Navbar Capsule Hover Effect ─────────────────────────── */
+@keyframes landing-capsule-shine {
+  0%   { left: -100%; }
+  100% { left: 200%; }
+}
+
+.landing-nav-capsule {
+  position: relative;
+  padding: 6px 16px;
+  border-radius: 999px;
+  overflow: hidden;
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+}
+
+.landing-nav-capsule::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 107, 26, 0.25),
+    transparent
+  );
+  pointer-events: none;
+  z-index: 0;
+  border-radius: inherit;
+}
+
+.landing-nav-capsule:hover {
+  background: rgba(255, 107, 26, 0.12);
+  border-color: rgba(255, 107, 26, 0.35);
+  box-shadow: 0 0 18px rgba(255, 107, 26, 0.15), inset 0 0 12px rgba(255, 107, 26, 0.06);
+}
+
+.landing-nav-capsule:hover::before {
+  animation: landing-capsule-shine 0.6s ease forwards;
+}
+
+/* ─── Premium Button Effect ───────────────────────────────── */
+@keyframes landing-btn-vibrate {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-1px); }
+  75% { transform: translateX(1px); }
+}
+
+@keyframes landing-btn-shine {
+  0%   { left: -100%; }
+  100% { left: 200%; }
+}
+
+.landing-btn-premium {
+  position: relative;
+  overflow: hidden;
+  transition: all 250ms ease;
+}
+
+.landing-btn-premium::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.landing-btn-premium:hover {
+  animation: landing-btn-vibrate 80ms ease 2;
+  box-shadow: 0 4px 20px rgba(255, 107, 26, 0.35);
+}
+
+.landing-btn-premium:hover::after {
+  animation: landing-btn-shine 0.5s ease forwards;
+}
+
+/* ─── Particle Emit Effect ────────────────────────────────── */
+@keyframes landing-particle-1 {
+  0%   { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(-20px, -30px) scale(0); opacity: 0; }
+}
+@keyframes landing-particle-2 {
+  0%   { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(25px, -25px) scale(0); opacity: 0; }
+}
+@keyframes landing-particle-3 {
+  0%   { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(-15px, 20px) scale(0); opacity: 0; }
+}
+@keyframes landing-particle-4 {
+  0%   { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(20px, 18px) scale(0); opacity: 0; }
+}
+@keyframes landing-particle-5 {
+  0%   { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(-28px, -8px) scale(0); opacity: 0; }
+}
+@keyframes landing-particle-6 {
+  0%   { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(30px, -10px) scale(0); opacity: 0; }
+}
+
+.landing-particle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #FF6B1A;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.landing-particles-active .landing-particle:nth-child(1) { animation: landing-particle-1 0.6s ease forwards; }
+.landing-particles-active .landing-particle:nth-child(2) { animation: landing-particle-2 0.6s ease 0.05s forwards; }
+.landing-particles-active .landing-particle:nth-child(3) { animation: landing-particle-3 0.6s ease 0.1s forwards; }
+.landing-particles-active .landing-particle:nth-child(4) { animation: landing-particle-4 0.6s ease 0.07s forwards; }
+.landing-particles-active .landing-particle:nth-child(5) { animation: landing-particle-5 0.6s ease 0.12s forwards; }
+.landing-particles-active .landing-particle:nth-child(6) { animation: landing-particle-6 0.6s ease 0.03s forwards; }
+
+/* ─── Button Vibrate on Hover ─────────────────────────────── */
+@keyframes landing-vibrate-side {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-2px); }
+  40% { transform: translateX(2px); }
+  60% { transform: translateX(-1px); }
+  80% { transform: translateX(1px); }
+}
+
+.landing-btn-vibrate-hover:hover {
+  animation: landing-vibrate-side 0.3s ease;
+}
+
+/* ─── Continuous Marquee Strip ─────────────────────────────── */
+@keyframes landing-marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes landing-marquee-scroll-reverse {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.landing-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.landing-marquee-content {
+  display: inline-flex;
+  animation: landing-marquee-scroll 25s linear infinite;
+}
+
+.landing-marquee-content-reverse {
+  display: inline-flex;
+  animation: landing-marquee-scroll-reverse 25s linear infinite;
+}
+
+/* ─── Stamp Float Animation ───────────────────────────────── */
+@keyframes landing-stamp-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.landing-stamp-float {
+  animation: landing-stamp-float 3s ease-in-out infinite;
+}
+
+.landing-stamp-float-delay-1 { animation-delay: 0s; }
+.landing-stamp-float-delay-2 { animation-delay: 0.5s; }
+.landing-stamp-float-delay-3 { animation-delay: 1s; }
+.landing-stamp-float-delay-4 { animation-delay: 1.5s; }
+
+/* ─── Hemisphere Serve Animation ──────────────────────────── */
+@keyframes landing-serve-from-left {
+  0%   { transform: translateX(-120px) rotate(-8deg); opacity: 0; }
+  60%  { transform: translateX(10px) rotate(1deg); opacity: 1; }
+  100% { transform: translateX(0) rotate(0deg); opacity: 1; }
+}
+
+@keyframes landing-serve-from-right {
+  0%   { transform: translateX(120px) rotate(8deg); opacity: 0; }
+  60%  { transform: translateX(-10px) rotate(-1deg); opacity: 1; }
+  100% { transform: translateX(0) rotate(0deg); opacity: 1; }
+}
+
+.landing-serve-left {
+  opacity: 0;
+  transform: translateX(-120px) rotate(-8deg);
+}
+
+.landing-serve-left.is-served {
+  animation: landing-serve-from-left 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.landing-serve-right {
+  opacity: 0;
+  transform: translateX(120px) rotate(8deg);
+}
+
+.landing-serve-right.is-served {
+  animation: landing-serve-from-right 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ─── Swipe-in from sides ─────────────────────────────────── */
+@keyframes landing-swipe-from-left {
+  0%   { transform: translateX(-80px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes landing-swipe-from-right {
+  0%   { transform: translateX(80px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+.landing-swipe-left {
+  opacity: 0;
+  transform: translateX(-80px);
+}
+
+.landing-swipe-left.is-swiped {
+  animation: landing-swipe-from-left 0.6s ease forwards;
+}
+
+.landing-swipe-right {
+  opacity: 0;
+  transform: translateX(80px);
+}
+
+.landing-swipe-right.is-swiped {
+  animation: landing-swipe-from-right 0.6s ease forwards;
+}
+
+/* ─── Arrow rotate on hover ───────────────────────────────── */
+.landing-arrow-rotate {
+  display: inline-block;
+  transition: transform 250ms ease;
+}
+
+.landing-link-arrow:hover .landing-arrow-rotate {
+  transform: rotate(-45deg);
+}
+
+/* ─── Timeline progress line ──────────────────────────────── */
+@keyframes landing-line-grow {
+  from { width: 0%; }
+  to { width: var(--line-progress, 0%); }
+}
+
+.landing-timeline-line {
+  transition: width 400ms ease;
+}
+
+/* ─── Smooth section scroll ───────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ─── Hide scrollbar utility ──────────────────────────────── */
+.landing-hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.landing-hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─── Coupon copy flash ───────────────────────────────────── */
+@keyframes landing-copy-flash {
+  0% { background-color: transparent; }
+  30% { background-color: rgba(76, 175, 80, 0.1); }
+  100% { background-color: transparent; }
+}
+
+.landing-copy-flash {
+  animation: landing-copy-flash 400ms ease;
+}
+
+/* ─── Button press effect ─────────────────────────────────── */
+.landing-btn-press:active {
+  transform: scale(0.97);
+}
+
+/* ─── Mobile menu overlay ─────────────────────────────────── */
+.landing-mobile-menu-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.landing-mobile-menu-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 250ms ease, transform 250ms ease;
+}
+
+/* ─── Skeleton loader ─────────────────────────────────────── */
+@keyframes landing-skeleton {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.landing-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: landing-skeleton 1.5s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+/* ─── Chip active state glow ──────────────────────────────── */
+.landing-chip-active {
+  box-shadow: 0 2px 12px rgba(255, 107, 26, 0.3);
+}
+
+/* ─── Testimonial auto-slide ──────────────────────────────── */
+@keyframes landing-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.landing-slide-in {
+  animation: landing-slide-in 400ms ease;
+}
+
+/* ─── Focus ring for accessibility ────────────────────────── */
+.landing-focus-ring:focus-visible {
+  outline: 2px solid #FF6B1A;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* ─── Responsive image container ──────────────────────────── */
+.landing-img-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.landing-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ─── Blog Carousel Center Focus ──────────────────────────── */
+.landing-blog-card {
+  transition: transform 400ms ease, opacity 400ms ease;
+  will-change: transform, opacity;
+}
+
+/* ─── Decorative Background Elements ──────────────────────── */
+@keyframes landing-float-particle {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.4; }
+  50% { transform: translateY(-15px) rotate(180deg); opacity: 0.7; }
+}
+
+.landing-bg-particle {
+  animation: landing-float-particle 4s ease-in-out infinite;
+}
+
+/* ─── Glow Orb Effect ─────────────────────────────────────── */
+@keyframes landing-glow-pulse {
+  0%, 100% { opacity: 0.08; transform: scale(1); }
+  50% { opacity: 0.15; transform: scale(1.1); }
+}
+
+.landing-glow-orb {
+  animation: landing-glow-pulse 4s ease-in-out infinite;
+}
+
+/* ─── Footer Bubble Animation ─────────────────────────────── */
+@keyframes landing-bubble-rise {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.6);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateY(-150px) translateX(20px) scale(1);
+    opacity: 0.2;
+  }
+  85% {
+    opacity: 0.08;
+  }
+  100% {
+    transform: translateY(-350px) translateX(-15px) scale(0.7);
+    opacity: 0;
+  }
+}
+
+.landing-bubble {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 107, 26, 0.2);
+  background: radial-gradient(circle, rgba(255, 107, 26, 0.08) 0%, rgba(255, 107, 26, 0.02) 100%);
+  animation: landing-bubble-rise linear infinite;
+  pointer-events: none;
+  box-shadow: 0 0 8px rgba(255, 107, 26, 0.05);
+}

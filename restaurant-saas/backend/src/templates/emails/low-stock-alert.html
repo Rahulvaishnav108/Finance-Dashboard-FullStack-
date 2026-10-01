@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Low Stock Alert</title>
+  <style>
+    body { font-family: 'Inter', Arial, sans-serif; background-color: #f4f4f5; margin: 0; padding: 0; }
+    .container { max-width: 600px; margin: 40px auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); }
+    .header { background-color: #ef4444; padding: 32px; text-align: center; color: #ffffff; }
+    .header h1 { margin: 0; font-size: 24px; font-weight: 600; }
+    .content { padding: 40px 32px; color: #3f3f46; line-height: 1.6; }
+    .details-box { background-color: #fef2f2; border: 1px solid #fca5a5; border-radius: 8px; padding: 24px; margin: 24px 0; }
+    .detail-row { display: flex; justify-content: space-between; margin-bottom: 12px; }
+    .detail-row:last-child { margin-bottom: 0; }
+    .detail-label { font-weight: 600; color: #b91c1c; }
+    .detail-value { font-weight: 500; color: #7f1d1d; }
+    .footer { padding: 24px; text-align: center; color: #71717a; font-size: 14px; border-top: 1px solid #e4e4e7; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Low Stock Alert</h1>
+    </div>
+    <div class="content">
+      <p>Hello,</p>
+      <p>This is an automated alert from <strong>{{restaurantName}}</strong> inventory management system.</p>
+      <p>The following item has fallen below its reorder threshold and requires your attention:</p>
+
+      <div class="details-box">
+        <div class="detail-row">
+          <span class="detail-label">Item Name:</span>
+          <span class="detail-value">{{itemName}}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Current Stock:</span>
+          <span class="detail-value">{{currentStock}} {{unit}}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Reorder Threshold:</span>
+          <span class="detail-value">{{threshold}} {{unit}}</span>
+        </div>
+      </div>
+
+      <p><strong>Suggested Action:</strong> Please restock this item soon to avoid running out of supplies.</p>
+    </div>
+    <div class="footer">
+      Automated Inventory Alert for {{restaurantName}}
+    </div>
+  </div>
+</body>
+</html>

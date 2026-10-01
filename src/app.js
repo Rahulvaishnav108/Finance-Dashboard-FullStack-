@@ -29,6 +29,7 @@ app.set('trust proxy', config.trustProxy);
 
 // ─── Security headers ────────────────────────────────────────────────────────
 app.use(helmet({
+  frameguard: false,
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
@@ -40,7 +41,7 @@ app.use(helmet({
       fontSrc: ["'self'", 'data:'],
       objectSrc: ["'none'"],
       baseUri: ["'self'"],
-      frameAncestors: ["'self'"],
+      frameAncestors: ["'self'", ...config.csp.frameAncestors],
     },
   },
 }));
