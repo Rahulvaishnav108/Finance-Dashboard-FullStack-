@@ -12,7 +12,7 @@ interface StatItem {
 
 const STATS: StatItem[] = [
   { value: 120, suffix: '+', label: 'Tables Available Now', isLive: true, emoji: '🪑', accent: '#4CAF50' },
-  { value: 85, suffix: '', label: 'Restaurants Open', isLive: true, emoji: '🍽️', accent: '#FF6B1A' },
+  { value: 85, suffix: '', label: 'Restaurants Open', isLive: true, emoji: '🍽️', accent: '#286451' },
   { value: 15, suffix: ' min', prefix: '~', label: 'Average Wait Time', emoji: '⏱️', accent: '#2196F3' },
   { value: 340, suffix: '+', label: 'Reservations Today', emoji: '📋', accent: '#9C27B0' },
   { value: 50, suffix: '+', label: 'Offers Running', isLive: true, emoji: '🎁', accent: '#E91E63' },
@@ -71,8 +71,8 @@ export default function LiveAvailabilityStrip() {
       className="py-6 sm:py-8 landing-marquee"
       style={{
         background: 'linear-gradient(135deg, #0F0F0F 0%, #1A1008 50%, #0F0F0F 100%)',
-        borderTop: '1px solid rgba(255,107,26,0.15)',
-        borderBottom: '1px solid rgba(255,107,26,0.15)',
+        borderTop: '1px solid rgba(40,100,81,0.15)',
+        borderBottom: '1px solid rgba(40,100,81,0.15)',
       }}
     >
       <div className="landing-marquee-content">

@@ -82,7 +82,7 @@ export default function DigitalDiningJourney() {
           {/* Faint branding watermark */}
           <div
             className="absolute bottom-4 left-4 text-[11px] font-bold tracking-wider uppercase"
-            style={{ color: 'rgba(255,107,26,0.5)' }}
+            style={{ color: 'rgba(40,100,81,0.5)' }}
           >
             RestoHub
           </div>
@@ -114,7 +114,7 @@ export default function DigitalDiningJourney() {
           {/* Faint branding watermark */}
           <div
             className="absolute bottom-4 right-4 text-[11px] font-bold tracking-wider uppercase"
-            style={{ color: 'rgba(255,107,26,0.5)' }}
+            style={{ color: 'rgba(40,100,81,0.5)' }}
           >
             RestoHub
           </div>
@@ -128,7 +128,7 @@ export default function DigitalDiningJourney() {
           width: '500px',
           height: '500px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255,107,26,0.05) 0%, transparent 60%)',
+          background: 'radial-gradient(circle, rgba(40,100,81,0.05) 0%, transparent 60%)',
         }}
       />
 
@@ -139,7 +139,7 @@ export default function DigitalDiningJourney() {
             className="text-[28px] sm:text-[32px] lg:text-[40px] font-bold"
             style={{ color: '#222222' }}
           >
-            The Digital Dining <span style={{ color: '#FF6B1A' }}>Experience</span>
+            The Digital Dining <span style={{ color: '#286451' }}>Experience</span>
           </h2>
           <p className="text-[15px] mt-2 max-w-[480px] mx-auto" style={{ color: '#666666' }}>
             From discovery to feedback — one seamless journey
@@ -159,7 +159,7 @@ export default function DigitalDiningJourney() {
             <div
               className="absolute top-[24px] left-[40px] h-[3px] landing-timeline-line"
               style={{
-                backgroundColor: '#FF6B1A',
+                backgroundColor: '#286451',
                 borderRadius: '2px',
                 width: `${(activeStep / (STEPS.length - 1)) * (100 - 10)}%`,
               }}
@@ -184,10 +184,10 @@ export default function DigitalDiningJourney() {
                     <div
                       className="w-[48px] h-[48px] rounded-full flex items-center justify-center transition-all duration-300 relative z-10"
                       style={{
-                        backgroundColor: isPast ? '#FF6B1A' : '#FFFFFF',
-                        border: `2px solid ${isPast ? '#FF6B1A' : '#E5E7EB'}`,
+                        backgroundColor: isPast ? '#286451' : '#FFFFFF',
+                        border: `2px solid ${isPast ? '#286451' : '#E5E7EB'}`,
                         transform: isActive ? 'scale(1.15)' : 'scale(1)',
-                        boxShadow: isActive ? '0 4px 12px rgba(255,107,26,0.3)' : 'none',
+                        boxShadow: isActive ? '0 4px 12px rgba(40,100,81,0.3)' : 'none',
                       }}
                     >
                       <Icon
@@ -199,7 +199,7 @@ export default function DigitalDiningJourney() {
                     {/* Label */}
                     <span
                       className="text-[12px] font-semibold mt-3 transition-colors duration-300"
-                      style={{ color: isPast ? '#FF6B1A' : '#222222' }}
+                      style={{ color: isPast ? '#286451' : '#222222' }}
                     >
                       {step.title}
                     </span>
@@ -228,7 +228,7 @@ export default function DigitalDiningJourney() {
             <div
               className="absolute left-[15px] top-0 w-[2px] transition-all duration-500"
               style={{
-                backgroundColor: '#FF6B1A',
+                backgroundColor: '#286451',
                 height: `${((activeStep + 1) / STEPS.length) * 100}%`,
               }}
             />
@@ -251,8 +251,8 @@ export default function DigitalDiningJourney() {
                     <div
                       className="w-[32px] h-[32px] rounded-full flex items-center justify-center shrink-0 absolute -left-8 transition-all duration-300 z-10"
                       style={{
-                        backgroundColor: isPast ? '#FF6B1A' : '#FFFFFF',
-                        border: `2px solid ${isPast ? '#FF6B1A' : '#E5E7EB'}`,
+                        backgroundColor: isPast ? '#286451' : '#FFFFFF',
+                        border: `2px solid ${isPast ? '#286451' : '#E5E7EB'}`,
                         transform: isActive ? 'scale(1.15)' : 'scale(1)',
                       }}
                     >
@@ -266,7 +266,7 @@ export default function DigitalDiningJourney() {
                     <div className="ml-2 pb-2">
                       <span
                         className="text-[15px] font-semibold block transition-colors duration-300"
-                        style={{ color: isPast ? '#FF6B1A' : '#222222' }}
+                        style={{ color: isPast ? '#286451' : '#222222' }}
                       >
                         {step.title}
                       </span>

@@ -40,7 +40,7 @@ function MarqueeStrip({ reverse = false }: { reverse?: boolean }) {
             key={i}
             className="text-[12px] sm:text-[13px] font-semibold tracking-[0.2em] uppercase whitespace-nowrap mx-0"
             style={{
-              background: 'linear-gradient(90deg, #FF6B1A, #FFB74D, #FF6B1A)',
+              background: 'linear-gradient(90deg, #286451, #FFB74D, #286451)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
@@ -95,7 +95,7 @@ export default function TrendingDishes({ onLoginOpen }: TrendingDishesProps) {
                 className="text-[28px] sm:text-[32px] lg:text-[40px] font-bold"
                 style={{ color: '#222222' }}
               >
-                Popular <span style={{ color: '#FF6B1A' }}>Dishes</span>
+                Popular <span style={{ color: '#286451' }}>Dishes</span>
               </h2>
               <p className="text-[15px] mt-1" style={{ color: '#666666' }}>
                 Most loved dishes by our customers
@@ -103,7 +103,7 @@ export default function TrendingDishes({ onLoginOpen }: TrendingDishesProps) {
             </div>
             <button
               className="hidden sm:flex items-center gap-1 text-[14px] font-semibold transition-colors duration-150 landing-btn-premium px-4 py-2"
-              style={{ color: '#FF6B1A', borderRadius: '10px' }}
+              style={{ color: '#286451', borderRadius: '10px' }}
             >
               View All Dishes →
             </button>
@@ -151,7 +151,7 @@ function DishCard({ dish, onLoginOpen }: { dish: Dish; onLoginOpen: () => void }
             borderRadius: '8px',
           }}
         >
-          <Star className="w-[12px] h-[12px]" style={{ color: '#FF6B1A', fill: '#FF6B1A' }} />
+          <Star className="w-[12px] h-[12px]" style={{ color: '#286451', fill: '#286451' }} />
           <span className="text-[12px] font-bold" style={{ color: '#222222' }}>
             {dish.rating}
           </span>
@@ -164,7 +164,7 @@ function DishCard({ dish, onLoginOpen }: { dish: Dish; onLoginOpen: () => void }
           {dish.name}
         </h4>
 
-        <p className="text-[16px] sm:text-[18px] font-bold mt-1" style={{ color: '#FF6B1A' }}>
+        <p className="text-[16px] sm:text-[18px] font-bold mt-1" style={{ color: '#286451' }}>
           ₹{dish.price}
         </p>
 
@@ -178,15 +178,15 @@ function DishCard({ dish, onLoginOpen }: { dish: Dish; onLoginOpen: () => void }
           onClick={onLoginOpen}
           className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 w-[34px] h-[34px] sm:w-[36px] sm:h-[36px] rounded-full flex items-center justify-center text-white transition-all duration-150 landing-btn-press"
           style={{
-            backgroundColor: '#FF6B1A',
-            boxShadow: '0 2px 8px rgba(255,107,26,0.3)',
+            backgroundColor: '#286451',
+            boxShadow: '0 2px 8px rgba(40,100,81,0.3)',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = '#E65A0A';
+            e.currentTarget.style.backgroundColor = '#1F4F40';
             e.currentTarget.style.transform = 'scale(1.1)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = '#FF6B1A';
+            e.currentTarget.style.backgroundColor = '#286451';
             e.currentTarget.style.transform = 'scale(1)';
           }}
           aria-label={`Add ${dish.name} to cart`}

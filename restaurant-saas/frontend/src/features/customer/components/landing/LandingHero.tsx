@@ -33,7 +33,7 @@ export default function LandingHero({
         <div className="max-w-3xl">
           <h1 className="text-5xl lg:text-7xl font-extrabold text-white leading-tight mb-6">
             Discover Great Food <br />
-            <span className="text-[#FF5722]">Near</span> You
+            <span className="text-[#286451]">Near</span> You
           </h1>
           <p className="text-xl text-gray-200 mb-10 max-w-xl font-medium">
             Explore top restaurants, book your table, and enjoy exclusive offers all in one place.
@@ -73,7 +73,7 @@ export default function LandingHero({
 
             <button
               type="submit"
-              className="bg-[#FF5722] hover:bg-orange-600 text-white px-8 py-3.5 rounded-xl font-bold flex items-center gap-2 w-full md:w-auto justify-center transition-all active:scale-95 shadow-md shadow-orange-500/20"
+              className="bg-[#286451] hover:bg-orange-600 text-white px-8 py-3.5 rounded-xl font-bold flex items-center gap-2 w-full md:w-auto justify-center transition-all active:scale-95 shadow-md shadow-orange-500/20"
             >
               Search
               <Search className="h-4 w-4" />
@@ -84,7 +84,7 @@ export default function LandingHero({
           <div className="flex flex-wrap gap-4 mb-12">
             <a
               href="#restaurants"
-              className="bg-[#FF5722] hover:bg-orange-600 text-white px-6 py-3.5 rounded-xl font-bold flex items-center gap-2 transition-all active:scale-95 shadow-lg shadow-orange-500/10"
+              className="bg-[#286451] hover:bg-orange-600 text-white px-6 py-3.5 rounded-xl font-bold flex items-center gap-2 transition-all active:scale-95 shadow-lg shadow-orange-500/10"
             >
               Explore Restaurants
               <ArrowRight className="h-4 w-4" />
@@ -101,7 +101,7 @@ export default function LandingHero({
           {/* Trust Badges */}
           <div className="flex flex-wrap items-center gap-x-8 gap-y-4 text-white text-sm opacity-90 border-t border-white/10 pt-6">
             <div className="flex items-center gap-2 font-semibold">
-              <svg className="w-5 h-5 text-[#FF5722]" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-5 h-5 text-[#286451]" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   clipRule="evenodd"
                   d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -111,7 +111,7 @@ export default function LandingHero({
               Verified Restaurants
             </div>
             <div className="flex items-center gap-2 font-semibold">
-              <svg className="w-5 h-5 text-[#FF5722]" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-5 h-5 text-[#286451]" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
                 <path
                   clipRule="evenodd"
@@ -122,7 +122,7 @@ export default function LandingHero({
               Easy Reservations
             </div>
             <div className="flex items-center gap-2 font-semibold">
-              <svg className="w-5 h-5 text-[#FF5722]" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-5 h-5 text-[#286451]" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   clipRule="evenodd"
                   d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z"
@@ -132,7 +132,7 @@ export default function LandingHero({
               Exclusive Offers
             </div>
             <div className="flex items-center gap-2 font-semibold">
-              <svg className="w-5 h-5 text-[#FF5722]" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-5 h-5 text-[#286451]" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
               </svg>
               24/7 Support

@@ -132,7 +132,7 @@ export default function TrendingRestaurants({ onLoginOpen }: TrendingRestaurants
               className="text-[28px] sm:text-[32px] lg:text-[40px] font-bold landing-font-hero"
               style={{ color: '#222222' }}
             >
-              Trending <span style={{ color: '#FF6B1A' }}>Restaurants</span>
+              Trending <span style={{ color: '#286451' }}>Restaurants</span>
             </h2>
             <p className="text-[15px] mt-1" style={{ color: '#666666' }}>
               Handpicked top-rated restaurants near you
@@ -146,7 +146,7 @@ export default function TrendingRestaurants({ onLoginOpen }: TrendingRestaurants
               className="flex items-center gap-2 px-5 py-2.5 text-[14px] font-semibold transition-all duration-200 landing-btn-vibrate-hover landing-btn-premium landing-focus-ring"
               style={{
                 color: '#FFFFFF',
-                background: 'linear-gradient(135deg, #FF6B1A, #E65A0A)',
+                background: 'linear-gradient(135deg, #286451, #1F4F40)',
                 borderRadius: '14px',
               }}
             >
@@ -158,10 +158,10 @@ export default function TrendingRestaurants({ onLoginOpen }: TrendingRestaurants
             <div className={`absolute inset-0 pointer-events-none ${isParticlesActive ? 'landing-particles-active' : ''}`}>
               <span className="landing-particle" style={{ top: '50%', left: '50%' }} />
               <span className="landing-particle" style={{ top: '30%', left: '40%', background: '#FF8C42' }} />
-              <span className="landing-particle" style={{ top: '60%', left: '60%', background: '#E65A0A' }} />
+              <span className="landing-particle" style={{ top: '60%', left: '60%', background: '#1F4F40' }} />
               <span className="landing-particle" style={{ top: '20%', left: '70%', width: '4px', height: '4px' }} />
               <span className="landing-particle" style={{ top: '70%', left: '30%', background: '#FFB74D', width: '3px', height: '3px' }} />
-              <span className="landing-particle" style={{ top: '40%', left: '80%', background: '#FF6B1A', width: '6px', height: '6px' }} />
+              <span className="landing-particle" style={{ top: '40%', left: '80%', background: '#286451', width: '6px', height: '6px' }} />
             </div>
           </div>
         </div>
@@ -169,9 +169,9 @@ export default function TrendingRestaurants({ onLoginOpen }: TrendingRestaurants
         {/* Row 1 */}
         <div className="relative mb-6">
           <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2.5 px-4 py-1.5" style={{ background: 'linear-gradient(135deg, rgba(255,107,26,0.1), rgba(255,107,26,0.05))', borderRadius: '999px', border: '1px solid rgba(255,107,26,0.15)' }}>
-              <Crown className="w-[15px] h-[15px]" style={{ color: '#FF6B1A' }} />
-              <span className="text-[13px] font-bold uppercase tracking-wider" style={{ color: '#FF6B1A' }}>
+            <div className="flex items-center gap-2.5 px-4 py-1.5" style={{ background: 'linear-gradient(135deg, rgba(40,100,81,0.1), rgba(40,100,81,0.05))', borderRadius: '999px', border: '1px solid rgba(40,100,81,0.15)' }}>
+              <Crown className="w-[15px] h-[15px]" style={{ color: '#286451' }} />
+              <span className="text-[13px] font-bold uppercase tracking-wider" style={{ color: '#286451' }}>
                 Featured Selection
               </span>
             </div>
@@ -200,9 +200,9 @@ export default function TrendingRestaurants({ onLoginOpen }: TrendingRestaurants
         {/* Row 2 */}
         <div className="relative">
           <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2.5 px-4 py-1.5" style={{ background: 'linear-gradient(135deg, rgba(255,107,26,0.1), rgba(255,107,26,0.05))', borderRadius: '999px', border: '1px solid rgba(255,107,26,0.15)' }}>
-              <TrendingUp className="w-[15px] h-[15px]" style={{ color: '#FF6B1A' }} />
-              <span className="text-[13px] font-bold uppercase tracking-wider" style={{ color: '#FF6B1A' }}>
+            <div className="flex items-center gap-2.5 px-4 py-1.5" style={{ background: 'linear-gradient(135deg, rgba(40,100,81,0.1), rgba(40,100,81,0.05))', borderRadius: '999px', border: '1px solid rgba(40,100,81,0.15)' }}>
+              <TrendingUp className="w-[15px] h-[15px]" style={{ color: '#286451' }} />
+              <span className="text-[13px] font-bold uppercase tracking-wider" style={{ color: '#286451' }}>
                 Popular Near You
               </span>
             </div>
@@ -234,7 +234,7 @@ export default function TrendingRestaurants({ onLoginOpen }: TrendingRestaurants
             className="text-[14px] font-semibold px-6 py-3 transition-colors duration-150 landing-btn-premium"
             style={{
               color: '#FFFFFF',
-              background: 'linear-gradient(135deg, #FF6B1A, #E65A0A)',
+              background: 'linear-gradient(135deg, #286451, #1F4F40)',
               borderRadius: '14px',
             }}
           >

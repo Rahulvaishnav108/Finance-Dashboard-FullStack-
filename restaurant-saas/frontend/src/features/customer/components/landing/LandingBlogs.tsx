@@ -49,7 +49,7 @@ export default function LandingBlogs(): JSX.Element {
           </div>
           <a
             href="#blog"
-            className="text-[#FF5722] hover:text-orange-600 font-bold text-sm flex items-center gap-1 transition-colors"
+            className="text-[#286451] hover:text-orange-600 font-bold text-sm flex items-center gap-1 transition-colors"
           >
             View All Blogs
             <ArrowRight className="w-4 h-4" />
@@ -67,12 +67,12 @@ export default function LandingBlogs(): JSX.Element {
                   src={post.image}
                   loading="lazy"
                 />
-                <span className="absolute top-4 left-4 bg-[#FF5722] text-white text-[10px] font-bold uppercase px-3 py-1 rounded-full shadow-sm">
+                <span className="absolute top-4 left-4 bg-[#286451] text-white text-[10px] font-bold uppercase px-3 py-1 rounded-full shadow-sm">
                   {post.category}
                 </span>
               </div>
               <div className="p-5 flex flex-col flex-1 justify-between">
-                <h3 className="font-bold text-gray-800 text-lg mb-3 leading-snug group-hover:text-[#FF5722] transition-colors line-clamp-2">
+                <h3 className="font-bold text-gray-800 text-lg mb-3 leading-snug group-hover:text-[#286451] transition-colors line-clamp-2">
                   {post.title}
                 </h3>
                 <div className="flex items-center text-gray-400 text-xs gap-4 pt-3 border-t border-gray-50 font-semibold mt-auto">

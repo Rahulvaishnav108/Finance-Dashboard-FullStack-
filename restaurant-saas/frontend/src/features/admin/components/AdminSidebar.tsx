@@ -69,10 +69,10 @@ export function AdminSidebar({ collapsed, onToggle, onItemClick }: AdminSidebarP
           tabIndex={0}
           onKeyDown={(e) => e.key === 'Enter' && navigate('/admin')}
         >
-          <div className="flex-shrink-0 w-9 h-9 rounded-xl bg-orange-500 flex items-center justify-center shadow-md">
+          <div className="flex-shrink-0 w-9 h-9 rounded-xl bg-primary flex items-center justify-center shadow-md">
             <UtensilsCrossed className="w-5 h-5 text-white" />
           </div>
-          {!collapsed && <span className="font-extrabold text-lg text-orange-500 tracking-tight">RestoHub</span>}
+          {!collapsed && <span className="font-extrabold text-lg text-primary tracking-tight">RestoHub</span>}
         </div>
         <button
           onClick={onToggle}
@@ -110,12 +110,12 @@ export function AdminSidebar({ collapsed, onToggle, onItemClick }: AdminSidebarP
               onClick={onItemClick}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all group ${
                 isActive
-                  ? 'bg-orange-50 dark:bg-orange-950/40 text-orange-500 dark:text-orange-400'
+                  ? 'bg-primary/10 text-primary dark:bg-primary/20'
                   : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
               }`}
               title={collapsed ? label : undefined}
             >
-              <Icon className={`w-[18px] h-[18px] flex-shrink-0 transition-colors ${isActive ? 'text-orange-500 dark:text-orange-400' : 'text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300'}`} />
+              <Icon className={`w-[18px] h-[18px] flex-shrink-0 transition-colors ${isActive ? 'text-primary' : 'text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300'}`} />
               {!collapsed && <span className="truncate">{label}</span>}
             </NavLink>
           );
@@ -124,8 +124,8 @@ export function AdminSidebar({ collapsed, onToggle, onItemClick }: AdminSidebarP
 
       {/* Upgrade card */}
       {!collapsed && (
-        <div className="mx-3 mb-4 p-4 rounded-2xl bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-950/40 dark:to-amber-950/30 border border-orange-100 dark:border-orange-900/40">
-          <div className="w-9 h-9 rounded-xl bg-orange-500 flex items-center justify-center mb-2 shadow">
+        <div className="mx-3 mb-4 p-4 rounded-xl bg-gradient-to-br from-primary/10 to-amber-50 dark:from-primary/20 dark:to-amber-950/30 border border-primary/15 dark:border-primary/30">
+          <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center mb-2 shadow">
             <Crown className="w-[18px] h-[18px] text-white" />
           </div>
           <p className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-0.5">Upgrade to Pro</p>
@@ -135,7 +135,7 @@ export function AdminSidebar({ collapsed, onToggle, onItemClick }: AdminSidebarP
               navigate('/admin/settings');
               onItemClick?.();
             }}
-            className="w-full flex items-center justify-center gap-1.5 py-2 text-xs font-bold text-white bg-orange-500 hover:bg-orange-600 rounded-xl transition-colors"
+            className="w-full flex items-center justify-center gap-1.5 py-2 text-xs font-bold text-white bg-primary hover:bg-primary/90 rounded-lg transition-colors"
           >
             Upgrade Now <ArrowRight className="w-3 h-3" />
           </button>

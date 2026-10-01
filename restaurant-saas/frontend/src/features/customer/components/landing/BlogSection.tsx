@@ -123,7 +123,7 @@ export default function BlogSection() {
               className="text-[28px] sm:text-[32px] lg:text-[40px] font-bold"
               style={{ color: '#222222' }}
             >
-              From Our <span style={{ color: '#FF6B1A' }}>Blog</span>
+              From Our <span style={{ color: '#286451' }}>Blog</span>
             </h2>
             <p className="text-[15px] mt-1" style={{ color: '#666666' }}>
               Tips, trends, and stories for food lovers
@@ -148,9 +148,9 @@ export default function BlogSection() {
             </button>
             <button
               className="flex items-center gap-1 text-[14px] font-semibold transition-colors duration-150 ml-2"
-              style={{ color: '#FF6B1A' }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = '#E65A0A'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = '#FF6B1A'; }}
+              style={{ color: '#286451' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#1F4F40'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = '#286451'; }}
             >
               View All Blogs
               <ArrowRight className="w-[15px] h-[15px]" />
@@ -175,7 +175,7 @@ export default function BlogSection() {
                 className="landing-shiny flex flex-col bg-white overflow-hidden cursor-pointer absolute transition-all duration-500 ease-out"
                 style={{
                   borderRadius: '20px',
-                  border: isCenter ? '1px solid rgba(255,107,26,0.2)' : '1px solid #E5E7EB',
+                  border: isCenter ? '1px solid rgba(40,100,81,0.2)' : '1px solid #E5E7EB',
                   boxShadow: isCenter
                     ? '0 12px 40px rgba(0,0,0,0.12)'
                     : '0 2px 8px rgba(0,0,0,0.06)',
@@ -206,7 +206,7 @@ export default function BlogSection() {
                   {/* Category badge */}
                   <span
                     className="absolute bottom-3 left-3 z-10 px-3 py-1 text-[12px] font-semibold text-white"
-                    style={{ backgroundColor: '#FF6B1A', borderRadius: '999px' }}
+                    style={{ backgroundColor: '#286451', borderRadius: '999px' }}
                   >
                     {post.category}
                   </span>
@@ -244,7 +244,7 @@ export default function BlogSection() {
                     {isCenter && (
                       <span
                         className="flex items-center gap-1 text-[13px] font-semibold"
-                        style={{ color: '#FF6B1A' }}
+                        style={{ color: '#286451' }}
                       >
                         Read More
                         <ArrowRight className="w-[13px] h-[13px]" />
@@ -268,7 +268,7 @@ export default function BlogSection() {
                 width: i === activeIdx ? '24px' : '8px',
                 height: '8px',
                 borderRadius: '999px',
-                backgroundColor: i === activeIdx ? '#FF6B1A' : '#E5E7EB',
+                backgroundColor: i === activeIdx ? '#286451' : '#E5E7EB',
               }}
               aria-label={`Go to blog ${i + 1}`}
             />

@@ -48,21 +48,21 @@ export default function OffersPage() {
     <div className="min-h-screen landing-font-inter" style={{ background: '#FFF8F3', color: '#222222' }}>
 
       {/* ── Top Bar ────────────────────────────────────── */}
-      <header className="sticky top-0 z-50" style={{ background: 'rgba(255,248,243,0.9)', backdropFilter: 'blur(16px)', borderBottom: '1px solid rgba(255,107,26,0.1)' }}>
+      <header className="sticky top-0 z-50" style={{ background: 'rgba(255,248,243,0.9)', backdropFilter: 'blur(16px)', borderBottom: '1px solid rgba(40,100,81,0.1)' }}>
         <div className="max-w-[1440px] mx-auto px-6 lg:px-12 h-[64px] flex items-center gap-4">
           <button
             onClick={() => navigate('/')}
             className="w-[38px] h-[38px] rounded-full flex items-center justify-center transition-colors duration-150"
-            style={{ backgroundColor: 'rgba(255,107,26,0.08)', border: '1px solid rgba(255,107,26,0.15)' }}
+            style={{ backgroundColor: 'rgba(40,100,81,0.08)', border: '1px solid rgba(40,100,81,0.15)' }}
             aria-label="Back to Home"
           >
-            <ArrowLeft className="w-[18px] h-[18px]" style={{ color: '#FF6B1A' }} />
+            <ArrowLeft className="w-[18px] h-[18px]" style={{ color: '#286451' }} />
           </button>
           <div className="flex items-center gap-2">
-            <div className="w-[32px] h-[32px] rounded-full flex items-center justify-center" style={{ backgroundColor: '#FF6B1A' }}>
+            <div className="w-[32px] h-[32px] rounded-full flex items-center justify-center" style={{ backgroundColor: '#286451' }}>
               <span className="material-symbols-outlined text-[15px] font-bold text-white block">restaurant</span>
             </div>
-            <span className="font-bold text-[18px]" style={{ color: '#222222' }}>Resto<span style={{ color: '#FF6B1A' }}>Hub</span></span>
+            <span className="font-bold text-[18px]" style={{ color: '#222222' }}>Resto<span style={{ color: '#286451' }}>Hub</span></span>
           </div>
         </div>
       </header>
@@ -101,16 +101,16 @@ export default function OffersPage() {
             >{item.emoji}</div>
           ))}
           {/* Glow orb */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full landing-glow-orb" style={{ background: 'radial-gradient(circle, rgba(255,107,26,0.08) 0%, transparent 70%)' }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full landing-glow-orb" style={{ background: 'radial-gradient(circle, rgba(40,100,81,0.08) 0%, transparent 70%)' }} />
         </div>
 
         <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-5" style={{ background: 'linear-gradient(135deg, rgba(255,107,26,0.15), rgba(255,107,26,0.06))', borderRadius: '999px', border: '1px solid rgba(255,107,26,0.25)' }}>
-            <Sparkles className="w-[15px] h-[15px]" style={{ color: '#FF6B1A' }} />
-            <span className="text-[12px] font-bold uppercase tracking-wider" style={{ color: '#FF6B1A' }}>Exclusive Deals</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-5" style={{ background: 'linear-gradient(135deg, rgba(40,100,81,0.15), rgba(40,100,81,0.06))', borderRadius: '999px', border: '1px solid rgba(40,100,81,0.25)' }}>
+            <Sparkles className="w-[15px] h-[15px]" style={{ color: '#286451' }} />
+            <span className="text-[12px] font-bold uppercase tracking-wider" style={{ color: '#286451' }}>Exclusive Deals</span>
           </div>
           <h1 className="text-[32px] sm:text-[42px] lg:text-[56px] font-bold landing-font-hero leading-[1.1]" style={{ color: '#222222' }}>
-            Offers & <span className="italic" style={{ color: '#FF6B1A' }}>Deals</span>
+            Offers & <span className="italic" style={{ color: '#286451' }}>Deals</span>
           </h1>
           <p className="text-[15px] sm:text-[17px] mt-3 max-w-[500px] mx-auto" style={{ color: '#666666' }}>
             Save more with our handpicked restaurant deals and discount codes
@@ -124,7 +124,7 @@ export default function OffersPage() {
               { value: '100+', label: 'Restaurants' },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <div className="text-[22px] sm:text-[28px] font-bold" style={{ color: '#FF6B1A' }}>{stat.value}</div>
+                <div className="text-[22px] sm:text-[28px] font-bold" style={{ color: '#286451' }}>{stat.value}</div>
                 <div className="text-[11px] uppercase tracking-wider mt-0.5" style={{ color: '#888888' }}>{stat.label}</div>
               </div>
             ))}
@@ -133,7 +133,7 @@ export default function OffersPage() {
       </section>
 
       {/* ── Category Tabs ────────────────────────────── */}
-      <div className="sticky top-[64px] z-40" style={{ background: 'rgba(255,248,243,0.95)', backdropFilter: 'blur(10px)', borderBottom: '1px solid rgba(255,107,26,0.08)' }}>
+      <div className="sticky top-[64px] z-40" style={{ background: 'rgba(255,248,243,0.95)', backdropFilter: 'blur(10px)', borderBottom: '1px solid rgba(40,100,81,0.08)' }}>
         <div className="max-w-[1440px] mx-auto px-6 lg:px-12 py-3 flex items-center gap-2.5 overflow-x-auto landing-hide-scrollbar">
           {CATEGORIES.map((cat) => {
             const isActive = activeCategory === cat;
@@ -144,10 +144,10 @@ export default function OffersPage() {
                 className="whitespace-nowrap px-4 py-2 text-[13px] font-semibold shrink-0 transition-all duration-150"
                 style={{
                   borderRadius: '999px',
-                  border: `1px solid ${isActive ? '#FF6B1A' : '#E5E7EB'}`,
-                  backgroundColor: isActive ? '#FF6B1A' : '#FFFFFF',
+                  border: `1px solid ${isActive ? '#286451' : '#E5E7EB'}`,
+                  backgroundColor: isActive ? '#286451' : '#FFFFFF',
                   color: isActive ? '#FFFFFF' : '#666666',
-                  boxShadow: isActive ? '0 2px 12px rgba(255,107,26,0.3)' : 'none',
+                  boxShadow: isActive ? '0 2px 12px rgba(40,100,81,0.3)' : 'none',
                 }}
               >
                 {cat}
@@ -173,7 +173,7 @@ export default function OffersPage() {
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       {offer.hot ? (
-                        <span className="flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-full uppercase" style={{ backgroundColor: 'rgba(255,87,34,0.2)', color: '#FF5722' }}>
+                        <span className="flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-full uppercase" style={{ backgroundColor: 'rgba(255,87,34,0.2)', color: '#286451' }}>
                           <Zap className="w-[10px] h-[10px]" /> HOT
                         </span>
                       ) : (
@@ -207,7 +207,7 @@ export default function OffersPage() {
                 <span className="flex items-center gap-1.5 text-[12px]" style={{ color: 'rgba(255,255,255,0.4)' }}>
                   <Clock className="w-[12px] h-[12px]" /> {offer.validity}
                 </span>
-                <span className="text-[12px] font-semibold" style={{ color: '#FF6B1A' }}>Apply Now →</span>
+                <span className="text-[12px] font-semibold" style={{ color: '#286451' }}>Apply Now →</span>
               </div>
             </div>
           ))}

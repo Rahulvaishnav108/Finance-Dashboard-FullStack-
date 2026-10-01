@@ -195,16 +195,26 @@ export default function CustomerReservationPage() {
         </div>
       )}
 
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-sd-on-surface font-sans">Table Reservation</h2>
-        <p className="text-sm text-sd-on-surface-variant font-sans">Reserve your table and enjoy a great dining experience.</p>
+      <div className="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <span className="mb-3 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-primary">
+            <span className="material-symbols-outlined text-[16px]">event_available</span>
+            Table service
+          </span>
+          <h2 className="text-3xl font-bold text-sd-on-surface font-sans">Reserve your table</h2>
+          <p className="mt-1 text-sm text-sd-on-surface-variant font-sans">Choose a date, time and party size. No scan required.</p>
+        </div>
+        <div className="flex items-center gap-2 self-start rounded-xl border border-sd-surface-variant bg-sd-surface-container-low px-3 py-2 text-xs font-semibold text-sd-on-surface-variant sm:self-auto">
+          <span className="material-symbols-outlined text-[17px] text-primary">schedule</span>
+          <span>Confirmation is instant</span>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Column */}
         <div className="lg:col-span-8 space-y-6">
           {/* Booking Form */}
-          <form ref={formRef} onSubmit={handleSubmit} className="bg-white rounded-2xl p-6 border border-sd-surface-variant sd-food-card-shadow">
+          <form ref={formRef} onSubmit={handleSubmit} className="bg-card text-card-foreground rounded-xl p-5 sm:p-6 border border-border sd-food-card-shadow">
             <h3 className="text-base font-bold text-sd-on-surface mb-5 font-sans">
               {modifyingId ? 'Modify Your Booking' : 'Book Your Table'}
             </h3>
@@ -332,7 +342,7 @@ export default function CustomerReservationPage() {
           </form>
 
           {/* Time Slots */}
-          <section className="bg-white rounded-2xl p-6 border border-sd-surface-variant sd-food-card-shadow">
+          <section className="bg-card text-card-foreground rounded-xl p-5 sm:p-6 border border-border sd-food-card-shadow">
             <div className="flex justify-between items-end mb-5">
               <div>
                 <h3 className="text-base font-bold text-sd-on-surface font-sans">Available Time Slots</h3>
@@ -382,7 +392,7 @@ export default function CustomerReservationPage() {
         {/* Right Column */}
         <div className="lg:col-span-4 space-y-6">
           {/* Benefits */}
-          <section className="bg-white rounded-2xl p-5 border border-sd-surface-variant sd-food-card-shadow">
+          <section className="bg-card text-card-foreground rounded-xl p-5 border border-border sd-food-card-shadow">
             <h3 className="text-base font-bold text-sd-on-surface mb-4 font-sans">Why Reserve with Us?</h3>
             <div className="space-y-3">
               {[
@@ -406,7 +416,7 @@ export default function CustomerReservationPage() {
           </section>
 
           {/* Existing Reservations list */}
-          <section className="bg-white rounded-2xl border border-sd-surface-variant sd-food-card-shadow overflow-hidden">
+          <section className="bg-card text-card-foreground rounded-xl border border-border sd-food-card-shadow overflow-hidden">
             <div className="px-5 py-3 flex justify-between items-center">
               <h3 className="text-base font-bold text-sd-on-surface font-sans">Your Reservations</h3>
               <span className="text-xs font-bold text-sd-primary cursor-pointer font-sans">

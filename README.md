@@ -18,10 +18,29 @@ The Restaurant Automation SaaS is now the primary app, with its React/Vite front
 - Recurring income and expense schedules with monthly/yearly cycles and ledger posting
 - Category management with validation and protected deletes
 - Dashboard analytics for totals, trends, categories, recent activity, and insights
+- Restaurant-inspired herb-green and saffron FinanceOS theme with a clearer daily overview
 - Audit log with filters, pagination, and detail view
 - Admin Security Center with a persistent IP blocklist, security events, and active-control status
 - Profile update and password change
 - Security middleware with Helmet, CORS, rate limiting, request IDs, and consistent errors
+
+## Restaurant Automation Features
+
+- Restaurant discovery, menus, offers, and customer profiles
+- Refreshed forest-green and saffron customer/admin interface across desktop and mobile
+- Table reservations by date, time, party size, and seating preference; reservations no longer use QR scanning
+- Direct reservation access replaces the customer scan buttons; QR table sessions remain available for dine-in ordering
+- Customer ordering, live order tracking, feedback, and loyalty flows
+- Kitchen order queue and batching, service-staff workflows, and cleaning tasks
+- Restaurant administration for orders, tables, menu, inventory, staff, and reports
+- Super-admin restaurant, subscription, and platform analytics
+
+## Coming Next
+
+- More detailed restaurant-to-finance reporting across the existing separate app accounts
+- Smarter live reservation availability and table allocation
+- Additional payment, notification, and delivery integrations
+- Expanded operational analytics for kitchen and service teams
 
 ## Requirements
 

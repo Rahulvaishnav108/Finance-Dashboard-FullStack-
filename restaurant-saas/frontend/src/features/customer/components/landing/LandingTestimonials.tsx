@@ -56,14 +56,14 @@ export default function LandingTestimonials(): JSX.Element {
                 key={idx}
                 className="bg-gray-50 p-8 rounded-2xl border border-gray-100 flex flex-col justify-between"
               >
-                <div className="text-[#FF5722]/20 text-5xl font-serif mb-4 leading-none select-none">“</div>
+                <div className="text-[#286451]/20 text-5xl font-serif mb-4 leading-none select-none">“</div>
                 <p className="text-gray-600 italic mb-6 leading-relaxed flex-1">
                   {t.quote}
                 </p>
                 <div className="flex items-center gap-3 pt-4 border-t border-gray-100 mt-auto">
                   <img
                     alt={t.author}
-                    className="w-10 h-10 rounded-full border-2 border-[#FF5722] object-cover bg-gray-100"
+                    className="w-10 h-10 rounded-full border-2 border-[#286451] object-cover bg-gray-100"
                     src={t.avatar}
                     loading="lazy"
                   />
@@ -81,7 +81,7 @@ export default function LandingTestimonials(): JSX.Element {
             {/* Slider Controls */}
             <button
               onClick={prev}
-              className="absolute -left-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-[#FF5722] text-white rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform"
+              className="absolute -left-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-[#286451] text-white rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -89,21 +89,21 @@ export default function LandingTestimonials(): JSX.Element {
 
             <button
               onClick={next}
-              className="absolute -right-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-[#FF5722] text-white rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform"
+              className="absolute -right-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-[#286451] text-white rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform"
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
 
             <div className="bg-gray-50 p-8 rounded-2xl text-left border border-gray-150 shadow-sm min-h-[220px] flex flex-col justify-between animate-fadeIn">
-              <div className="text-[#FF5722]/20 text-5xl font-serif mb-4 leading-none select-none">“</div>
+              <div className="text-[#286451]/20 text-5xl font-serif mb-4 leading-none select-none">“</div>
               <p className="text-gray-600 italic mb-6 leading-relaxed flex-1">
                 {TESTIMONIALS[activeIdx].quote}
               </p>
               <div className="flex items-center gap-3 pt-4 border-t border-gray-100 mt-auto">
                 <img
                   alt={TESTIMONIALS[activeIdx].author}
-                  className="w-10 h-10 rounded-full border-2 border-[#FF5722] object-cover bg-gray-100"
+                  className="w-10 h-10 rounded-full border-2 border-[#286451] object-cover bg-gray-100"
                   src={TESTIMONIALS[activeIdx].avatar}
                 />
                 <div>
@@ -120,7 +120,7 @@ export default function LandingTestimonials(): JSX.Element {
                   key={idx}
                   onClick={() => setActiveIdx(idx)}
                   className={`h-2 rounded-full transition-all ${
-                    activeIdx === idx ? "w-6 bg-[#FF5722]" : "w-2 bg-gray-300"
+                    activeIdx === idx ? "w-6 bg-[#286451]" : "w-2 bg-gray-300"
                   }`}
                   aria-label={`Go to testimonial ${idx + 1}`}
                 />

@@ -66,12 +66,12 @@ export default function LandingNavbar({ onLoginOpen }: LandingNavbarProps) {
           <a href="/" className="flex items-center gap-2.5 landing-focus-ring">
             <div
               className="w-[38px] h-[38px] rounded-full flex items-center justify-center shrink-0"
-              style={{ backgroundColor: '#FF6B1A', boxShadow: '0 0 14px rgba(255,107,26,0.35)' }}
+              style={{ backgroundColor: '#286451', boxShadow: '0 0 14px rgba(40,100,81,0.35)' }}
             >
               <span className="material-symbols-outlined text-[18px] font-bold text-white block">restaurant</span>
             </div>
             <span className="font-bold text-[20px] tracking-tight text-white">
-              Resto<span style={{ color: '#FF6B1A' }}>Hub</span>
+              Resto<span style={{ color: '#286451' }}>Hub</span>
             </span>
           </a>
 
@@ -84,14 +84,14 @@ export default function LandingNavbar({ onLoginOpen }: LandingNavbarProps) {
                 onClick={(e) => handleNavClick(e, link)}
                 className="landing-nav-capsule text-[14px] font-medium landing-focus-ring relative z-10 flex items-center gap-1.5"
                 style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = '#FF6B1A'; }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = '#286451'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.7)'; }}
               >
                 {link.label}
                 {link.requiresAuth && (
                   <span
                     className="w-[6px] h-[6px] rounded-full shrink-0"
-                    style={{ backgroundColor: 'rgba(255,107,26,0.5)' }}
+                    style={{ backgroundColor: 'rgba(40,100,81,0.5)' }}
                     title="Login required"
                   />
                 )}
@@ -125,7 +125,7 @@ export default function LandingNavbar({ onLoginOpen }: LandingNavbarProps) {
               <Bell className="w-[18px] h-[18px]" />
               <span
                 className="absolute top-[8px] right-[8px] w-[8px] h-[8px] rounded-full landing-pulse-dot"
-                style={{ backgroundColor: '#FF6B1A' }}
+                style={{ backgroundColor: '#286451' }}
               />
             </button>
 
@@ -133,9 +133,9 @@ export default function LandingNavbar({ onLoginOpen }: LandingNavbarProps) {
               onClick={onLoginOpen}
               className="hidden sm:flex items-center gap-2 px-5 h-[42px] text-[14px] font-semibold text-white transition-all duration-150 landing-btn-premium landing-focus-ring"
               style={{
-                background: 'linear-gradient(135deg, #FF6B1A 0%, #E65A0A 100%)',
+                background: 'linear-gradient(135deg, #286451 0%, #1F4F40 100%)',
                 borderRadius: '14px',
-                boxShadow: '0 4px 15px rgba(255,107,26,0.3)',
+                boxShadow: '0 4px 15px rgba(40,100,81,0.3)',
               }}
             >
               Login / Sign Up
@@ -168,12 +168,12 @@ export default function LandingNavbar({ onLoginOpen }: LandingNavbarProps) {
             <a href="/" className="flex items-center gap-2.5">
               <div
                 className="w-[38px] h-[38px] rounded-full flex items-center justify-center"
-                style={{ backgroundColor: '#FF6B1A' }}
+                style={{ backgroundColor: '#286451' }}
               >
                 <span className="material-symbols-outlined text-[18px] font-bold text-white block">restaurant</span>
               </div>
               <span className="font-bold text-[20px] tracking-tight text-white">
-                Resto<span style={{ color: '#FF6B1A' }}>Hub</span>
+                Resto<span style={{ color: '#286451' }}>Hub</span>
               </span>
             </a>
             <button
@@ -201,12 +201,12 @@ export default function LandingNavbar({ onLoginOpen }: LandingNavbarProps) {
                 <span className="flex items-center gap-2">
                   {link.label}
                   {link.requiresAuth && (
-                    <span className="text-[10px] px-2 py-0.5 rounded-full font-medium" style={{ backgroundColor: 'rgba(255,107,26,0.15)', color: '#FF6B1A' }}>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full font-medium" style={{ backgroundColor: 'rgba(40,100,81,0.15)', color: '#286451' }}>
                       Login
                     </span>
                   )}
                 </span>
-                <ChevronRight className="w-[18px] h-[18px]" style={{ color: '#FF6B1A' }} />
+                <ChevronRight className="w-[18px] h-[18px]" style={{ color: '#286451' }} />
               </a>
             ))}
           </nav>
@@ -215,7 +215,7 @@ export default function LandingNavbar({ onLoginOpen }: LandingNavbarProps) {
             <button
               onClick={() => { onLoginOpen(); setIsMobileMenuOpen(false); }}
               className="w-full h-[52px] text-[16px] font-semibold text-white landing-btn-premium"
-              style={{ background: 'linear-gradient(135deg, #FF6B1A 0%, #E65A0A 100%)', borderRadius: '14px' }}
+              style={{ background: 'linear-gradient(135deg, #286451 0%, #1F4F40 100%)', borderRadius: '14px' }}
             >
               Login / Sign Up
             </button>

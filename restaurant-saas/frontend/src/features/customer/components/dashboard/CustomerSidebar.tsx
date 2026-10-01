@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-import QRScannerModal from './QRScannerModal';
 import { useCustomerStore } from '../../store/customer.store';
 import { useAuth } from '../../../../auth/AuthProvider';
 
@@ -18,8 +17,6 @@ interface Props {
 }
 
 export default function CustomerSidebar({ collapsed, onToggle }: Props) {
-  const [scannerOpen, setScannerOpen] = useState(false);
-  const [toastMsg, setToastMsg] = useState('');
   const { profile, diningSession } = useCustomerStore();
   const { isAuthenticated } = useAuth();
 
@@ -59,12 +56,12 @@ export default function CustomerSidebar({ collapsed, onToggle }: Props) {
             {/* Location (icon first + text) */}
             <div className="flex items-center gap-2 text-xs text-sd-on-surface-variant font-sans">
               <span className="material-symbols-outlined text-[16px] text-sd-primary" style={{ fontVariationSettings: "'FILL' 1" }}>location_on</span>
-              <span className="font-semibold">{diningSession?.restaurantName || 'Scan QR Code'}</span>
+              <span className="font-semibold">{diningSession?.restaurantName || 'Browse restaurants'}</span>
             </div>
             {/* Table Number */}
             <div className="flex items-center gap-2 text-xs text-sd-on-surface-variant font-sans">
               <span className="material-symbols-outlined text-[16px] text-sd-secondary dark:text-sd-secondary-container" style={{ fontVariationSettings: "'FILL' 1" }}>table_restaurant</span>
-              <span className="font-medium bg-sd-secondary-container/10 dark:bg-sd-secondary-container/20 px-2 py-0.5 rounded-md text-sd-secondary dark:text-sd-secondary-container">Table {diningSession?.tableNumber || '...'}</span>
+              <span className="font-medium bg-sd-secondary-container/10 dark:bg-sd-secondary-container/20 px-2 py-0.5 rounded-md text-sd-secondary dark:text-sd-secondary-container">Table {diningSession?.tableNumber || '—'}</span>
             </div>
           </div>
         )}
@@ -109,20 +106,6 @@ export default function CustomerSidebar({ collapsed, onToggle }: Props) {
             )}
           </NavLink>
         ))}
-
-        {/* Center/Middle: Scan QR Action button */}
-        {!diningSession && (
-          <button
-            onClick={() => setScannerOpen(true)}
-            className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 font-sans text-sm font-semibold text-sd-on-surface-variant hover:bg-sd-surface-container w-full ${
-              collapsed ? 'justify-center' : ''
-            }`}
-            title={collapsed ? 'Scan QR' : undefined}
-          >
-            <span className="material-symbols-outlined text-[22px]">qr_code_scanner</span>
-            {!collapsed && <span>Scan QR</span>}
-          </button>
-        )}
 
         {/* Render remaining items: Orders, Reservations, Feedback */}
         {NAV_ITEMS.slice(2).map(({ to, icon, label }) => (
@@ -198,23 +181,6 @@ export default function CustomerSidebar({ collapsed, onToggle }: Props) {
         </div>
       )}
 
-      {/* QR Scanner Modal Overlay */}
-      <QRScannerModal
-        isOpen={scannerOpen}
-        onClose={() => setScannerOpen(false)}
-        onScanSuccess={(tableId) => {
-          setScannerOpen(false);
-          setToastMsg(`✅ Connected to Table ${tableId}!`);
-          setTimeout(() => setToastMsg(''), 3000);
-        }}
-      />
-
-      {/* Local Success Toast */}
-      {toastMsg && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-sd-inverse-surface text-white px-6 py-3 rounded-2xl shadow-xl z-[100] animate-fadeIn font-sans text-sm font-semibold">
-          {toastMsg}
-        </div>
-      )}
     </aside>
   );
 }
