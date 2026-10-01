@@ -3,6 +3,7 @@ coverage/
 backend/dist/
 frontend/dist/
 backend/uploads/
+otp.txt
 *.log
 .env
 .env.*
