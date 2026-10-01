@@ -1,0 +1,9 @@
+Hi {{customerName}},
+
+Your reservation at {{restaurantName}} has been confirmed.
+
+Date: {{date}}
+Time: {{time}}
+Guests: {{guestCount}}
+
+Thank you.

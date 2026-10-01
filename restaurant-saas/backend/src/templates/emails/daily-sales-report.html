@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Sales Report</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .header {
+            background-color: #4F46E5;
+            color: #ffffff;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .content {
+            padding: 30px 20px;
+        }
+        .report-section {
+            background-color: #f9fafb;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid #e5e7eb;
+        }
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+        .metric-label {
+            font-weight: 600;
+            color: #4b5563;
+        }
+        .metric-value {
+            font-weight: bold;
+            color: #111827;
+            font-size: 16px;
+        }
+        .top-items {
+            margin-top: 15px;
+        }
+        .top-items ul {
+            margin: 0;
+            padding-left: 20px;
+            color: #4b5563;
+        }
+        .top-items li {
+            margin-bottom: 5px;
+        }
+        .footer {
+            background-color: #f9fafb;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #6b7280;
+            border-top: 1px solid #e5e7eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Daily Sales Report</h1>
+            <p style="margin: 5px 0 0 0; opacity: 0.9;">{{restaurantName}}</p>
+        </div>
+
+        <div class="content">
+            <p>Hello,</p>
+            <p>Here is your daily sales report for <strong>{{reportDate}}</strong>.</p>
+
+            <div class="report-section">
+                <div class="metric-row">
+                    <span class="metric-label">Total Revenue</span>
+                    <span class="metric-value">{{revenue}}</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">Paid Bills</span>
+                    <span class="metric-value">{{paidBills}}</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">Total Orders</span>
+                    <span class="metric-value">{{totalOrders}}</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">Average Order Value</span>
+                    <span class="metric-value">{{averageOrderValue}}</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">Cancelled Orders</span>
+                    <span class="metric-value" style="color: #EF4444;">{{cancelledOrders}}</span>
+                </div>
+            </div>
+
+            <div class="report-section">
+                <h3 style="margin-top: 0; color: #111827;">Top Selling Items</h3>
+                <div class="top-items">
+                    <ul>
+                        {{topSellingItems}}
+                    </ul>
+                </div>
+            </div>
+
+            <p style="margin-top: 25px; color: #4b5563; font-size: 14px;">
+                You are receiving this automated report because you are registered as a Restaurant Admin.
+            </p>
+        </div>
+
+        <div class="footer">
+            <p style="margin: 0;">&copy; {{restaurantName}}. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

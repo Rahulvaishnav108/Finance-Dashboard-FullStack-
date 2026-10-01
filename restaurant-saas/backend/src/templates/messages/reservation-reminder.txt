@@ -1,0 +1,7 @@
+Hi {{customerName}},
+
+Reminder:
+Your reservation at {{restaurantName}}
+is today at {{time}}.
+
+See you soon.

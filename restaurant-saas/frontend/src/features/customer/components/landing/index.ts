@@ -1,0 +1,14 @@
+export { default as LandingNavbar } from './LandingNavbar';
+export { default as HeroSection } from './HeroSection';
+export { default as LiveAvailabilityStrip } from './LiveAvailabilityStrip';
+export { default as CuisineExplorer } from './CuisineExplorer';
+export { default as RestaurantCard } from './RestaurantCard';
+export type { Restaurant } from './RestaurantCard';
+export { default as TrendingRestaurants } from './TrendingRestaurants';
+export { default as OffersDeals } from './OffersDeals';
+export { default as TrendingDishes } from './TrendingDishes';
+export { default as DigitalDiningJourney } from './DigitalDiningJourney';
+export { default as WhyChooseSection } from './WhyChooseSection';
+export { default as BlogSection } from './BlogSection';
+export { default as TestimonialsSection } from './TestimonialsSection';
+export { default as LandingFooter } from './LandingFooter';

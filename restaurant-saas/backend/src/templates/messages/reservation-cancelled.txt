@@ -1,0 +1,5 @@
+Hi {{customerName}},
+
+Your reservation at {{restaurantName}} for {{date}} at {{time}} has been cancelled.
+
+We hope to serve you another time.

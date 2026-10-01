@@ -45,6 +45,13 @@ const config = {
     origin: process.env.CORS_ORIGIN || '*',
   },
 
+  csp: {
+    frameAncestors: (process.env.FRAME_ANCESTORS || 'http://localhost:5173')
+      .split(',')
+      .map(origin => origin.trim())
+      .filter(Boolean),
+  },
+
   bcrypt: {
     saltRounds: 12,
   },

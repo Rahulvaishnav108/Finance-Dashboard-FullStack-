@@ -1,14 +1,13 @@
-# FinanceOS - Finance Dashboard
+# Restaurant Automation SaaS + FinanceOS
 
-FinanceOS is a full-stack finance dashboard with an Express REST API, SQLite storage, JWT authentication, role-based access control, analytics, CSV export, audit logging, and a built-in browser SPA served from the same Node.js app.
+The Restaurant Automation SaaS is now the primary app, with its React/Vite frontend and Express/MongoDB backend. The existing FinanceOS dashboard remains available as a linked, separately authenticated finance app backed by Express and SQLite.
 
 ## Current Status
 
-- Backend API: complete
-- Frontend SPA: complete
-- Demo database seed: available
-- Integration tests: passing
-- Local app URL: `http://localhost:3000`
+- Restaurant app: `http://localhost:5173`
+- Restaurant API: `http://localhost:5000/api/v1`
+- FinanceOS dashboard: `http://localhost:3000`
+- FinanceOS API: `http://localhost:3000/api/v1`
 
 ## Features
 
@@ -33,21 +32,27 @@ The project uses `better-sqlite3`. If dependency installation fails because of n
 
 ## Quick Start
 
-From this folder:
+Install both apps' dependencies and create local environment files:
 
 ```powershell
 npm install
-npm run seed
-npm start
+npm install --prefix restaurant-saas
+Copy-Item restaurant-saas/backend/.env.example restaurant-saas/backend/.env
+Copy-Item restaurant-saas/frontend/.env.example restaurant-saas/frontend/.env
+Copy-Item .env.example .env
 ```
 
-Open:
+Start MongoDB locally, then launch the integrated development environment:
 
-```text
-http://localhost:3000
+```powershell
+npm run dev
 ```
 
-The Express server serves both the frontend and the API. API routes live under `/api/v1`.
+Open the restaurant app at `http://localhost:5173`. FinanceOS is also started at `http://localhost:3000` and is linked from the restaurant admin sidebar. The two apps retain separate accounts and databases; configure `VITE_FINANCE_DASHBOARD_URL` in `restaurant-saas/frontend/.env` when FinanceOS is hosted elsewhere.
+
+The restaurant admin's Finance Dashboard route embeds FinanceOS in-app. Set `FRAME_ANCESTORS` in the FinanceOS `.env` to the exact trusted restaurant frontend origin in production; do not use `*`.
+
+For a containerized MongoDB and restaurant app, first create the environment files above, then run `docker compose -f restaurant-saas/docker-compose.yml up --build`. Start FinanceOS separately with `npm run dev:finance` if needed.
 
 ## Demo Credentials
 
@@ -61,9 +66,13 @@ The Express server serves both the frontend and the API. API routes live under `
 
 | Command | Description |
 | --- | --- |
-| `npm start` | Start the production-style local server |
-| `npm run dev` | Start with Node watch mode |
-| `npm test` | Run the integration test suite |
+| `npm start` | Start the built restaurant app, FinanceOS, and the restaurant frontend preview |
+| `npm run dev` | Start both apps for local development |
+| `npm run dev:finance` | Start FinanceOS only |
+| `npm test` | Run both apps' test suites |
+| `npm run test:finance` | Run FinanceOS integration tests only |
+| `npm run test:restaurant` | Run Restaurant SaaS backend tests only |
+| `npm run build` | Build the restaurant backend and frontend |
 | `npm run seed` | Seed demo users, categories, and records |
 | `npm run db:reset` | Delete the local SQLite database |
 

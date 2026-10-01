@@ -134,6 +134,12 @@ describe('Health', () => {
     const r = await req('GET', '/health');
     assert.ok(!r.headers['x-powered-by'], 'must not expose X-Powered-By');
   });
+
+  it('FinanceOS can only be embedded by its configured parent origin', async () => {
+    const r = await req('GET', '/health');
+    assert.ok(r.headers['content-security-policy'].includes("frame-ancestors 'self' http://localhost:5173"));
+    assert.strictEqual(r.headers['x-frame-options'], undefined);
+  });
 });
 
 describe('Auth — Register', () => {
