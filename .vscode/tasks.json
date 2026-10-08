@@ -1,0 +1,16 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run FinanceOS with Daily Closeout",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"dev:finance"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		}
+	]
+}

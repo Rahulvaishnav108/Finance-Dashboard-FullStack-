@@ -19,6 +19,7 @@ The Restaurant Automation SaaS is now the primary app, with its React/Vite front
 - Category management with validation and protected deletes
 - Dashboard analytics for totals, trends, categories, recent activity, and insights
 - Restaurant-inspired herb-green and saffron FinanceOS theme with a clearer daily overview
+- Daily sales and settlement reconciliation, exception review, closeout reports, and shift notes embedded in FinanceOS
 - Audit log with filters, pagination, and detail view
 - Admin Security Center with a persistent IP blocklist, security events, and active-control status
 - Profile update and password change
@@ -51,11 +52,12 @@ The project uses `better-sqlite3`. If dependency installation fails because of n
 
 ## Quick Start
 
-Install both apps' dependencies and create local environment files:
+Install the apps' dependencies and create local environment files:
 
 ```powershell
 npm install
 npm install --prefix restaurant-saas
+npm install --prefix finance-closeout
 Copy-Item restaurant-saas/backend/.env.example restaurant-saas/backend/.env
 Copy-Item restaurant-saas/frontend/.env.example restaurant-saas/frontend/.env
 Copy-Item .env.example .env
@@ -69,7 +71,7 @@ npm run dev
 
 Open the restaurant app at `http://localhost:5173`. FinanceOS is also started at `http://localhost:3000` and is linked from the restaurant admin sidebar. The two apps retain separate accounts and databases; configure `VITE_FINANCE_DASHBOARD_URL` in `restaurant-saas/frontend/.env` when FinanceOS is hosted elsewhere.
 
-The restaurant admin's Finance Dashboard route embeds FinanceOS in-app. Set `FRAME_ANCESTORS` in the FinanceOS `.env` to the exact trusted restaurant frontend origin in production; do not use `*`.
+The restaurant admin's Finance Dashboard route embeds FinanceOS in-app. FinanceOS includes Daily Closeout in its sidebar; closeout runs at `/closeout/` on the FinanceOS origin, so it does not need a separate service. CSV files are processed in the browser. Shift notes are stored in browser local storage, separated by FinanceOS account, and neither CSVs nor notes are synced to the server or other devices. Set `FRAME_ANCESTORS` in the FinanceOS `.env` to the exact trusted restaurant frontend origin in production; do not use `*`.
 
 For a containerized MongoDB and restaurant app, first create the environment files above, then run `docker compose -f restaurant-saas/docker-compose.yml up --build`. Start FinanceOS separately with `npm run dev:finance` if needed.
 
@@ -91,7 +93,9 @@ For a containerized MongoDB and restaurant app, first create the environment fil
 | `npm test` | Run both apps' test suites |
 | `npm run test:finance` | Run FinanceOS integration tests only |
 | `npm run test:restaurant` | Run Restaurant SaaS backend tests only |
-| `npm run build` | Build the restaurant backend and frontend |
+| `npm run test:closeout` | Run Daily Closeout unit tests only |
+| `npm run build` | Build Daily Closeout and the restaurant backend and frontend |
+| `npm run build:closeout` | Build the embedded closeout frontend |
 | `npm run seed` | Seed demo users, categories, and records |
 | `npm run db:reset` | Delete the local SQLite database |
 
@@ -117,13 +121,14 @@ healthy
 npm test
 ```
 
-The test suite uses an in-memory SQLite database. It covers health checks, auth flows, refresh token rotation, RBAC, users, records, categories, dashboard analytics, audit access, validation, and security headers.
+The test suite uses an in-memory SQLite database for FinanceOS and includes the restaurant backend and Daily Closeout suites. FinanceOS tests cover health checks, auth flows, refresh token rotation, RBAC, users, records, categories, dashboard analytics, audit access, validation, and security headers.
 
 ## Project Structure
 
 ```text
 finance-api/
-|- frontend/    Browser SPA: HTML, CSS, and page modules
+|- frontend/    FinanceOS browser SPA and embedded Daily Closeout build
+|- finance-closeout/ Daily Closeout source, tests, and build configuration
 |- src/         Express app, routes, controllers, services, middleware, config
 |- tests/       Integration test runner and test coverage
 |- data/        Local SQLite database files, created at runtime

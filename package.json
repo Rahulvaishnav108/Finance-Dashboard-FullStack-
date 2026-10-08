@@ -6,12 +6,14 @@
   "scripts": {
     "start": "concurrently -k \"npm run start --prefix restaurant-saas/backend\" \"npm run preview --prefix restaurant-saas/frontend -- --host 0.0.0.0\" \"npm run start:finance\"",
     "dev": "concurrently -k \"npm run dev --prefix restaurant-saas\" \"npm run dev:finance\"",
-    "dev:finance": "node --watch src/server.js",
-    "start:finance": "node src/server.js",
-    "build": "npm run build --prefix restaurant-saas",
-    "test": "npm run test:finance && npm run test:restaurant",
+    "dev:finance": "npm run build:closeout && node --watch src/server.js",
+    "start:finance": "npm run build:closeout && node src/server.js",
+    "build": "npm run build:closeout && npm run build --prefix restaurant-saas",
+    "build:closeout": "npm run build --prefix finance-closeout",
+    "test": "npm run test:finance && npm run test:restaurant && npm run test:closeout",
     "test:finance": "node tests/run.js",
     "test:restaurant": "npm run test --prefix restaurant-saas/backend",
+    "test:closeout": "npm test --prefix finance-closeout",
     "seed": "node src/utils/seed.js",
     "db:reset": "node src/utils/resetDb.js"
   },

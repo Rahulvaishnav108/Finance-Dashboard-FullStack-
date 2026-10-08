@@ -215,6 +215,15 @@ body { background: var(--bg); color: var(--text); }
   padding: 1.75rem;
   background: var(--bg);
 }
+.closeout-frame {
+  display: block;
+  width: 100%;
+  height: calc(100vh - 8rem);
+  min-height: 620px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #f3f5f0;
+}
 .page-loading { text-align: center; color: var(--text2); padding: 4rem; }
 
 /* ─── Buttons ───────────────────────────────────────────── */
