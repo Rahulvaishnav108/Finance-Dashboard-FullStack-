@@ -75,6 +75,18 @@ The restaurant admin's Finance Dashboard route embeds FinanceOS in-app. FinanceO
 
 For a containerized MongoDB and restaurant app, first create the environment files above, then run `docker compose -f restaurant-saas/docker-compose.yml up --build`. Start FinanceOS separately with `npm run dev:finance` if needed.
 
+## Deploy FinanceOS with Daily Closeout to Render
+
+The root `render.yaml` deploys the FinanceOS API and dashboard, Security Center, and authenticated Daily Closeout as one Node.js service. SQLite is stored on a 1 GB persistent Render disk; the blueprint uses a paid Starter web service because Render Free services do not support persistent disks. This finance service does not deploy the separate MongoDB-backed Restaurant Automation app.
+
+1. Open [Render's Blueprint creation page](https://dashboard.render.com/blueprint/new?repo=https%3A%2F%2Fgithub.com%2FRahulvaishnav108%2FFinance-Dashboard-FullStack-) and authorize access to this repository.
+2. Select the merged `main` branch, review the `financeos` web service and persistent disk, and apply the blueprint.
+3. After the service is live, set `BOOTSTRAP_ADMIN_EMAIL`, `BOOTSTRAP_ADMIN_NAME`, and `BOOTSTRAP_ADMIN_PASSWORD` in the service's Render environment settings. Use a unique password with at least 16 characters, uppercase and lowercase letters, a number, and a symbol.
+4. Open the service Shell and run `npm run bootstrap:admin` once. Remove the three bootstrap variables from the service environment after the command succeeds. Public self-registration is restricted to the viewer role; grant analyst/admin roles only through the authenticated admin user-management workflow.
+5. Open the Render service URL and sign in with the provisioned admin account. Check `/health`, FinanceOS Security Center, and the Daily Closeout navigation. Daily Closeout verifies the FinanceOS API session and limits access to analysts and admins.
+
+Do not run `npm run seed` on a production service: it creates publicly documented demo credentials and sample personal-finance records.
+
 ## Demo Credentials
 
 | Role | Email | Password |

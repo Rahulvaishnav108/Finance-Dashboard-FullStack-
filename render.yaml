@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: financeos
+    runtime: node
+    plan: starter
+    buildCommand: npm ci && npm ci --prefix finance-closeout && npm run build:closeout
+    startCommand: node src/server.js
+    healthCheckPath: /health
+    disk:
+      name: financeos-data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_PATH
+        value: /opt/render/project/src/data/finance.db
+      - key: FRAME_ANCESTORS
+        value: "'self'"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
