@@ -161,6 +161,15 @@ describe('Auth — Register', () => {
     assert.strictEqual(r.body.data.role, 'viewer');
   });
 
+  it('rejects attempts to assign elevated roles during public registration', async () => {
+    await freshDb();
+    const r = await req('POST', '/api/v1/auth/register', {
+      body: { email: 'attacker@t.com', password: 'Pass@1234', full_name: 'Attacker', role: 'admin' },
+    });
+    assert.strictEqual(r.status, 422);
+    assert.strictEqual(getDb().prepare('SELECT id FROM users WHERE email = ?').get('attacker@t.com'), undefined);
+  });
+
   it('never returns password_hash', async () => {
     await freshDb();
     const r = await req('POST', '/api/v1/auth/register', {

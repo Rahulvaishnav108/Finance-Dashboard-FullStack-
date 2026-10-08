@@ -24,8 +24,7 @@ const register = [
     .trim().notEmpty().withMessage('Full name is required')
     .isLength({ min: 2, max: 100 }).withMessage('Full name must be 2-100 characters'),
   body('role')
-    .optional()
-    .isIn(['viewer', 'analyst', 'admin']).withMessage('Role must be viewer, analyst, or admin'),
+    .not().exists().withMessage('Role is assigned automatically'),
 ];
 
 const changePassword = [

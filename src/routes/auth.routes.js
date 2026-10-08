@@ -11,8 +11,8 @@ const router = express.Router();
 
 /**
  * @route POST /api/v1/auth/register
- * @desc  Register (admin-facing; initial bootstrap uses seed script)
- * @access Public (locked to admin in production via middleware on user routes)
+ * @desc  Public registration; new accounts always receive the viewer role
+ * @access Public
  */
 router.post('/register', authV.register, validate, AuthController.register);
 

@@ -1,10 +1,11 @@
-import { useReducer, useRef, useState } from 'react';
+import { useEffect, useReducer, useRef, useState } from 'react';
 import { reducer, initial } from './state/reducer';
 import { fmt } from './core/money';
 import { banner, canComplete } from './core/status';
 import { buildReport, reportName } from './core/export';
 import { MAX_BYTES } from './core/csv';
 import { DEMO } from './demo/demo';
+import { getCloseoutUser, type CloseoutUser } from './auth';
 import NotesWorkspace from './notes/NotesWorkspace';
 import type { Decision, ExType, Exception, FileKind, ParseResult, SourceRow } from './core/types';
 
@@ -65,6 +66,43 @@ export default function App() {
   const [decisionFilter, setDecisionFilter] = useState<'ALL' | Decision>('ALL');
   const [name, setName] = useState('');
   const dlg = useRef<HTMLDialogElement>(null);
+  const [user, setUser] = useState<CloseoutUser | null>(null);
+  const [authChecked, setAuthChecked] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    getCloseoutUser()
+      .then((verifiedUser) => {
+        if (cancelled) return;
+        setUser(verifiedUser);
+        setAuthChecked(true);
+      })
+      .catch((error: unknown) => {
+        if (cancelled) return;
+        setAuthError(error instanceof Error ? error.message : 'Unable to verify FinanceOS access.');
+        setAuthChecked(true);
+      });
+    return () => { cancelled = true; };
+  }, []);
+
+  if (!authChecked) {
+    return <main className="access-denied"><section aria-live="polite">Verifying FinanceOS access…</section></main>;
+  }
+  if (authError) {
+    return <main className="access-denied"><section role="alert">{authError}</section></main>;
+  }
+  if (!user) {
+    return (
+      <main className="access-denied">
+        <section role="alert">
+          <p className="eyebrow">FINANCEOS ACCOUNT REQUIRED</p>
+          <h1>Daily closeout is restricted</h1>
+          <p className="muted">Sign in to FinanceOS with an analyst or admin account, then open Daily Closeout from the dashboard.</p>
+        </section>
+      </main>
+    );
+  }
 
   const onFile = async (kind: FileKind, f: File) => {
     const text = f.size > MAX_BYTES ? '' : await f.text();

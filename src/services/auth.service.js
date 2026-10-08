@@ -42,9 +42,9 @@ function safeUser(user) {
 const AuthService = {
 
   /**
-   * Register a new user (admin-only path in prod; used for initial seed too)
+   * Public registration always creates a least-privileged account.
    */
-  async register({ email, password, full_name, role = 'viewer' }, req) {
+  async register({ email, password, full_name }, req) {
     const db = getDb();
 
     const existing = db.prepare('SELECT id FROM users WHERE email = ?').get(email);
@@ -58,8 +58,8 @@ const AuthService = {
 
     db.prepare(`
       INSERT INTO users (id, email, password_hash, full_name, role)
-      VALUES (@id, @email, @password_hash, @full_name, @role)
-    `).run({ id, email, password_hash, full_name, role });
+      VALUES (@id, @email, @password_hash, @full_name, 'viewer')
+    `).run({ id, email, password_hash, full_name });
 
     const user = db.prepare('SELECT * FROM users WHERE id = ?').get(id);
 

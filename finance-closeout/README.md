@@ -1,6 +1,6 @@
 # Daily Closeout
 
-This React app is integrated into FinanceOS at `/closeout/` and appears in the FinanceOS sidebar for analysts and admins. Its production assets are built into `frontend/closeout`; the root project build and startup scripts build those assets automatically.
+This React app is integrated into FinanceOS at `/closeout/` and appears in the FinanceOS sidebar for analysts and admins. It verifies the active FinanceOS token with `/api/v1/auth/me` before showing the closeout workspace. Its production assets are built into `frontend/closeout`; the root project build and startup scripts build those assets automatically.
 
 From the repository root, install dependencies and run the integrated apps:
 

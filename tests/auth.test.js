@@ -23,11 +23,11 @@ describe('POST /api/v1/auth/register', () => {
     expect(res.body.data.role).toBe('viewer');
   });
 
-  it('accepts a specified valid role', async () => {
+  it('rejects client-assigned roles during public registration', async () => {
     const res = await request(app).post('/api/v1/auth/register').send({
-      email: 'analyst@test.com', password: 'Pass@1234', full_name: 'Ana', role: 'analyst',
+      email: 'analyst@test.com', password: 'Pass@1234', full_name: 'Ana', role: 'admin',
     });
-    expect(res.body.data.role).toBe('analyst');
+    expect(res.status).toBe(422);
   });
 
   it('rejects duplicate email with 409', async () => {

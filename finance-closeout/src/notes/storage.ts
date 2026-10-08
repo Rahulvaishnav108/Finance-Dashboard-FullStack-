@@ -1,8 +1,9 @@
+import { getStoredCloseoutUser } from '../auth';
 import type { Note } from './model';
 
 const getStorageKey = () => {
-  const account = new URLSearchParams(window.location.search).get('account');
-  return account ? `restaurant-closeout.notes.v1:${account}` : 'restaurant-closeout.notes.v1';
+  const user = getStoredCloseoutUser();
+  return user ? `restaurant-closeout.notes.v1:${user.id}` : null;
 };
 
 const validDate = (value: unknown, fallback: string) =>
@@ -10,7 +11,9 @@ const validDate = (value: unknown, fallback: string) =>
 
 export function readNotes(): Note[] {
   try {
-    const raw = window.localStorage.getItem(getStorageKey());
+    const key = getStorageKey();
+    if (!key) return [];
+    const raw = window.localStorage.getItem(key);
     if (!raw) return [];
     const parsed: unknown = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
@@ -35,7 +38,9 @@ export function readNotes(): Note[] {
 
 export function writeNotes(notes: Note[]): boolean {
   try {
-    window.localStorage.setItem(getStorageKey(), JSON.stringify(notes));
+    const key = getStorageKey();
+    if (!key) return false;
+    window.localStorage.setItem(key, JSON.stringify(notes));
     return true;
   } catch {
     return false;

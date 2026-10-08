@@ -15,6 +15,7 @@
     "test:restaurant": "npm run test --prefix restaurant-saas/backend",
     "test:closeout": "npm test --prefix finance-closeout",
     "seed": "node src/utils/seed.js",
+    "bootstrap:admin": "node src/utils/bootstrapAdmin.js",
     "db:reset": "node src/utils/resetDb.js"
   },
   "dependencies": {
