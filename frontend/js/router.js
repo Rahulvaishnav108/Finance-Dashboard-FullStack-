@@ -3,6 +3,7 @@
 const PAGES = {
   dashboard:  { title: 'Dashboard',   roles: null,              handler: () => DashboardPage.render() },
   records:    { title: 'Records',      roles: null,              handler: () => RecordsPage.render() },
+  closeout:   { title: 'Daily Closeout', roles: ['admin', 'analyst'], handler: () => CloseoutPage.render() },
   recurring:  { title: 'Recurring',   roles: null,              handler: () => RecurringPage.render() },
   categories: { title: 'Categories',  roles: null,              handler: () => CategoriesPage.render() },
   users:      { title: 'Users',        roles: ['admin'],         handler: () => UsersPage.render() },
@@ -70,6 +71,7 @@ const Router = {
     document.getElementById('app-shell').classList.remove('hidden');
     this._updateSidebarUser();
     this._updateAdminNav();
+    this._updateCloseoutNav();
   },
 
   _updateSidebarUser() {
@@ -87,6 +89,12 @@ const Router = {
     const user    = Auth.getUser();
     const adminEl = document.getElementById('admin-nav');
     if (adminEl) adminEl.style.display = user?.role === 'admin' ? 'block' : 'none';
+  },
+
+  _updateCloseoutNav() {
+    const user = Auth.getUser();
+    const closeoutEl = document.getElementById('closeout-nav');
+    if (closeoutEl) closeoutEl.style.display = ['admin', 'analyst'].includes(user?.role) ? 'flex' : 'none';
   },
 
   _setActive(page) {
